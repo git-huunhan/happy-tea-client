@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import firebase from "firebase";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -7,7 +7,7 @@ const firebaseConfig = {
   projectId: "happy-tea-1a89b",
   storageBucket: "happy-tea-1a89b.appspot.com",
   messagingSenderId: "54664585445",
-  appId: "1:54664585445:web:09d7b1e1f30fa59a3ff40c"
+  appId: "1:54664585445:web:09d7b1e1f30fa59a3ff40c",
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
