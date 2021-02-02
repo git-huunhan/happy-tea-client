@@ -37,6 +37,7 @@ const Header = () => {
             src="https://firebasestorage.googleapis.com/v0/b/happy-tea-1a89b.appspot.com/o/Logo.svg?alt=media&token=6870761d-ab2f-4a2a-9b92-e25c4a5affca"
             alt="logo"
             className="logo"
+            draggable="false"
           />
         </a>
       </Col>
