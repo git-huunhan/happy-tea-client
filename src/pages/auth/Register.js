@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { auth } from "../../firebase";
 import { toast } from "react-toastify";
-import { Button, Row, Col, Card } from "antd";
+import { Button, Row, Col } from "antd";
 import "../../App.scss";
+import { useSelector } from "react-redux";
 
-const Register = () => {
+const Register = ({history}) => {
   const [email, setEmail] = useState("");
+
+  const { user } = useSelector((state) => ({ ...state }));
+
+  useEffect(() => {
+    if (user && user.token) history.push("/");
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,8 +49,13 @@ const Register = () => {
         />
       </div>
 
-      <br />
-      <Button type="primary" shape="round" size="large" htmlType="submit" block>
+      <Button 
+        type="primary" 
+        shape="round" size="large" 
+        htmlType="submit" 
+        block
+        className="mt-3"
+      >
         Gửi email xác thực
       </Button>
     </form>

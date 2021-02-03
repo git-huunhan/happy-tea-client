@@ -1,5 +1,6 @@
 body {
   font-family: "Quicksand", sans-serif !important;
+  overflow-y: scroll;
 }
 
 .logo {
@@ -49,6 +50,19 @@ body {
   height: 500px;
   border-radius: 30px;
   overflow: hidden;
-  .poster {
+
+  .or-text {
+    text-align: center;
+    color: #9c9c9c;
   }
+
+  .btn-google {
+    background: #1877f2 !important;
+    border-color: #1877f2 !important;
+    border-radius: 10px !important;
+  }
+}
+
+.username {
+  font-weight: bold !important;
 }

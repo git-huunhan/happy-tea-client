@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "../../App.scss";
 import { Row, Col } from "antd";
 import { FacebookOutlined, InstagramOutlined, LinkedinOutlined, MailOutlined } from "@ant-design/icons";
