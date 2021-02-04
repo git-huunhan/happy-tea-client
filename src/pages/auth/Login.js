@@ -6,10 +6,11 @@ import "../../App.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { GoogleOutlined, LoadingOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import { createOrUpdateUser } from "../../functions/auth";
 
 const Login = ({ history }) => {
   const [email, setEmail] = useState("huunhankirigamer@gmail.com");
-  const [password, setPassword] = useState("123456");
+  const [password, setPassword] = useState("111111");
   const [loading, setLoading] = useState(false);
 
   const { user } = useSelector((state) => ({ ...state }));
@@ -29,13 +30,20 @@ const Login = ({ history }) => {
       const { user } = result;
       const idTokenResult = await user.getIdTokenResult();
 
-      dispatch({
-        type: "LOGGED_IN_USER",
-        payload: {
-          email: user.email,
-          token: idTokenResult.token,
-        },
-      });
+      createOrUpdateUser(idTokenResult.token)
+        .then((res) => {
+          dispatch({
+            type: "LOGGED_IN_USER",
+            payload: {
+              name: res.data.name,
+              email: res.data.email,
+              token: idTokenResult.token,
+              role: res.data.role,
+              _id: res.data._id,
+            },
+          });
+        })
+        .catch();
 
       history.push("/");
     } catch (error) {
@@ -51,13 +59,20 @@ const Login = ({ history }) => {
         const { user } = result;
         const idTokenResult = await user.getIdTokenResult();
 
-        dispatch({
-          type: "LOGGED_IN_USER",
-          payload: {
-            email: user.email,
-            token: idTokenResult.token,
-          },
-        });
+        createOrUpdateUser(idTokenResult.token)
+        .then((res) => {
+          dispatch({
+            type: "LOGGED_IN_USER",
+            payload: {
+              name: res.data.name,
+              email: res.data.email,
+              token: idTokenResult.token,
+              role: res.data.role,
+              _id: res.data._id,
+            },
+          });
+        })
+        .catch();
 
         history.push("/");
       })
@@ -85,7 +100,6 @@ const Login = ({ history }) => {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Nhập mật khẩu"
         />
-        
       </div>
 
       <Link to="/forgot/password" className="">
