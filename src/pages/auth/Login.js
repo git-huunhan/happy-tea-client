@@ -21,6 +21,14 @@ const Login = ({ history }) => {
 
   let dispatch = useDispatch();
 
+  const roleBasedRedirect = (res) => {
+    if (res.data.role === "admin") {
+      history.push("/admin/dashboard");
+    } else {
+      history.push("/user/history");
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -42,10 +50,12 @@ const Login = ({ history }) => {
               _id: res.data._id,
             },
           });
-        })
-        .catch();
 
-      history.push("/");
+          roleBasedRedirect(res);
+        })
+        .catch((err) => console.log(err));
+
+      // history.push("/");
     } catch (error) {
       toast.error(error.message);
       setLoading(false);
@@ -60,21 +70,23 @@ const Login = ({ history }) => {
         const idTokenResult = await user.getIdTokenResult();
 
         createOrUpdateUser(idTokenResult.token)
-        .then((res) => {
-          dispatch({
-            type: "LOGGED_IN_USER",
-            payload: {
-              name: res.data.name,
-              email: res.data.email,
-              token: idTokenResult.token,
-              role: res.data.role,
-              _id: res.data._id,
-            },
-          });
-        })
-        .catch();
+          .then((res) => {
+            dispatch({
+              type: "LOGGED_IN_USER",
+              payload: {
+                name: res.data.name,
+                email: res.data.email,
+                token: idTokenResult.token,
+                role: res.data.role,
+                _id: res.data._id,
+              },
+            });
 
-        history.push("/");
+            roleBasedRedirect(res);
+          })
+          .catch((err) => console.log(err));
+
+        // history.push("/");
       })
       .catch((error) => {
         toast.error(error.message);
