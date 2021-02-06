@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { auth } from "../../firebase";
 import { toast } from "react-toastify";
 import { Button, Row, Col } from "antd";
-import "../../App.scss";
 import { useSelector } from "react-redux";
 
-const Register = ({history}) => {
+import { auth } from "../../firebase";
+import "../../App.scss";
+
+const Register = ({ history }) => {
   const [email, setEmail] = useState("");
 
   const { user } = useSelector((state) => ({ ...state }));
@@ -49,10 +50,11 @@ const Register = ({history}) => {
         />
       </div>
 
-      <Button 
-        type="primary" 
-        shape="round" size="large" 
-        htmlType="submit" 
+      <Button
+        type="primary"
+        shape="round"
+        size="large"
+        htmlType="submit"
         block
         className="mt-3"
       >
@@ -65,7 +67,7 @@ const Register = ({history}) => {
     <div className="container pt-5 pb-5">
       <Row className="form-style">
         <Col span={14}>
-          <img 
+          <img
             className="poster"
             alt="example"
             src="https://firebasestorage.googleapis.com/v0/b/happy-tea-1a89b.appspot.com/o/Banner-02.png?alt=media&token=d01ed6f7-88d0-43ce-91e3-fa7d3ae45092"

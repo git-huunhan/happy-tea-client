@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { auth } from "../../firebase";
 import { toast } from "react-toastify";
-import { Button, Row, Col, Spin } from "antd";
-import "../../App.scss";
+import { Button, Row, Col } from "antd";
 import { useSelector } from "react-redux";
-import { LoadingOutlined } from "@ant-design/icons";
+
+import { auth } from "../../firebase";
+import "../../App.scss";
+import Loading from "../../components/loading/Loading";
 
 const ForgotPassword = ({ history }) => {
   const [email, setEmail] = useState("");
@@ -38,8 +39,6 @@ const ForgotPassword = ({ history }) => {
       });
   };
 
-  const antIcon = <LoadingOutlined style={{ fontSize: 20 }} spin />;
-
   return (
     <div className="container pt-5 pb-5">
       <Row className="form-style">
@@ -54,7 +53,7 @@ const ForgotPassword = ({ history }) => {
         <Col span={10} className="register p-5">
           {loading ? (
             <h4>
-              Quên Mật Khẩu <Spin indicator={antIcon} />
+              Quên Mật Khẩu <Loading />
             </h4>
           ) : (
             <h4>Quên Mật Khẩu</h4>

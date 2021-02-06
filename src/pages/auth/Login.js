@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { auth, googleAuthProvider } from "../../firebase";
 import { toast } from "react-toastify";
-import { Button, Row, Col, Spin } from "antd";
-import "../../App.scss";
+import { Button, Row, Col } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { GoogleOutlined, LoadingOutlined } from "@ant-design/icons";
+import { GoogleOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+
+import { auth, googleAuthProvider } from "../../firebase";
+import "../../App.scss";
 import { createOrUpdateUser } from "../../functions/auth";
+import Loading from "../../components/loading/Loading";
 
 const Login = ({ history }) => {
   const [email, setEmail] = useState("huunhankirigamer@gmail.com");
@@ -131,8 +133,6 @@ const Login = ({ history }) => {
     </form>
   );
 
-  const antIcon = <LoadingOutlined style={{ fontSize: 20 }} spin />;
-
   return (
     <div className="container pt-5 pb-5">
       <Row className="form-style">
@@ -147,7 +147,7 @@ const Login = ({ history }) => {
         <Col span={10} className="register p-5">
           {loading ? (
             <h4>
-              Đăng Nhập <Spin indicator={antIcon} />
+              Đăng Nhập <Loading />
             </h4>
           ) : (
             <h4>Đăng Nhập</h4>

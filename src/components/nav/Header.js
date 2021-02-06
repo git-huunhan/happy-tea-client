@@ -1,23 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import { LogoutOutlined } from "@ant-design/icons";
-import "../../App.scss";
 import { Menu, Row, Col } from "antd";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import firebase from "firebase";
 import { useDispatch, useSelector } from "react-redux";
+
+import "../../App.scss";
+
 
 const { SubMenu, Item } = Menu;
 
 const Header = () => {
-  const [current, setCurrent] = useState("");
+  let location = useLocation();
 
   let dispatch = useDispatch();
   let { user } = useSelector((state) => ({ ...state }));
   let history = useHistory();
-
-  const handleClick = (e) => {
-    setCurrent(e.key);
-  };
 
   const logout = () => {
     firebase.auth().signOut();
@@ -45,18 +43,17 @@ const Header = () => {
 
         <Col span={12}>
           <Menu
-            onClick={handleClick}
-            selectedKeys={[current]}
+            selectedKeys={[location.pathname]}
             mode="horizontal"
           >
             {!user && (
-              <Item key="register" className="float-right mr-0">
+              <Item key="/register" className="float-right mr-0">
                 <Link to="/register">Đăng ký</Link>
               </Item>
             )}
 
             {!user && (
-              <Item key="login" className="float-right">
+              <Item key="/login" className="float-right">
                 <Link to="/login">Đăng nhập</Link>
               </Item>
             )}
@@ -71,7 +68,7 @@ const Header = () => {
               </SubMenu>
             )}
 
-            <Item key="home" className="float-right">
+            <Item key="/" className="float-right">
               <Link to="/">Trang chủ</Link>
             </Item>
           </Menu>

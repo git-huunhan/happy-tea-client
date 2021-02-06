@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { auth } from "../../firebase";
 import { toast } from "react-toastify";
 import { Button, Row, Col } from "antd";
-import "../../App.scss";
 import { useDispatch, useSelector } from "react-redux";
+
+import { auth } from "../../firebase";
+import "../../App.scss";
 import { createOrUpdateUser } from "../../functions/auth";
 
 const RegisterComplete = ({ history }) => {
@@ -44,19 +45,19 @@ const RegisterComplete = ({ history }) => {
         const idTokenResult = await user.getIdTokenResult();
         // redux store
         createOrUpdateUser(idTokenResult.token)
-        .then((res) => {
-          dispatch({
-            type: "LOGGED_IN_USER",
-            payload: {
-              name: res.data.name,
-              email: res.data.email,
-              token: idTokenResult.token,
-              role: res.data.role,
-              _id: res.data._id,
-            },
-          });
-        })
-        .catch(err => console.log(err));
+          .then((res) => {
+            dispatch({
+              type: "LOGGED_IN_USER",
+              payload: {
+                name: res.data.name,
+                email: res.data.email,
+                token: idTokenResult.token,
+                role: res.data.role,
+                _id: res.data._id,
+              },
+            });
+          })
+          .catch((err) => console.log(err));
         // redirect
         history.push("/");
       }
@@ -79,7 +80,7 @@ const RegisterComplete = ({ history }) => {
           autoFocus
         />
       </div>
-     
+
       <Button
         type="primary"
         shape="round"
