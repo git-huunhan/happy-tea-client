@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import { Button, Row, Col } from "antd";
+import { Button, Row, Col, Input, Form } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 
 import { auth } from "../../firebase";
 import "../../App.scss";
 import { createOrUpdateUser } from "../../functions/auth";
+
+const { Password } = Input;
 
 const RegisterComplete = ({ history }) => {
   const [email, setEmail] = useState("");
@@ -67,13 +69,21 @@ const RegisterComplete = ({ history }) => {
   };
 
   const completeRegistrationForm = () => (
-    <form onSubmit={handleSubmit}>
+    <Form>
       <div className="form-group">
-        <input type="email" className="form-control" value={email} disabled />
+        <Input
+          size="large"
+          type="email"
+          className="mt-3"
+          value={email}
+          disabled
+        />
         <br />
-        <input
+        <Password
+          onPressEnter={handleSubmit}
           type="password"
-          className="form-control"
+          size="large"
+          className="mt-3"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
@@ -82,6 +92,7 @@ const RegisterComplete = ({ history }) => {
       </div>
 
       <Button
+        onClick={handleSubmit}
         type="primary"
         shape="round"
         size="large"
@@ -91,7 +102,7 @@ const RegisterComplete = ({ history }) => {
       >
         Hoàn tất đăng ký
       </Button>
-    </form>
+    </Form>
   );
 
   return (

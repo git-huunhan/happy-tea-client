@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import { Button, Row, Col } from "antd";
+import { Button, Row, Col, Input, Form } from "antd";
 import { useSelector } from "react-redux";
 
 import { auth } from "../../firebase";
@@ -18,7 +18,6 @@ const ForgotPassword = ({ history }) => {
   }, [user]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
     setLoading(true);
 
     const config = {
@@ -58,28 +57,27 @@ const ForgotPassword = ({ history }) => {
           ) : (
             <h4>Quên Mật Khẩu</h4>
           )}
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <input
-                type="email"
-                className="form-control"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Nhập email"
-                autoFocus
-              />
-            </div>
+          <Form onFinish={handleSubmit}>
+            <Input
+              type="email"
+              size="large"
+              className="mt-3"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Nhập email"
+              autoFocus
+            />
+
             <Button
               type="primary"
-              disabled={!email}
-              onClick={handleSubmit}
               size="large"
+              onClick={handleSubmit} 
               block
-              className="mt-3"
+              className="mt-4"
             >
               Xác nhận gửi
             </Button>
-          </form>
+          </Form>
         </Col>
       </Row>
     </div>

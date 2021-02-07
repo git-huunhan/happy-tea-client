@@ -11,6 +11,7 @@ const History = () => (
       </Col>
       <Col span={19} className="pl-5">
         <h4>Lịch sử mua hàng</h4>
+        <hr/>    
       </Col>
     </Row>
   </div>

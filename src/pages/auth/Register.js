@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import { Button, Row, Col } from "antd";
+import { Button, Row, Col, Input, Form } from "antd";
 import { useSelector } from "react-redux";
 
 import { auth } from "../../firebase";
@@ -15,8 +15,7 @@ const Register = ({ history }) => {
     if (user && user.token) history.push("/");
   }, [user]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     // validation
     if (!email) {
       toast.error("Email is required");
@@ -38,29 +37,27 @@ const Register = ({ history }) => {
   };
 
   const registerForm = () => (
-    <form onSubmit={handleSubmit}>
-      <div className="form-group">
-        <input
-          type="email"
-          className="form-control"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Nhập email"
-          autoFocus
-        />
-      </div>
+    <Form onFinish={handleSubmit}>
+      <Input
+        size="large"
+        className="mt-3"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Nhập email"
+        autoFocus
+      />
 
       <Button
         type="primary"
         shape="round"
         size="large"
-        htmlType="submit"
+        onClick={handleSubmit}
         block
-        className="mt-3"
+        className="mt-4"
       >
         Gửi email xác thực
       </Button>
-    </form>
+    </Form>
   );
 
   return (

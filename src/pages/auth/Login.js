@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import { Button, Row, Col } from "antd";
+import { Button, Row, Col, Input, Form } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { GoogleOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
@@ -9,6 +9,8 @@ import { auth, googleAuthProvider } from "../../firebase";
 import "../../App.scss";
 import { createOrUpdateUser } from "../../functions/auth";
 import Loading from "../../components/loading/Loading";
+
+const { Password } = Input;
 
 const Login = ({ history }) => {
   const [email, setEmail] = useState("huunhankirigamer@gmail.com");
@@ -31,10 +33,9 @@ const Login = ({ history }) => {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     setLoading(true);
-
+    
     try {
       const result = await auth.signInWithEmailAndPassword(email, password);
       const { user } = result;
@@ -56,7 +57,7 @@ const Login = ({ history }) => {
           roleBasedRedirect(res);
         })
         .catch((err) => console.log(err));
-
+        
       // history.push("/");
     } catch (error) {
       toast.error(error.message);
@@ -96,41 +97,39 @@ const Login = ({ history }) => {
   };
 
   const loginForm = () => (
-    <form onSubmit={handleSubmit}>
-      <div className="form-group">
-        <input
-          type="email"
-          className="form-control"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Nhập email"
-          autoFocus
-        />
-        <br />
-        <input
-          type="password"
-          className="form-control"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Nhập mật khẩu"
-        />
-      </div>
+    <Form>
+      <Input
+        onPressEnter={handleSubmit}
+        type="email"
+        size="large"
+        className="mt-3"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Nhập email"
+        autoFocus
+      />
 
-      <Link to="/forgot/password" className="">
-        Quên mật khẩu?
-      </Link>
+      <Password
+        onPressEnter={handleSubmit}
+        size="large"
+        className="login-password-input mt-3 mb-3"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="Nhập mật khẩu"
+      />
+
+      <Link to="/forgot/password">Quên mật khẩu?</Link>
 
       <Button
         type="primary"
         size="large"
         onClick={handleSubmit}
         block
-        disabled={!email || password.length < 6}
-        className="mt-3"
+        className="mt-4"
       >
         Đăng nhập với email và mật khẩu
       </Button>
-    </form>
+    </Form>
   );
 
   return (
@@ -154,7 +153,7 @@ const Login = ({ history }) => {
           )}
           {loginForm()}
 
-          <p className="or-text">Hoặc</p>
+          <p className="or-text mt-3">Hoặc</p>
 
           <Button
             type="danger"

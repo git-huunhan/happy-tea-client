@@ -11,6 +11,7 @@ const Wishlist = () => (
       </Col>
       <Col span={19} className="pl-5">
         <h4>Yêu thích</h4>
+        <hr/>    
       </Col>
     </Row>
   </div>

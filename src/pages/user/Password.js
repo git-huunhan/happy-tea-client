@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import { Button, Row, Col, Card } from "antd";
+import { Button, Row, Col, Card, Input } from "antd";
 
 import UserNav from "../../components/nav/UserNav";
 import { auth } from "../../firebase";
@@ -32,10 +32,10 @@ const Password = () => {
     <form className="form-update-password" onSubmit={handleSubmit}>
       <Col span={10}>
         <div className="form-group">
-          <input
+          <Input
             type="password"
             onChange={(e) => setPassword(e.target.value)}
-            className="form-control mt-3"
+            className="mt-3"
             placeholder="Nhập mật khẩu mới"
             disabled={loading}
             value={password}
