@@ -1,3 +1,6 @@
+$primary-pink: #ff6d99;
+$secondary-pink: #fcebf0;
+
 body {
   font-family: "Quicksand", sans-serif !important;
   overflow-y: scroll;
@@ -8,21 +11,27 @@ body {
 }
 
 .ant-btn-primary {
-  background: #ff6d99 !important;
-  border-color: #ff6d99 !important;
+  background: $primary-pink !important;
+  border-color: $primary-pink !important;
   border-radius: 10px !important;
+}
+
+.ant-btn {
+  border-radius: 6px !important;
 }
 
 .ant-menu-horizontal > .ant-menu-item-selected a,
 .ant-menu-horizontal > .ant-menu-item a:hover,
 .ant-menu-submenu-title:hover,
 .ant-menu-item:hover,
-.ant-menu-item-selected {
-  color: #ff6d99 !important;
+.ant-menu-item-selected,
+.ant-menu-item-selected a,
+.ant-menu-item a:hover {
+  color: $primary-pink !important;
 }
 
 .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
-  background-color: #fcebf0 !important;
+  background-color: $secondary-pink !important;
 }
 
 .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover,
@@ -33,15 +42,15 @@ body {
 .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-open,
 .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected,
 .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-selected {
-  color: #ff6d99 !important;
-  border-bottom: 2px solid #ff6d99 !important;
+  color: $primary-pink !important;
+  border-bottom: 2px solid $primary-pink !important;
 }
 
 .custom-file-control,
 .form-control,
 .is-focused .custom-file-control,
 .is-focused .form-control {
-  background-image: linear-gradient(0deg, #ff6d99 2px, rgba(0, 150, 136, 0) 0),
+  background-image: linear-gradient(0deg, $primary-pink 2px, rgba(0, 150, 136, 0) 0),
     linear-gradient(0deg, rgba(0, 0, 0, 0.26) 1px, transparent 0) !important;
 }
 
@@ -74,17 +83,21 @@ body {
   }
 }
 
-.ant-input, .ant-input:focus, .ant-input-affix-wrapper {
+.ant-input,
+.ant-input:focus,
+.ant-input-affix-wrapper {
   border-radius: 10px !important;
 }
 
-.ant-input:focus, .ant-input-affix-wrapper:focus, .ant-input-affix-wrapper:focus-within {
+.ant-input:focus,
+.ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper:focus-within {
   border-color: #ff9dba !important;
   box-shadow: 0 0 0 2px #ff9dba71 !important;
 }
 
-
-.ant-input:hover, .ant-input-affix-wrapper:hover {
+.ant-input:hover,
+.ant-input-affix-wrapper:hover {
   border-color: #ff9dba !important;
 }
 
@@ -94,4 +107,15 @@ body {
 
 .payment {
   height: 40px;
+}
+
+.ant-card {
+  border-radius: 6px !important;
+  border: 1px solid #d9d9d9 !important;
+}
+
+.ant-alert-info {
+  background-color: $secondary-pink !important;
+  border: 1px solid $primary-pink !important;
+  border-radius: 6px !important;
 }

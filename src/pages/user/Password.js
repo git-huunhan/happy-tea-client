@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import { Button, Row, Col, Card, Input } from "antd";
+import { Button, Row, Col, Card, Input, Form } from "antd";
 
 import UserNav from "../../components/nav/UserNav";
 import { auth } from "../../firebase";
@@ -12,7 +12,6 @@ const Password = () => {
   const [loading, setLoading] = useState("");
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
     setLoading(true);
 
     await auth.currentUser
@@ -29,9 +28,8 @@ const Password = () => {
   };
 
   const passwordUpdateForm = () => (
-    <form className="form-update-password" onSubmit={handleSubmit}>
+    <Form onFinish={handleSubmit}>
       <Col span={10}>
-        <div className="form-group">
           <Input
             type="password"
             onChange={(e) => setPassword(e.target.value)}
@@ -44,14 +42,12 @@ const Password = () => {
             type="primary"
             size="middle"
             onClick={handleSubmit}
-            
             className="mt-3"
           >
             Xác nhận
           </Button>
-        </div>
       </Col>
-    </form>
+    </Form>
   );
 
   return (

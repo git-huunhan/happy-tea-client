@@ -1,12 +1,15 @@
 import React from "react";
-import { LogoutOutlined } from "@ant-design/icons";
+import {
+  LogoutOutlined,
+  DashboardOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import { Menu, Row, Col } from "antd";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import firebase from "firebase";
 import { useDispatch, useSelector } from "react-redux";
 
 import "../../App.scss";
-
 
 const { SubMenu, Item } = Menu;
 
@@ -42,10 +45,7 @@ const Header = () => {
         </Col>
 
         <Col span={12}>
-          <Menu
-            selectedKeys={[location.pathname]}
-            mode="horizontal"
-          >
+          <Menu selectedKeys={[location.pathname]} mode="horizontal">
             {!user && (
               <Item key="/register" className="float-right mr-0">
                 <Link to="/register">Đăng ký</Link>
@@ -59,9 +59,22 @@ const Header = () => {
             )}
 
             {user && (
-              <SubMenu key="SubMenu" title={user.email && user.email.split('@')[0]} className="username float-right">
-                <Item key="setting:1">Option 1</Item>
-                <Item key="setting:2">Option 2</Item>
+              <SubMenu
+                title={user.email && user.email.split("@")[0]}
+                className="username float-right"
+              >
+                {user && user.role === "subscriber" && (
+                  <Item key="/user/history" icon={<UserOutlined />}>
+                    <Link to="/user/history">Tài khoản của tôi</Link>
+                  </Item>
+                )}
+
+                {user && user.role === "admin" && (
+                  <Item key="/admin/dashboard" icon={<DashboardOutlined />}>
+                    <Link to="/admin/dashboard">Bảng điều khiển</Link>
+                  </Item>
+                )}
+
                 <Item icon={<LogoutOutlined />} onClick={logout}>
                   Đăng xuất
                 </Item>
