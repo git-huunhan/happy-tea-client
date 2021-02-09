@@ -34,7 +34,7 @@ const AdminNav = () => {
       </Item>
 
       <Item key="/admin/sub">
-        <span>Danh mục phụ</span>
+        <span>Danh mục con</span>
         <Link to="/admin/sub" />
       </Item>
 

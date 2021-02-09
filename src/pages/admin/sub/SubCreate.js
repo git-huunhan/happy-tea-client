@@ -1,46 +1,63 @@
 import React, { useState, useEffect } from "react";
-import { Button, Row, Col, Card, Alert, Space, Popconfirm, Empty } from "antd";
+import {
+  Button,
+  Row,
+  Col,
+  Card,
+  Select,
+  Alert,
+  Space,
+  Popconfirm,
+  Empty,
+  Form,
+} from "antd";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
-import {
-  createCategory,
-  getCategories,
-  removeCategory,
-} from "../../../functions/category";
+import { createSub, removeSub, getSubs } from "../../../functions/sub";
+import { getCategories } from "../../../functions/category";
 import AdminNav from "../../../components/nav/AdminNav";
 import Loading from "../../../components/loading/Loading";
 import CategoryForm from "../../../components/form/CategoryForm";
 import LocalSearch from "../../../components/form/LocalSearch";
 
-const CategoryCreate = () => {
+const { Item } = Form;
+const { Option } = Select;
+
+const SubCreate = () => {
   const { user } = useSelector((state) => ({ ...state }));
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState("");
+  const [subs, setSubs] = useState([]);
 
   // step 1
   const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
     loadCategories();
+    loadSubs();
   }, []);
 
   const loadCategories = () =>
     getCategories().then((c) => setCategories(c.data));
 
+  const loadSubs = () =>
+    getSubs().then((c) => setSubs(c.data));
+
   const handleSubmit = () => {
     setLoading(true);
 
-    createCategory({ name }, user.token)
+    createSub({ name, parent: category }, user.token)
       .then((res) => {
         // console.log(res)
         setLoading(false);
         setName("");
         toast.dark(`${res.data.name} is created`);
-        loadCategories();
+        loadSubs();
       })
       .catch((err) => {
         console.log(err);
@@ -53,11 +70,11 @@ const CategoryCreate = () => {
 
   const handleRemove = async (slug) => {
     setLoading(true);
-    removeCategory(slug, user.token)
+    removeSub(slug, user.token)
       .then((res) => {
         setLoading(false);
         toast.error(`${res.data.name} deleted`);
-        loadCategories();
+        loadSubs();
       })
       .catch((err) => {
         console.log(err);
@@ -81,19 +98,39 @@ const CategoryCreate = () => {
         <Col span={19} className="pl-5">
           {loading ? (
             <h4>
-              Tạo danh mục <Loading />
+              Tạo danh mục con <Loading />
             </h4>
           ) : (
-            <h4>Tạo danh mục</h4>
+            <h4>Tạo danh mục con</h4>
           )}
           <hr />
+
           <Card>
-            <h6>Tên danh mục</h6>
+            <h6>Danh mục</h6>
+            <Col span={10}>
+              <Item className="m-0">
+                <Select
+                  placeholder="Chọn danh mục"
+                  onChange={(value) => setCategory(value)}
+                >
+                  {categories.length > 0 &&
+                    categories.map((c) => (
+                      <Option key={c._id} value={c._id}>
+                        {c.name}
+                      </Option>
+                    ))}
+                </Select>
+              </Item>
+            </Col>
+          </Card>
+
+          <Card className="mt-3">
+            <h6>Tên danh mục con</h6>
             <CategoryForm
               handleSubmit={handleSubmit}
               name={name}
               setName={setName}
-              placeholder="Nhập tên danh mục"
+              placeholder="Nhập tên danh mục con"
             />
           </Card>
           <Card className="mt-3">
@@ -101,7 +138,7 @@ const CategoryCreate = () => {
             <h6>Tất cả danh mục</h6>
             <LocalSearch keyword={keyword} setKeyword={setKeyword} />
 
-            {categories.length === 0 ? (
+            {subs.length === 0 ? (
               <Empty
                 image={
                   <img
@@ -117,16 +154,16 @@ const CategoryCreate = () => {
               />
             ) : (
               // step 5
-              categories.filter(searched(keyword)).map((c) => (
+              subs.filter(searched(keyword)).map((s) => (
                 <Alert
                   className="mt-2"
                   type="info"
-                  message={c.name}
-                  key={c._id}
+                  message={s.name}
+                  key={s._id}
                   action={
                     <Space>
                       <Button>
-                        <Link to={`/admin/category/${c.slug}`}>
+                        <Link to={`/admin/sub/${s.slug}`}>
                           <EditOutlined
                             className="text-secondary"
                             size="large"
@@ -137,7 +174,7 @@ const CategoryCreate = () => {
 
                       <Popconfirm
                         title="Bạn có chắc chắn muốn xóa?"
-                        onConfirm={() => handleRemove(c.slug)}
+                        onConfirm={() => handleRemove(s.slug)}
                         okText="Có"
                         cancelText="Không"
                       >
@@ -160,4 +197,4 @@ const CategoryCreate = () => {
   );
 };
 
-export default CategoryCreate;
+export default SubCreate;

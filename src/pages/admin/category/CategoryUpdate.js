@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Button, Row, Col, Form, Input, Card } from "antd";
+import { Row, Col, Card } from "antd";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 
 import { getCategory, updateCategory } from "../../../functions/category";
 import AdminNav from "../../../components/nav/AdminNav";
 import Loading from "../../../components/loading/Loading";
-
-const { Item } = Form;
+import CategoryForm from "../../../components/form/CategoryForm";
 
 const CategoryUpdate = ({ history, match }) => {
   const { user } = useSelector((state) => ({ ...state }));
@@ -40,25 +39,6 @@ const CategoryUpdate = ({ history, match }) => {
       });
   };
 
-  const categoryForm = () => (
-    <Form onFinish={handleSubmit}>
-      <Col span={10}>
-        <Item label="Tên danh mục">
-          <Input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            autoFocus
-            required
-          />
-        </Item>
-        <Button type="primary" size="middle" onClick={handleSubmit}>
-          Lưu
-        </Button>
-      </Col>
-    </Form>
-  );
-
   return (
     <div className="container pt-5 pb-5">
       <Row>
@@ -74,7 +54,15 @@ const CategoryUpdate = ({ history, match }) => {
             <h4>Sửa danh mục</h4>
           )}
           <hr />
-          <Card>{categoryForm()}</Card>
+          <Card>
+            <h6>Tên danh mục</h6>
+            <CategoryForm
+              handleSubmit={handleSubmit}
+              name={name}
+              setName={setName}
+              placeholder="Nhập tên danh mục"
+            />
+          </Card>
         </Col>
       </Row>
     </div>

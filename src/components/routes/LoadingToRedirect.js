@@ -24,9 +24,6 @@ const LoadingToRedirect = () => {
       <Row className="d-flex justify-content-center">
         <Loading />
       </Row>
-      <Row className="d-flex justify-content-center mt-2">
-        <h6>Chuyển hướng trang trong {count} giây</h6>
-      </Row>
     </div>
   );
 };
