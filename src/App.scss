@@ -152,6 +152,7 @@ select {
 
 select:hover {
   border-color: $primary-pink !important;
+  cursor: pointer;
 }
 
 select:focus {
