@@ -47,6 +47,11 @@ const AdminNav = () => {
         <span>Đổi mật khẩu</span>
         <Link to="/user/password" />
       </Item>
+
+      <Item key="/user/password">
+        <span>Happy New Year!</span>
+        <Link to="/user/password" />
+      </Item>
     </Menu>
   );
 };
