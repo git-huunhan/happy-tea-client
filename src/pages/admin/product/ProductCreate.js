@@ -11,6 +11,7 @@ import {
   Input,
   Form,
   Select,
+  notification
 } from "antd";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
@@ -22,15 +23,22 @@ import AdminNav from "../../../components/nav/AdminNav";
 const { Item } = Form;
 const { Option } = Select;
 
+const openNotification = ( message ) => {
+  notification.error({
+    message: `Notification ${message}`,
+    placement: 'bottomLeft',
+  });
+};
+
 const initialState = {
-  title: "",
-  description: "",
-  price: "",
+  title: "Trà đào",
+  description: "Hihi trà này ngon vl",
+  price: "15000",
   categories: [],
   category: "",
   subs: [],
-  shipping: "",
-  quantity: "",
+  shipping: "Yes",
+  quantity: "10",
   images: [],
   toppings: [
     "Trân châu đen",
@@ -41,8 +49,8 @@ const initialState = {
     "Full topping",
   ],
   brands: ["Milksha", "Sharetea", "Coco", "Koi", "Chachago"],
-  color: "",
-  brand: "",
+  topping: "Trân châu đen",
+  brand: "Chachago",
 };
 
 const layout = {
@@ -57,6 +65,9 @@ const tailLayout = {
 const ProductCreate = () => {
   const [values, setValue] = useState(initialState);
 
+  // redux
+  const { user } = useSelector((state) => ({ ...state }));
+
   // destructure
   const {
     title,
@@ -70,13 +81,28 @@ const ProductCreate = () => {
     images,
     toppings,
     brands,
-    color,
+    topping,
     brand,
   } = values;
 
-  const handleSubmit = (e) => {};
+  const handleSubmit = (e) => {
+    createProduct(values, user.token)
+      .then((res) => {
+        console.log(res);
+        
 
-  const handleChange = (e) => {};
+      })
+      .catch((err) => {
+        console.log(err);
+        // if (err.response.status === 400) toast.error(err.response.data);
+        openNotification(err.response.data.err)
+      });
+  };
+
+  const handleChange = (e) => {
+    setValue({ ...values, [e.target.name]: e.target.value });
+    // console.log(e.target.name, " ------ ", e.target.value);
+  };
 
   return (
     <div className="container pt-5 pb-5">
@@ -88,6 +114,7 @@ const ProductCreate = () => {
           <h4>Tạo sản phẩm</h4>
 
           <hr />
+
           <Card>
             <Form {...layout} onFinish={handleSubmit}>
               <Item label="Tên">
@@ -118,10 +145,13 @@ const ProductCreate = () => {
               </Item>
 
               <Item label="Vận chuyển">
-                <Select name="shipping" onChange={handleChange}>
-                  <Option value="No">Không</Option>
-                  <Option value="Yes">Có</Option>
-                </Select>
+                <select name="shipping" onChange={handleChange}>
+                  <option disabled selected>
+                    Vui lòng chọn...
+                  </option>
+                  <option value="No">Không</option>
+                  <option value="Yes">Có</option>
+                </select>
               </Item>
 
               <Item label="Số lượng">
@@ -134,27 +164,39 @@ const ProductCreate = () => {
               </Item>
 
               <Item label="Topping">
-                <Select name="topping" onChange={handleChange}>
+                <select name="topping" onChange={handleChange}>
+                  <option disabled selected>
+                    Vui lòng chọn...
+                  </option>
                   {toppings.map((c) => (
-                    <Option key={c} value={c}>
+                    <option key={c} value={c}>
                       {c}
-                    </Option>
+                    </option>
                   ))}
-                </Select>
+                </select>
               </Item>
 
               <Item label="Thương hiệu">
-                <Select name="brand" onChange={handleChange}>
+                <select
+                  placeholder="Vui lòng chọn"
+                  name="brand"
+                  onChange={handleChange}
+                >
+                  <option disabled selected>
+                    Vui lòng chọn...
+                  </option>
                   {brands.map((b) => (
-                    <Option key={b} value={b}>
+                    <option key={b} value={b}>
                       {b}
-                    </Option>
+                    </option>
                   ))}
-                </Select>
+                </select>
               </Item>
 
               <Item {...tailLayout} className="m-0">
-                <Button type="primary">Lưu</Button>
+                <Button type="primary" onClick={handleSubmit}>
+                  Lưu
+                </Button>
               </Item>
             </Form>
           </Card>

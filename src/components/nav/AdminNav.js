@@ -48,9 +48,8 @@ const AdminNav = () => {
         <Link to="/user/password" />
       </Item>
 
-      <Item key="/user/password">
+      <Item >
         <span>Happy New Year!</span>
-        <Link to="/user/password" />
       </Item>
     </Menu>
   );
