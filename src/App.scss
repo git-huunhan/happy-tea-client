@@ -160,3 +160,15 @@ select:focus {
   box-shadow: 0 0 0 2px #ff9dba71 !important;
   outline: none !important;
 }
+
+.ant-notification-notice-closable .ant-notification-notice-message {
+  color: #fff;
+}
+
+.ant-notification-notice {
+  background-color: #3f3f3f !important;
+  border-radius: 10px !important;
+  .ant-notification-close-icon {
+    color: #fff !important;
+  }
+}

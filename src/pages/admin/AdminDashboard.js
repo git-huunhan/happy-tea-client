@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col } from "antd";
 
-import AdminNav from '../../components/nav/AdminNav'
+import AdminNav from "../../components/nav/AdminNav";
 
 const AdminDashboard = () => {
   return (

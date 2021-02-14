@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { toast } from "react-toastify";
 import { Button, Row, Col, Input, Form } from "antd";
 import { useSelector } from "react-redux";
 
 import { auth } from "../../firebase";
 import "../../App.scss";
 import Loading from "../../components/loading/Loading";
+import Notification from "../../components/notification/Notification";
 
 const ForgotPassword = ({ history }) => {
   const [email, setEmail] = useState("");
@@ -30,11 +30,11 @@ const ForgotPassword = ({ history }) => {
       .then(() => {
         setEmail("");
         setLoading(false);
-        toast.dark("Check your email for password reset link");
+        Notification("success", "Check your email for password reset link");
       })
       .catch((error) => {
         setLoading(false);
-        toast.error(error.message);
+        Notification("error", error.message);
       });
   };
 
@@ -71,7 +71,7 @@ const ForgotPassword = ({ history }) => {
             <Button
               type="primary"
               size="large"
-              onClick={handleSubmit} 
+              onClick={handleSubmit}
               block
               className="mt-4"
             >

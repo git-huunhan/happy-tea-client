@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Card, Form } from "antd";
-import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 
 import { updateSub, getSub } from "../../../functions/sub";
@@ -8,6 +7,7 @@ import { getCategories } from "../../../functions/category";
 import AdminNav from "../../../components/nav/AdminNav";
 import Loading from "../../../components/loading/Loading";
 import CategoryForm from "../../../components/form/CategoryForm";
+import Notification from "../../../components/notification/Notification";
 
 const { Item } = Form;
 
@@ -40,13 +40,14 @@ const SubUpdate = ({ match, history }) => {
         // console.log(res)
         setLoading(false);
         setName("");
-        toast.dark(`${res.data.name} is updated`);
+        Notification("success", `${res.data.name} is updated`);
         history.push("/admin/sub");
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
-        if (err.response.status === 400) toast.error(err.response.data);
+        if (err.response.status === 400)
+          Notification("error", err.response.data);
       });
 
     loadCategories();

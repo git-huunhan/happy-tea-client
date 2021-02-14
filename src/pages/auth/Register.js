@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { toast } from "react-toastify";
 import { Button, Row, Col, Input, Form } from "antd";
 import { useSelector } from "react-redux";
 
 import { auth } from "../../firebase";
 import "../../App.scss";
+import Notification from "../../components/notification/Notification";
 
 const Register = ({ history }) => {
   const [email, setEmail] = useState("");
@@ -18,7 +18,7 @@ const Register = ({ history }) => {
   const handleSubmit = async () => {
     // validation
     if (!email) {
-      toast.error("Email is required");
+      Notification("error", "Email is required");
       return;
     }
 
@@ -28,7 +28,7 @@ const Register = ({ history }) => {
     };
 
     await auth.sendSignInLinkToEmail(email, config);
-    toast.dark(`Hi ${email}. Gửi email cho m rồi kìa th lz!`);
+    Notification("success", `Hi ${email}. Gửi email cho m rồi kìa th lz!`);
 
     // save user email in local storage
     window.localStorage.setItem("emailForRegistration", email);

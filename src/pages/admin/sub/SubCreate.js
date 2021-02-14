@@ -11,7 +11,6 @@ import {
   Empty,
   Form,
 } from "antd";
-import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
@@ -22,6 +21,7 @@ import AdminNav from "../../../components/nav/AdminNav";
 import Loading from "../../../components/loading/Loading";
 import CategoryForm from "../../../components/form/CategoryForm";
 import LocalSearch from "../../../components/form/LocalSearch";
+import Notification from "../../../components/notification/Notification";
 
 const { Item } = Form;
 const { Option } = Select;
@@ -45,8 +45,7 @@ const SubCreate = () => {
   const loadCategories = () =>
     getCategories().then((c) => setCategories(c.data));
 
-  const loadSubs = () =>
-    getSubs().then((c) => setSubs(c.data));
+  const loadSubs = () => getSubs().then((c) => setSubs(c.data));
 
   const handleSubmit = () => {
     setLoading(true);
@@ -56,13 +55,14 @@ const SubCreate = () => {
         // console.log(res)
         setLoading(false);
         setName("");
-        toast.dark(`${res.data.name} is created`);
+        Notification("success", `${res.data.name} is created`);
         loadSubs();
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
-        if (err.response.status === 400) toast.error(err.response.data);
+        if (err.response.status === 400)
+          Notification("error", err.response.data);
       });
 
     loadCategories();
@@ -73,7 +73,7 @@ const SubCreate = () => {
     removeSub(slug, user.token)
       .then((res) => {
         setLoading(false);
-        toast.error(`${res.data.name} deleted`);
+        Notification("success", `${res.data.name} deleted`);
         loadSubs();
       })
       .catch((err) => {
@@ -81,7 +81,7 @@ const SubCreate = () => {
         setLoading(false);
         if (err.response.status === 400) {
           setLoading(false);
-          toast.error(err.response.data);
+          Notification("error", err.response.data);
         }
       });
   };

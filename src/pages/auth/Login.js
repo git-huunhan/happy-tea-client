@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { toast } from "react-toastify";
 import { Button, Row, Col, Input, Form } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { GoogleOutlined } from "@ant-design/icons";
@@ -9,6 +8,7 @@ import { auth, googleAuthProvider } from "../../firebase";
 import "../../App.scss";
 import { createOrUpdateUser } from "../../functions/auth";
 import Loading from "../../components/loading/Loading";
+import Notification from "../../components/notification/Notification";
 
 const { Password } = Input;
 
@@ -35,7 +35,7 @@ const Login = ({ history }) => {
 
   const handleSubmit = async () => {
     setLoading(true);
-    
+
     try {
       const result = await auth.signInWithEmailAndPassword(email, password);
       const { user } = result;
@@ -57,10 +57,10 @@ const Login = ({ history }) => {
           roleBasedRedirect(res);
         })
         .catch((err) => console.log(err));
-        
+
       // history.push("/");
     } catch (error) {
-      toast.error(error.message);
+      Notification("error", error.message);
       setLoading(false);
     }
   };
@@ -92,7 +92,7 @@ const Login = ({ history }) => {
         // history.push("/");
       })
       .catch((error) => {
-        toast.error(error.message);
+        Notification("error", error.message);
       });
   };
 

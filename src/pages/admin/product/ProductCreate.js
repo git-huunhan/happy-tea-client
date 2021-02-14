@@ -1,34 +1,12 @@
 import React, { useState, useEffect } from "react";
-import {
-  Button,
-  Row,
-  Col,
-  Card,
-  Alert,
-  Space,
-  Popconfirm,
-  Empty,
-  Input,
-  Form,
-  Select,
-  notification
-} from "antd";
-import { toast } from "react-toastify";
+import { Row, Col, Card } from "antd";
 import { useSelector } from "react-redux";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
 import { createProduct } from "../../../functions/product";
 import AdminNav from "../../../components/nav/AdminNav";
-
-const { Item } = Form;
-const { Option } = Select;
-
-const openNotification = ( message ) => {
-  notification.error({
-    message: `Notification ${message}`,
-    placement: 'bottomLeft',
-  });
-};
+import Notification from "../../../components/notification/Notification";
+import ProductCreateForm from "../../../components/form/ProductCreateForm";
+import { getCategories, getCategorySubs } from "../../../functions/category";
 
 const initialState = {
   title: "Trà đào",
@@ -37,8 +15,7 @@ const initialState = {
   categories: [],
   category: "",
   subs: [],
-  shipping: "Yes",
-  quantity: "10",
+  shipping: "",
   images: [],
   toppings: [
     "Trân châu đen",
@@ -49,59 +26,67 @@ const initialState = {
     "Full topping",
   ],
   brands: ["Milksha", "Sharetea", "Coco", "Koi", "Chachago"],
-  topping: "Trân châu đen",
-  brand: "Chachago",
-};
-
-const layout = {
-  labelCol: { span: 4 },
-  wrapperCol: { span: 20 },
-};
-
-const tailLayout = {
-  wrapperCol: { offset: 4, span: 20 },
+  topping: "",
+  brand: "",
 };
 
 const ProductCreate = () => {
-  const [values, setValue] = useState(initialState);
+  const [values, setValues] = useState(initialState);
+  const [subOptions, setSubOptions] = useState([]);
+  const [showSub, setShowSub] = useState(false)
 
   // redux
   const { user } = useSelector((state) => ({ ...state }));
 
-  // destructure
-  const {
-    title,
-    description,
-    price,
-    categories,
-    category,
-    subs,
-    shipping,
-    quantity,
-    images,
-    toppings,
-    brands,
-    topping,
-    brand,
-  } = values;
+  useEffect(() => {
+    loadCategories();
+  }, []);
+
+  const loadCategories = () =>
+    getCategories().then((c) => setValues({ ...values, categories: c.data }));
 
   const handleSubmit = (e) => {
     createProduct(values, user.token)
       .then((res) => {
         console.log(res);
-        
-
+        window.alert(`"${res.data.title}" is created`);
+        window.location.reload();
       })
       .catch((err) => {
         console.log(err);
         // if (err.response.status === 400) toast.error(err.response.data);
-        openNotification(err.response.data.err)
+        Notification("error", err.response.data.err);
       });
   };
 
   const handleChange = (e) => {
-    setValue({ ...values, [e.target.name]: e.target.value });
+    setValues({ ...values, [e.target.name]: e.target.value });
     // console.log(e.target.name, " ------ ", e.target.value);
+  };
+
+  const handleShippingChange = (value) => {
+    setValues({ ...values, shipping: value });
+    // console.log(e.target.name, " ------ ", e.target.value);
+  };
+
+  const handleToppingChange = (value) => {
+    setValues({ ...values, topping: value });
+    // console.log(e.target.name, " ------ ", e.target.value);
+  };
+
+  const handleBrandChange = (value) => {
+    setValues({ ...values, brand: value });
+    // console.log(e.target.name, " ------ ", e.target.value);
+  };
+
+  const handleCategoryChange = (value) => {
+    console.log("CLICKED CATEGORY", value);
+    setValues({ ...values, subs: [], category: value });
+    getCategorySubs(value).then((res) => {
+      console.log('SUB OPTIONS ON CATEGORY CLICK', res)
+      setSubOptions(res.data);
+    });
+    setShowSub(true);
   };
 
   return (
@@ -116,89 +101,18 @@ const ProductCreate = () => {
           <hr />
 
           <Card>
-            <Form {...layout} onFinish={handleSubmit}>
-              <Item label="Tên">
-                <Input
-                  type="text"
-                  name="title"
-                  value={title}
-                  onChange={handleChange}
-                />
-              </Item>
-
-              <Item label="Mô tả">
-                <Input
-                  type="text"
-                  name="description"
-                  value={description}
-                  onChange={handleChange}
-                />
-              </Item>
-
-              <Item label="Giá tiền">
-                <Input
-                  type="number"
-                  name="price"
-                  value={price}
-                  onChange={handleChange}
-                />
-              </Item>
-
-              <Item label="Vận chuyển">
-                <select name="shipping" onChange={handleChange}>
-                  <option disabled selected>
-                    Vui lòng chọn...
-                  </option>
-                  <option value="No">Không</option>
-                  <option value="Yes">Có</option>
-                </select>
-              </Item>
-
-              <Item label="Số lượng">
-                <Input
-                  type="number"
-                  name="quantity"
-                  value={quantity}
-                  onChange={handleChange}
-                />
-              </Item>
-
-              <Item label="Topping">
-                <select name="topping" onChange={handleChange}>
-                  <option disabled selected>
-                    Vui lòng chọn...
-                  </option>
-                  {toppings.map((c) => (
-                    <option key={c} value={c}>
-                      {c}
-                    </option>
-                  ))}
-                </select>
-              </Item>
-
-              <Item label="Thương hiệu">
-                <select
-                  placeholder="Vui lòng chọn"
-                  name="brand"
-                  onChange={handleChange}
-                >
-                  <option disabled selected>
-                    Vui lòng chọn...
-                  </option>
-                  {brands.map((b) => (
-                    <option key={b} value={b}>
-                      {b}
-                    </option>
-                  ))}
-                </select>
-              </Item>
-
-              <Item {...tailLayout} className="m-0">
-                <Button type="primary" onClick={handleSubmit}>
-                  Lưu
-                </Button>
-              </Item>
-            </Form>
+            <ProductCreateForm
+              handleSubmit={handleSubmit}
+              handleChange={handleChange}
+              setValues={setValues}
+              values={values}
+              handleShippingChange={handleShippingChange}
+              handleToppingChange={handleToppingChange}
+              handleBrandChange={handleBrandChange}
+              handleCategoryChange={handleCategoryChange}
+              subOptions={subOptions}
+              showSub={showSub}
+            />
           </Card>
         </Col>
       </Row>

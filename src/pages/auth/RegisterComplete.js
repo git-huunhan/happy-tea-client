@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { toast } from "react-toastify";
 import { Button, Row, Col, Input, Form } from "antd";
 import { useDispatch } from "react-redux";
 
 import { auth } from "../../firebase";
 import "../../App.scss";
 import { createOrUpdateUser } from "../../functions/auth";
+import Notification from "../../components/notification/Notification";
 
 const { Password } = Input;
 
@@ -24,12 +24,12 @@ const RegisterComplete = ({ history }) => {
     e.preventDefault();
     // validation
     if (!email || !password) {
-      toast.error("Email and password is required");
+      Notification("error", "Email and password is required");
       return;
     }
 
     if (password.length < 6) {
-      toast.error("Password must be at least 6 characters long");
+      Notification("error", "Password must be at least 6 characters long");
       return;
     }
 
@@ -64,7 +64,7 @@ const RegisterComplete = ({ history }) => {
         history.push("/");
       }
     } catch (error) {
-      toast.error(error.message);
+      Notification("error", error.message);
     }
   };
 

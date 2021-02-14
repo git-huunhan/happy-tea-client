@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 
 import Login from "./pages/auth/Login";
@@ -59,7 +57,6 @@ const App = () => {
   return (
     <>
       <Header />
-      <ToastContainer />
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/login" component={Login} />

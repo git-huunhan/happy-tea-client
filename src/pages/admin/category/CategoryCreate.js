@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Button, Row, Col, Card, Alert, Space, Popconfirm, Empty } from "antd";
-import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
@@ -14,6 +13,7 @@ import AdminNav from "../../../components/nav/AdminNav";
 import Loading from "../../../components/loading/Loading";
 import CategoryForm from "../../../components/form/CategoryForm";
 import LocalSearch from "../../../components/form/LocalSearch";
+import Notification from "../../../components/notification/Notification";
 
 const CategoryCreate = () => {
   const { user } = useSelector((state) => ({ ...state }));
@@ -39,13 +39,14 @@ const CategoryCreate = () => {
         // console.log(res)
         setLoading(false);
         setName("");
-        toast.dark(`${res.data.name} is created`);
+        Notification("success", `${res.data.name} is created`);
         loadCategories();
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
-        if (err.response.status === 400) toast.error(err.response.data);
+        if (err.response.status === 400)
+          Notification("error", err.response.data);
       });
 
     loadCategories();
@@ -56,7 +57,7 @@ const CategoryCreate = () => {
     removeCategory(slug, user.token)
       .then((res) => {
         setLoading(false);
-        toast.error(`${res.data.name} deleted`);
+        Notification("success", `${res.data.name} deleted`);
         loadCategories();
       })
       .catch((err) => {
@@ -64,7 +65,7 @@ const CategoryCreate = () => {
         setLoading(false);
         if (err.response.status === 400) {
           setLoading(false);
-          toast.error(err.response.data);
+          Notification("error", err.response.data);
         }
       });
   };

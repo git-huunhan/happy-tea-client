@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { toast } from "react-toastify";
+
 import { Button, Row, Col, Card, Input, Form } from "antd";
 
 import UserNav from "../../components/nav/UserNav";
 import { auth } from "../../firebase";
 import "../../App.scss";
 import Loading from "../../components/loading/Loading";
+import Notification from "../../components/notification/Notification";
 
 const Password = () => {
   const [password, setPassword] = useState("");
@@ -19,33 +20,32 @@ const Password = () => {
       .then(() => {
         setLoading(false);
         setPassword("");
-        toast.dark("Đổi mật khẩu thành công!");
+        Notification("success", "Đổi mật khẩu thành công!");
       })
       .catch((err) => {
         setLoading(false);
-        toast.error(err.message);
+        Notification("error", err.message);
       });
   };
 
   const passwordUpdateForm = () => (
     <Form onFinish={handleSubmit}>
       <Col span={10}>
-          <Input
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-            className="mt-3"
-            placeholder="Nhập mật khẩu mới"
-            disabled={loading}
-            value={password}
-          />
-          <Button
-            type="primary"
-            size="middle"
-            onClick={handleSubmit}
-            className="mt-3"
-          >
-            Xác nhận
-          </Button>
+        <Input.Password
+          onChange={(e) => setPassword(e.target.value)}
+          className="mt-3"
+          placeholder="Nhập mật khẩu mới"
+          disabled={loading}
+          value={password}
+        />
+        <Button
+          type="primary"
+          size="middle"
+          onClick={handleSubmit}
+          className="mt-3"
+        >
+          Xác nhận
+        </Button>
       </Col>
     </Form>
   );
@@ -65,12 +65,14 @@ const Password = () => {
             <h4>Đổi mật khẩu</h4>
           )}
 
-          <hr/>    
+          <hr />
           <Card>
-            <h6>Để bảo mật tài khoản, vui lòng không chia sẻ mật khẩu cho người khác</h6>  
+            <h6>
+              Để bảo mật tài khoản, vui lòng không chia sẻ mật khẩu cho người
+              khác
+            </h6>
             {passwordUpdateForm()}
           </Card>
-          
         </Col>
       </Row>
     </div>

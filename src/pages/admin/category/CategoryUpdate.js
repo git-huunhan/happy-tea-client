@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Card } from "antd";
-import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 
 import { getCategory, updateCategory } from "../../../functions/category";
 import AdminNav from "../../../components/nav/AdminNav";
 import Loading from "../../../components/loading/Loading";
 import CategoryForm from "../../../components/form/CategoryForm";
+import Notification from "../../../components/notification/Notification"
 
 const CategoryUpdate = ({ history, match }) => {
   const { user } = useSelector((state) => ({ ...state }));
@@ -29,13 +29,13 @@ const CategoryUpdate = ({ history, match }) => {
         // console.log(res)
         setLoading(false);
         setName("");
-        toast.dark(`${res.data.name} is updated`);
+        Notification('success', `${res.data.name} is updated`);
         history.push("/admin/category");
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
-        if (err.response.status === 400) toast.error(err.response.data);
+        if (err.response.status === 400) Notification('error', err.response.data);
       });
   };
 
