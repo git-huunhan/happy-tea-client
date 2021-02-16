@@ -166,7 +166,6 @@ const SubCreate = () => {
                         <Link to={`/admin/sub/${s.slug}`}>
                           <EditOutlined
                             className="text-secondary"
-                            size="large"
                           />
                           <span className="ml-2 text-secondary">Sửa</span>
                         </Link>
@@ -178,10 +177,7 @@ const SubCreate = () => {
                         okText="Có"
                         cancelText="Không"
                       >
-                        <Button>
-                          <span>
-                            <DeleteOutlined className="text-danger" />
-                          </span>
+                        <Button icon={ <DeleteOutlined className="text-danger" />}>
                           <span className="ml-2 text-danger">Xóa</span>
                         </Button>
                       </Popconfirm>

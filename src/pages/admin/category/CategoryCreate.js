@@ -142,10 +142,7 @@ const CategoryCreate = () => {
                         okText="Có"
                         cancelText="Không"
                       >
-                        <Button>
-                          <span>
-                            <DeleteOutlined className="text-danger" />
-                          </span>
+                        <Button icon={<DeleteOutlined className="text-danger" />}>
                           <span className="ml-2 text-danger">Xóa</span>
                         </Button>
                       </Popconfirm>

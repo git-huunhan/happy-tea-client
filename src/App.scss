@@ -172,3 +172,49 @@ select:focus {
     color: #fff !important;
   }
 }
+
+.upload-list-inline .ant-upload-list-item {
+  float: left;
+  width: 200px;
+  margin-right: 8px;
+}
+
+.upload-list-inline [class*="-upload-list-rtl"] .ant-upload-list-item {
+  float: right;
+}
+
+.btn {
+  line-height: 1.5715 !important;
+  position: relative !important;
+  display: inline-block !important;
+  font-weight: 400 !important;
+  white-space: nowrap !important;
+  text-align: center !important;
+  background-image: none !important;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) !important;
+  height: 32px !important;
+  padding: 4px 15px !important;
+  font-size: 14px !important;
+  border-radius: 6px !important;
+  color: rgba(0, 0, 0, 0.85) !important;
+  background: #fff !important;
+  text-transform: initial !important;
+  border: 1px solid #d9d9d9 !important;
+}
+
+.btn:hover {
+  color: $primary-pink !important;
+  border: 1px solid $primary-pink !important;
+}
+
+.picture-product {
+  border: 1px solid #d9d9d9;
+}
+
+.ant-avatar-square {
+  border-radius: 6px !important;
+}
+
+.loading-header {
+  height: 24px !important;
+}

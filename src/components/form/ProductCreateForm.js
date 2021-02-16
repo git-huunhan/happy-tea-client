@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Input, Form, Select } from "antd";
+import { Button, Input, Form, Select, Row } from "antd";
 
 const { Item } = Form;
 const { Option } = Select;
@@ -24,6 +24,7 @@ const ProductCreateForm = ({
   handleCategoryChange,
   subOptions,
   showSub,
+  handleReload,
 }) => {
   // destructure
   const {
@@ -74,8 +75,12 @@ const ProductCreateForm = ({
           {/* <option value="default" disabled>
             Vui lòng chọn...
           </option> */}
-          <Option key="No" value="No">Không</Option>
-          <Option key="Yes" value="Yes">Có</Option>
+          <Option key="No" value="No">
+            Không
+          </Option>
+          <Option key="Yes" value="Yes">
+            Có
+          </Option>
         </Select>
       </Item>
 
@@ -97,10 +102,11 @@ const ProductCreateForm = ({
       </Item>
 
       <Item label="Thương hiệu">
-        <Select 
-        //defaultValue="default" 
-        placeholder="Vui lòng chọn..."
-        onChange={handleBrandChange}>
+        <Select
+          //defaultValue="default"
+          placeholder="Vui lòng chọn..."
+          onChange={handleBrandChange}
+        >
           {/* <Option value="default" disabled>
             Vui lòng chọn...
           </Option> */}
@@ -150,9 +156,15 @@ const ProductCreateForm = ({
       )}
 
       <Item {...tailLayout} className="m-0">
-        <Button type="primary" onClick={handleSubmit}>
-          Lưu
-        </Button>
+        <Row>
+          <Button type="primary" onClick={handleSubmit}>
+            Lưu
+          </Button>
+
+          <Button className="ml-2" type="primary" onClick={handleReload}>
+            Làm mới
+          </Button>
+        </Row>
       </Item>
     </Form>
   );
