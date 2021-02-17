@@ -218,3 +218,10 @@ select:focus {
 .loading-header {
   height: 24px !important;
 }
+
+.product-image {
+  height: 150px;
+  object-fit: cover;
+  border-top-left-radius: 6px !important;
+  border-top-right-radius: 6px !important;
+}
