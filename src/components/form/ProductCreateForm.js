@@ -32,25 +32,27 @@ const ProductCreateForm = ({
     description,
     price,
     categories,
-    category,
     subs,
-    shipping,
-    images,
     toppings,
     brands,
-    topping,
-    brand,
   } = values;
 
   return (
     <Form {...layout} onFinish={handleSubmit}>
       <Item label="Tên">
-        <Input type="text" name="title" value={title} onChange={handleChange} />
+        <Input
+          type="text"
+          autoComplete="off"
+          name="title"
+          value={title}
+          onChange={handleChange}
+        />
       </Item>
 
       <Item label="Mô tả">
         <Input
           type="text"
+          autoComplete="off"
           name="description"
           value={description}
           onChange={handleChange}

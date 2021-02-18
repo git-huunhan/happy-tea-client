@@ -165,9 +165,9 @@ const SubCreate = () => {
                       <Button>
                         <Link to={`/admin/sub/${s.slug}`}>
                           <EditOutlined
-                            className="text-secondary"
+                            className="text-primary"
                           />
-                          <span className="ml-2 text-secondary">Sửa</span>
+                          <span className="ml-2 text-primary">Sửa</span>
                         </Link>
                       </Button>
 

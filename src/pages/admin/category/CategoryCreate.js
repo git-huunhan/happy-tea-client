@@ -129,10 +129,10 @@ const CategoryCreate = () => {
                       <Button>
                         <Link to={`/admin/category/${c.slug}`}>
                           <EditOutlined
-                            className="text-secondary"
+                            className="text-primary"
                             size="large"
                           />
-                          <span className="ml-2 text-secondary">Sửa</span>
+                          <span className="ml-2 text-primary">Sửa</span>
                         </Link>
                       </Button>
 

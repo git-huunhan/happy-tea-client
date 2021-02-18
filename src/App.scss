@@ -220,8 +220,47 @@ select:focus {
 }
 
 .product-image {
-  height: 150px;
+  height: 200px;
   object-fit: cover;
-  border-top-left-radius: 6px !important;
-  border-top-right-radius: 6px !important;
+  // border-top-left-radius: 6px !important;
+  // border-top-right-radius: 6px !important;
+}
+
+.price {
+  font-size: 18px !important;
+  font-weight: 500 !important;
+}
+
+.name-price {
+  text-decoration: underline;
+}
+
+.card-product > .ant-card-body {
+  padding: 15px 0 15px 0 !important;
+}
+
+.card-product {
+  border-radius: 0px !important;
+  border: none !important;
+  transition: 0.2s !important;
+}
+
+.card-product:hover {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  z-index: 1 !important;
+  transition: 0.2s !important;
+}
+
+.card-product > .ant-card-actions > li {
+  margin: 12px 0 0 0;
+}
+
+.btn-hover-product {
+  transition: 0.2s !important;
+}
+
+.btn-hover-product:hover {
+  background-color: $secondary-pink;
+  transition: 0.2s !important;
+  border-radius: 6px;
 }
