@@ -2,24 +2,22 @@ import React, { useState, useEffect } from "react";
 import { Row, Col, Card } from "antd";
 import { useSelector } from "react-redux";
 
-import { createProduct } from "../../../functions/product";
+import { getProduct, updateProduct } from "../../../functions/product";
 import AdminNav from "../../../components/nav/AdminNav";
 import Notification from "../../../components/notification/Notification";
-import ProductCreateForm from "../../../components/form/ProductCreateForm";
 import { getCategories, getCategorySubs } from "../../../functions/category";
 import FileUpload from "../../../components/form/FileUpload";
 import Loading from "../../../components/loading/Loading";
+import ProductUpdateForm from "../../../components/form/ProductUpdateForm";
 
 const initialState = {
-  title: "Trà đào",
-  description: "Hihi trà này ngon vl",
-  price: "15000",
-  categories: [],
+  title: "",
+  description: "",
+  price: "",
   category: "",
   subs: [],
   shipping: "",
-  images: [
-  ],
+  images: [],
   toppings: [
     "Trân châu đen",
     "Trân châu ngọc trai",
@@ -33,63 +31,111 @@ const initialState = {
   brand: "",
 };
 
-const ProductCreate = () => {
+const ProductUpdate = ({ match, history }) => {
+  // state
   const [values, setValues] = useState(initialState);
+  const [categories, setCategories] = useState([]);
   const [subOptions, setSubOptions] = useState([]);
-  const [showSub, setShowSub] = useState(false);
+  const [arrayOfSubs, setArrayOfSubs] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [loading, setLoading] = useState(false);
 
   // redux
   const { user } = useSelector((state) => ({ ...state }));
 
+  // route
+  const { slug } = match.params;
+
   useEffect(() => {
+    loadProduct();
     loadCategories();
   }, []);
 
-  const loadCategories = () =>
-    getCategories().then((c) => setValues({ ...values, categories: c.data }));
+  const loadProduct = () => {
+    getProduct(slug).then((p) => {
+      // console.log("single product", p);
+      // 1 load single product
+      setValues({ ...values, ...p.data });
+      // 2 load single product category subs
+      getCategorySubs(p.data.category._id).then((res) => {
+        setSubOptions(res.data); // on fisrt load, show default sub
+      });
+      // 3 prepare array of sub ids to show as default sub valus in antd Select
+      let arr = [];
+      p.data.subs.map((s) => {
+        arr.push(s._id);
+      });
+      console.log("ARR", arr);
+      setArrayOfSubs((prev) => arr); // required for antd Select to work
+    });
+  };
+
+  const loadCategories = () => {
+    getCategories().then((c) => {
+      console.log("GET CATEGORIES IN UPDATE PRODUCT", c.data);
+      setCategories(c.data);
+    });
+  };
 
   const handleSubmit = (e) => {
-    createProduct(values, user.token)
+    setLoading(true);
+
+    values.subs = arrayOfSubs;
+    values.category = selectedCategory ? selectedCategory : values.category;
+
+    updateProduct(slug, values, user.token)
       .then((res) => {
-        console.log(res);
-        Notification("success", `"${res.data.title}" is created`);
+        setLoading(false);
+        Notification("success", `"${res.data.title}" is updated`);
+        history.push("/admin/products");
       })
       .catch((err) => {
         console.log(err);
+        setLoading(false);
         // if (err.response.status === 400) toast.error(err.response.data);
         Notification("error", err.response.data.err);
       });
   };
-
-  const handleReload = (e) => {
-    window.location.reload();
-  };
-
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
+    // console.log(e.target.name, " ------ ", e.target.value);
   };
 
   const handleShippingChange = (value) => {
     setValues({ ...values, shipping: value });
+    // console.log(e.target.name, " ------ ", e.target.value);
   };
 
   const handleToppingChange = (value) => {
     setValues({ ...values, topping: value });
+    // console.log(e.target.name, " ------ ", e.target.value);
   };
 
   const handleBrandChange = (value) => {
     setValues({ ...values, brand: value });
+    // console.log(e.target.name, " ------ ", e.target.value);
   };
 
   const handleCategoryChange = (value) => {
     console.log("CLICKED CATEGORY", value);
-    setValues({ ...values, subs: [], category: value });
+    setValues({ ...values, subs: [] });
+
+    setSelectedCategory(value);
+
     getCategorySubs(value).then((res) => {
       console.log("SUB OPTIONS ON CATEGORY CLICK", res);
       setSubOptions(res.data);
     });
-    setShowSub(true);
+
+    console.log("EXISTING CATEGORY values.category", values.category);
+
+    // if user click back to the original category
+    // show its sub categories in default
+    if (values.category._id === value) {
+      loadProduct();
+    }
+    // clear old sub category ids
+    setArrayOfSubs([]);
   };
 
   return (
@@ -99,15 +145,14 @@ const ProductCreate = () => {
           <AdminNav />
         </Col>
         <Col span={19} className="pl-5">
-          <h4>Tạo sản phẩm</h4>
-
+          <h4>Sửa sản phẩm</h4>
           <hr />
 
           <Card>
             {loading ? (
               <h6 className="loading-header">
                 Chọn ảnh sản phẩm
-                <Loading fontsize={18}/>
+                <Loading fontsize={18} />
               </h6>
             ) : (
               <h6 className="loading-header">Chọn ảnh sản phẩm</h6>
@@ -122,7 +167,7 @@ const ProductCreate = () => {
 
           <Card className="mt-3">
             <h6>Nhập thông tin sản phẩm</h6>
-            <ProductCreateForm
+            <ProductUpdateForm
               handleSubmit={handleSubmit}
               handleChange={handleChange}
               setValues={setValues}
@@ -131,9 +176,11 @@ const ProductCreate = () => {
               handleToppingChange={handleToppingChange}
               handleBrandChange={handleBrandChange}
               handleCategoryChange={handleCategoryChange}
+              categories={categories}
               subOptions={subOptions}
-              showSub={showSub}
-              handleReload={handleReload}
+              arrayOfSubs={arrayOfSubs}
+              setArrayOfSubs={setArrayOfSubs}
+              selectedCategory={selectedCategory}
             />
           </Card>
         </Col>
@@ -142,4 +189,4 @@ const ProductCreate = () => {
   );
 };
 
-export default ProductCreate;
+export default ProductUpdate;

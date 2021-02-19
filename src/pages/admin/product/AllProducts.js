@@ -65,17 +65,15 @@ const AllProducts = () => {
 
           <hr />
 
-          <Col>
-            <Row>
-              {products.map((product) => (
-                <AdminProductCard
-                  product={product}
-                  key={product._id}
-                  handleRemove={handleRemove}
-                />
-              ))}
-            </Row>
-          </Col>
+          <Row>
+            {products.map((product) => (
+              <AdminProductCard
+                product={product}
+                key={product._id}
+                handleRemove={handleRemove}
+              />
+            ))}
+          </Row>
         </Col>
       </Row>
     </div>

@@ -13,7 +13,7 @@ const tailLayout = {
   wrapperCol: { offset: 4, span: 20 },
 };
 
-const ProductCreateForm = ({
+const ProductUpdateForm = ({
   handleSubmit,
   handleChange,
   setValues,
@@ -22,19 +22,24 @@ const ProductCreateForm = ({
   handleToppingChange,
   handleBrandChange,
   handleCategoryChange,
+  categories,
   subOptions,
-  showSub,
-  handleReload,
+  arrayOfSubs,
+  setArrayOfSubs,
+  selectedCategory
 }) => {
   // destructure
   const {
     title,
     description,
     price,
-    categories,
     subs,
+    shipping,
     toppings,
     brands,
+    topping,
+    brand,
+    category,
   } = values;
 
   return (
@@ -72,6 +77,7 @@ const ProductCreateForm = ({
         <Select
           placeholder="Vui lòng chọn..."
           onChange={handleShippingChange}
+          value={shipping === "Yes" ? "Yes" : "No"}
         >
           <Option key="No" value="No">
             Không
@@ -86,6 +92,7 @@ const ProductCreateForm = ({
         <Select
           placeholder="Vui lòng chọn..."
           onChange={handleToppingChange}
+          value={topping}
         >
           {toppings.map((c) => (
             <Option key={c} value={c}>
@@ -99,6 +106,7 @@ const ProductCreateForm = ({
         <Select
           placeholder="Vui lòng chọn..."
           onChange={handleBrandChange}
+          value={brand}
         >
           {brands.map((b) => (
             <Option key={b} value={b}>
@@ -112,6 +120,7 @@ const ProductCreateForm = ({
         <Select
           placeholder="Vui lòng chọn..."
           onChange={handleCategoryChange}
+          value={selectedCategory ? selectedCategory : category._id}
         >
           {categories.length > 0 &&
             categories.map((c) => (
@@ -122,33 +131,27 @@ const ProductCreateForm = ({
         </Select>
       </Item>
 
-      {showSub && (
-        <Item label="Danh mục con">
-          <Select
-            mode="multiple"
-            allowClear
-            placeholder="Vui lòng chọn..."
-            value={subs}
-            onChange={(value) => setValues({ ...values, subs: value })}
-          >
-            {subOptions.length &&
-              subOptions.map((s) => (
-                <Option key={s._id} value={s._id}>
-                  {s.name}
-                </Option>
-              ))}
-          </Select>
-        </Item>
-      )}
+      <Item label="Danh mục con">
+        <Select
+          mode="multiple"
+          allowClear
+          placeholder="Vui lòng chọn..."
+          value={arrayOfSubs}
+          onChange={(value) => setArrayOfSubs(value)}
+        >
+          {subOptions.length &&
+            subOptions.map((s) => (
+              <Option key={s._id} value={s._id}>
+                {s.name}
+              </Option>
+            ))}
+        </Select>
+      </Item>
 
       <Item {...tailLayout} className="m-0">
         <Row>
           <Button type="primary" onClick={handleSubmit}>
             Lưu
-          </Button>
-
-          <Button className="ml-2" type="primary" onClick={handleReload}>
-            Làm mới
           </Button>
         </Row>
       </Item>
@@ -156,4 +159,4 @@ const ProductCreateForm = ({
   );
 };
 
-export default ProductCreateForm;
+export default ProductUpdateForm;

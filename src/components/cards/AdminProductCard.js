@@ -3,6 +3,7 @@ import { Card, Popconfirm, Col } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
 import DefaultImage from "../../images/default-product.png";
+import { Link } from "react-router-dom";
 
 const { Meta } = Card;
 
@@ -22,10 +23,12 @@ const AdminProductCard = ({ product, handleRemove }) => {
           />
         }
         actions={[
-          <div className="btn-hover-product pt-2 pb-2 mr-2">
-            <EditOutlined className="text-primary" />
-            <span className="ml-2 text-primary">Sửa</span>
-          </div>,
+          <Link to={`/admin/product/${slug}`}>
+            <div className="btn-hover-product pt-2 pb-2 mr-2">
+              <EditOutlined className="text-primary" />
+              <span className="ml-2 text-primary">Sửa</span>
+            </div>
+          </Link>,
           <Popconfirm
             title="Bạn có chắc chắn muốn xóa?"
             onConfirm={() => handleRemove(slug)}
@@ -40,20 +43,10 @@ const AdminProductCard = ({ product, handleRemove }) => {
         ]}
       >
         <Meta
+          className="text-overflow"
           title={title}
-          description={`${description && description.substring(0, 40)}...`}
+          description={description}
         />
-        {/* <Rate allowHalf defaultValue={2.5} /> */}
-        {/* <NumberFormat
-        value={price}
-        displayType={"text"}
-        thousandSeparator={true}
-        renderText={(value) => (
-          <p className="mt-3 mb-0 d-flex price">
-            {value.replace(/,/g, ".")} <p className="name-price m-0 ml-1">đ</p>
-          </p>
-        )}
-      /> */}
       </Card>
     </Col>
   );

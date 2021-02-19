@@ -16,6 +16,13 @@ body {
   border-radius: 6px !important;
 }
 
+.ant-btn-primary:hover {
+  background: #dd5b82 !important;
+  border-color: #dd5b82 !important;
+  border-radius: 6px !important;
+}
+
+
 .ant-btn {
   border-radius: 6px !important;
 }
@@ -72,6 +79,12 @@ body {
   .btn-google {
     background: #1877f2 !important;
     border-color: #1877f2 !important;
+    border-radius: 6px !important;
+  }
+
+  .btn-google:hover {
+    background: #125ab8 !important;
+    border-color: #125ab8 !important;
     border-radius: 6px !important;
   }
 }
@@ -246,7 +259,7 @@ select:focus {
 }
 
 .card-product:hover {
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  box-shadow: #64646f33 0px 7px 29px 0px;
   z-index: 1 !important;
   transition: 0.2s !important;
 }
@@ -264,3 +277,50 @@ select:focus {
   transition: 0.2s !important;
   border-radius: 6px;
 }
+
+.text-overflow {
+  .ant-card-meta-description {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+
+.text-product-primary {
+  color: $primary-pink !important;
+}
+
+.banner-1st {
+  height: 255px;
+  object-fit: cover;
+}
+
+.banner-2nd {
+  height: 255px;
+  float: right;
+  border-radius: 4px;
+}
+
+.main-background-color {
+  background-color: #fff !important;
+}
+
+.header-text-home {
+  color: $primary-pink;
+}
+
+.ant-menu-horizontal {
+  border-bottom: none !important;
+}
+
+.body-home {
+  background-color: #f8f0f2 !important;
+}
+
+@media all and (min-width: 1200px){
+  .container {
+    max-width: 1200px !important;
+  }
+} 
+  
+
