@@ -1,6 +1,5 @@
 import React from "react";
 import { Card, Col, Rate } from "antd";
-import { ShoppingCartOutlined } from "@ant-design/icons";
 import NumberFormat from "react-number-format";
 
 import DefaultImage from "../../images/default-product.png";
@@ -39,16 +38,16 @@ const ProductCard = ({ product }) => {
             title={title}
             description={description}
           />
-          <Rate className="mt-1 mb-1 rating" defaultValue={5}/>
+          <Rate className="mt-1 mb-1 rating" defaultValue={5} />
           <NumberFormat
             value={price}
             displayType={"text"}
             thousandSeparator={true}
             renderText={(value) => (
-              <p className="mb-0 d-flex price">
+              <div className="mb-0 d-flex price">
                 {value.replace(/,/g, ".")}{" "}
-                <p className="name-price m-0 ml-1">đ</p>
-              </p>
+                <div className="name-price m-0 ml-1">đ</div>
+              </div>
             )}
           />
         </Card>

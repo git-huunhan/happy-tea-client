@@ -22,7 +22,6 @@ body {
   border-radius: 6px !important;
 }
 
-
 .ant-btn {
   border-radius: 6px !important;
 }
@@ -235,8 +234,6 @@ select:focus {
 .product-image {
   height: 200px;
   object-fit: cover;
-  // border-top-left-radius: 6px !important;
-  // border-top-right-radius: 6px !important;
 }
 
 .price {
@@ -256,6 +253,9 @@ select:focus {
   border-radius: 0px !important;
   border: none !important;
   transition: 0.2s !important;
+  .ant-card-meta-title {
+    text-transform: capitalize;
+  }
 }
 
 .card-product:hover {
@@ -306,6 +306,7 @@ select:focus {
 }
 
 .header-text-home {
+  text-transform: uppercase;
   color: $primary-pink;
 }
 
@@ -317,10 +318,46 @@ select:focus {
   background-color: #f8f0f2 !important;
 }
 
-@media all and (min-width: 1200px){
+@media all and (min-width: 1200px) {
   .container {
     max-width: 1200px !important;
   }
-} 
-  
+}
 
+.skeleton-product {
+  height: 375px;
+}
+
+.pagination-product {
+  .ant-pagination-item-active,
+  .ant-pagination-item-active:focus,
+  .ant-pagination-item:focus a,
+  .ant-pagination-item:hover a,
+  .ant-pagination-item:focus,
+  .ant-pagination-item:hover {
+    border-color: #ff6d99;
+    border-radius: 6px;
+    outline: none;
+    color: #ff6d99;
+  }
+
+  .ant-pagination-prev .ant-pagination-item-link,
+  .ant-pagination-next .ant-pagination-item-link,
+  .ant-pagination-item {
+    border-radius: 6px;
+  }
+
+  .ant-pagination-next:hover .ant-pagination-item-link,
+  .ant-pagination-prev:hover .ant-pagination-item-link {
+    color: #ff6d99;
+    border-color: #ff6d99;
+  }
+
+  .ant-pagination-disabled .ant-pagination-item-link,
+  .ant-pagination-disabled:hover .ant-pagination-item-link,
+  .ant-pagination-disabled:focus .ant-pagination-item-link {
+    color: rgba(0, 0, 0, 0.25);
+    border-color: #d9d9d9;
+    cursor: not-allowed;
+  }
+}
