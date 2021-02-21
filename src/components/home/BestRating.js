@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Row, Pagination, Col } from "antd";
+import { Row, Pagination } from "antd";
 import { StarFilled, FundFilled } from "@ant-design/icons";
 
 import { getProducts, getProductsCount } from "../../functions/product";

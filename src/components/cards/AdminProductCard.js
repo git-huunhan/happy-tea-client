@@ -11,7 +11,7 @@ const AdminProductCard = ({ product, handleRemove }) => {
   // destructure
   const { title, description, images, slug } = product;
   return (
-    <Col span={8}>
+    <Col span={6}>
       <Card
         className="card-product p-3"
         cover={
