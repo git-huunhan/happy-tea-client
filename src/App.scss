@@ -299,6 +299,7 @@ select:focus {
 }
 
 .main-background-color {
+  border-radius: 6px;
   background-color: #fff !important;
 }
 
@@ -354,7 +355,76 @@ select:focus {
   .ant-pagination-disabled:hover .ant-pagination-item-link,
   .ant-pagination-disabled:focus .ant-pagination-item-link {
     color: rgba(0, 0, 0, 0.25);
-    border-color: #d9d9d9;
+    border-color: #e7e7e7;
     cursor: not-allowed;
+  }
+}
+
+.info-product {
+  border-left: 1px solid #ececec;
+  padding-left: 24px;
+}
+
+.image-product{
+  padding-right: 24px;
+}
+
+.slider img {
+  height: 450px;
+  object-fit: cover;
+}
+
+.carousel-root {
+  height: 450px;
+}
+
+.thumb img {
+  height: 70px;
+  object-fit: cover;
+}
+
+.carousel .thumb.selected {
+  border: 1px solid $primary-pink !important;
+  padding: 5px;
+  border-radius: 6px;
+}
+
+.carousel .thumb:hover {
+  border: 1px solid $primary-pink !important;
+  padding: 5px;
+  border-radius: 6px;
+}
+
+.thumbs.animated {
+  margin-bottom: 0px;
+}
+
+.carousel .thumbs-wrapper {
+  margin: 20px 20px 0 20px !important; 
+}
+
+.card-default-image{
+  border: none !important;
+  border-radius: 0px !important;
+  .product-default-image {
+    height: 450px;
+    object-fit: cover;
+  }
+}
+
+.price-product {
+  font-size: 30px;
+  font-weight: bold;
+  background-color: $secondary-pink;
+  border-radius: 10px;
+}
+
+.card-product-home {
+  border: none !important;
+}
+
+.breadcrumb-product {
+  .ant-card-body {
+    padding: 15px 24px 15px 24px;
   }
 }

@@ -1,9 +1,9 @@
 import React from "react";
 import { Card, Col, Rate } from "antd";
-import NumberFormat from "react-number-format";
 
 import DefaultImage from "../../images/default-product.png";
 import { Link } from "react-router-dom";
+import PriceFormat from "../price/PriceFormat";
 
 const { Meta } = Card;
 
@@ -39,17 +39,7 @@ const ProductCard = ({ product }) => {
             description={description}
           />
           <Rate className="mt-1 mb-1 rating" defaultValue={5} />
-          <NumberFormat
-            value={price}
-            displayType={"text"}
-            thousandSeparator={true}
-            renderText={(value) => (
-              <div className="mb-0 d-flex price">
-                {value.replace(/,/g, ".")}{" "}
-                <div className="name-price m-0 ml-1">đ</div>
-              </div>
-            )}
-          />
+          <PriceFormat price={price}/>
         </Card>
       </Link>
     </Col>

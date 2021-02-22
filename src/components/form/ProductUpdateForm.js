@@ -77,12 +77,12 @@ const ProductUpdateForm = ({
         <Select
           placeholder="Vui lòng chọn..."
           onChange={handleShippingChange}
-          value={shipping === "Yes" ? "Yes" : "No"}
+          value={shipping === "Có" ? "Có" : "Không"}
         >
-          <Option key="No" value="No">
+          <Option key="No" value="Không">
             Không
           </Option>
-          <Option key="Yes" value="Yes">
+          <Option key="Yes" value="Có">
             Có
           </Option>
         </Select>

@@ -73,10 +73,10 @@ const ProductCreateForm = ({
           placeholder="Vui lòng chọn..."
           onChange={handleShippingChange}
         >
-          <Option key="No" value="No">
+          <Option key="No" value="Không">
             Không
           </Option>
-          <Option key="Yes" value="Yes">
+          <Option key="Yes" value="Có">
             Có
           </Option>
         </Select>
