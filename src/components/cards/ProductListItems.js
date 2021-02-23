@@ -1,66 +1,72 @@
 import React from "react";
+import { Row, Col } from "antd";
 import { Link } from "react-router-dom";
 
 const ProductListItems = ({ product }) => {
   const { category, subs, topping, sold, shipping, brand } = product;
 
   return (
-    <ul className="list-group">
-      {category && (
-        <li className="list-group-item">
-          Danh mục{" "}
-          <Link
-            to={`/category/${category.slug}`}
-            className="label label-default label-pill pull-xs-right"
-          >
-            {category.name}
-          </Link>
-        </li>
-      )}
+    <div className="mt-2">
+      <Row>
+        <Col span={6}>
+          <p className="label-info-product pt-1 pb-1">Danh mục</p>
+        </Col>
+        {category && (
+          <Col>
+            <div className="category-sub-product p-1">
+              <Link to={`/category/${category.slug}`}>{category.name}</Link>
+            </div>
+          </Col>
+        )}
+      </Row>
 
-      {subs && (
-        <li className="list-group-item">
-          Danh mục con{" "}
-          {subs.map((s) => (
-            <Link
-              key={s._id}
-              to={`/sub/${s.slug}`}
-              className="label label-default label-pill pull-xs-right"
-            >
-              {s.name}
-            </Link>
-          ))}
-        </li>
-      )}
+      <Row>
+        <Col span={6}>
+          <p className="label-info-product pt-1 pb-1">Danh mục con</p>
+        </Col>
+        <Col>
+          {subs && (
+            <div className="d-flex">
+              {subs.map((s) => (
+                <div className="category-sub-product mr-2 p-1">
+                  <Link key={s._id} to={`/sub/${s.slug}`}>
+                    {s.name}
+                  </Link>
+                </div>
+              ))}
+            </div>
+          )}
+        </Col>
+      </Row>
 
-      <li className="list-group-item">
-        Thương hiệu{" "}
-        <span className="label label-default label-pill pull-xs-right">
-          {brand}
-        </span>
-      </li>
+      <Row className="pt-1 pb-1">
+        <Col span={6}>
+          <p className="label-info-product">Thương hiệu</p>
+        </Col>
+        <Col>{brand}</Col>
+      </Row>
 
-      <li className="list-group-item">
-        Vận chuyển{" "}
-        <span className="label label-default label-pill pull-xs-right">
-          {shipping}
-        </span>
-      </li>
+      <Row className="pt-1 pb-1">
+        <Col span={6}>
+          <p className="label-info-product">Topping</p>
+        </Col>
+        <Col>{topping}</Col>
+      </Row>
 
-      <li className="list-group-item">
-        Topping{" "}
-        <span className="label label-default label-pill pull-xs-right">
-          {topping}
-        </span>
-      </li>
+      <Row className="pt-1 pb-1">
+        <Col span={6}>
+          <p className="label-info-product">Vận chuyển</p>
+        </Col>
+        <Col>{shipping}</Col>
+      </Row>
 
-      <li className="list-group-item">
-        Đã bán{" "}
-        <span className="label label-default label-pill pull-xs-right">
-          {sold}
-        </span>
-      </li>
-    </ul>
+      <Row className="pt-1 pb-1">
+        <Col span={6}>
+          <p className="label-info-product">Đã bán</p>
+        </Col>
+        <Col>{sold}</Col>
+      </Row>
+    </div>
   );
 };
 

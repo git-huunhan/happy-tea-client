@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Row, Pagination } from "antd";
-import { StarFilled, FundFilled } from "@ant-design/icons";
+import { StarFilled } from "@ant-design/icons";
 
 import { getProducts, getProductsCount } from "../../functions/product";
 import ProductCard from "../../components/cards/ProductCard";

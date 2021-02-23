@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Col, Row, Rate, Button, Image, Breadcrumb } from "antd";
+import { Card, Col, Row, Rate, Button, Image, Breadcrumb, Tabs } from "antd";
 import { Link } from "react-router-dom";
 import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
@@ -9,19 +9,21 @@ import DefaultImage from "../../images/default-product.png";
 import PriceFormat from "../price/PriceFormat";
 import ProductListItems from "./ProductListItems";
 
+const { TabPane } = Tabs;
+
 const SingleProduct = ({ product }) => {
-  const { title, images, price, category } = product;
+  const { title, images, price, category, description } = product;
 
   return (
     <div>
-      <Card className="card-product-home breadcrumb-product">
+      <Card className="breadcrumb-product">
         <Row>
           <Breadcrumb>
-            <Breadcrumb.Item>
+            <Breadcrumb.Item className="text-trans">
               <Link to="/">Trang chủ</Link>
-            </Breadcrumb.Item>
-            {category && <Breadcrumb.Item>{category.name}</Breadcrumb.Item>}
-            <Breadcrumb.Item>{title}</Breadcrumb.Item>
+            </Breadcrumb.Item >
+            {category && <Breadcrumb.Item className="text-trans">{category.name}</Breadcrumb.Item>}
+            <Breadcrumb.Item className="text-trans">{title}</Breadcrumb.Item>
           </Breadcrumb>
         </Row>
       </Card>
@@ -51,23 +53,42 @@ const SingleProduct = ({ product }) => {
           </Col>
           <Col span={14} className="info-product">
             <Row>
-              <h3>{title}</h3>
+              <h3 className="text-trans">{title}</h3>
             </Row>
-            <Row className="price-product p-3">
-              <PriceFormat price={price} />
+            <div className="price-product p-3">
+              <Row>
+                <PriceFormat price={price} />
+              </Row>
+
+              <Row>
+                <p className="tip-price mb-0">Ở đâu rẻ hơn, Happy Tea hoàn tiền</p>
+              </Row>
+            </div>
+
+            <Row>
+              <Col>
+                <Rate className="mt-2 mb-2" disabled defaultValue={5} />
+              </Col>
+              <Col className="d-flex align-items-center justify-content-center">
+                <p className="mb-0 ml-2">(4 đánh giá)</p>
+              </Col>
             </Row>
 
             <ProductListItems product={product} />
 
             <Row className="button-product">
               <Link>
-                <Button size="large" icon={<ShoppingCartOutlined />}>
+                <Button
+                  type="primary"
+                  className="text-trans"
+                  size="large"
+                  icon={<ShoppingCartOutlined />}
+                >
                   Thêm vào giỏ hàng
                 </Button>
               </Link>
-              <Link to="/">
+              <Link className="btn-wishlist ml-3" to="/">
                 <Button
-                  className="ml-3"
                   size="large"
                   icon={<HeartOutlined />}
                 ></Button>
@@ -75,6 +96,18 @@ const SingleProduct = ({ product }) => {
             </Row>
           </Col>
         </Row>
+      </Card>
+
+      <Card className="description-card mt-3">
+        <Tabs type="card">
+          <TabPane tab="Mô tả" key="1">
+            {description && description}
+          </TabPane>
+
+          <TabPane tab="Thêm" key="2">
+            Gọi cho chúng tôi: xxxx xxx xxx để biết thêm về sản phẩm.
+          </TabPane>
+        </Tabs>
       </Card>
     </div>
   );

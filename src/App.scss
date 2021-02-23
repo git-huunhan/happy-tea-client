@@ -362,11 +362,11 @@ select:focus {
 
 .info-product {
   border-left: 1px solid #ececec;
-  padding-left: 24px;
+  padding: 24px;
 }
 
-.image-product{
-  padding-right: 24px;
+.image-product {
+  padding: 24px;
 }
 
 .slider img {
@@ -400,10 +400,10 @@ select:focus {
 }
 
 .carousel .thumbs-wrapper {
-  margin: 20px 20px 0 20px !important; 
+  margin: 20px 20px 0 20px !important;
 }
 
-.card-default-image{
+.card-default-image {
   border: none !important;
   border-radius: 0px !important;
   .product-default-image {
@@ -421,10 +421,72 @@ select:focus {
 
 .card-product-home {
   border: none !important;
+  .ant-card-body {
+    padding: 0 !important;
+  }
 }
 
 .breadcrumb-product {
+  border: none !important;
+  font-weight: 500;
   .ant-card-body {
     padding: 15px 24px 15px 24px;
   }
+
+  .ant-breadcrumb > span:last-child {
+    color: $primary-pink;
+  } 
 }
+
+.carousel .carousel-status,
+.carousel .control-dots {
+  display: none;
+}
+
+.description-card {
+  border: none !important;
+}
+
+.category-sub-product {
+  background-color: $secondary-pink;
+  border-radius: 6px;
+}
+
+.category-sub-product a {
+  color: $primary-pink;
+}
+
+.button-product {
+  left: 0;
+  bottom: 0;
+}
+
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: $primary-pink !important;
+}
+
+.ant-tabs-tab:hover {
+  color: $primary-pink !important;
+}
+
+.label-info-product {
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.tip-price {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn-wishlist {
+  .ant-btn:hover {
+    color: $primary-pink;
+    border-color: $primary-pink;
+  }
+}
+
+.text-trans {
+  text-transform: capitalize;
+}
+

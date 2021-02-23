@@ -3,6 +3,7 @@ import { Row } from "antd";
 
 import { getProduct } from "../functions/product";
 import SingleProduct from "../components/cards/SingleProduct";
+import LoadingCard from "../components/cards/LoadingCard";
 
 const Product = ({ match }) => {
   const [product, setProduct] = useState({});
@@ -19,7 +20,14 @@ const Product = ({ match }) => {
     <div className="body-home">
       <div className="container pt-3 pb-3">
         <SingleProduct product={product} />
-        <Row>Related products</Row>
+
+        <div className="main-background-color mt-3">
+          <h4 className="pt-3 ml-3 header-text-home">Sản phẩm có liên quan</h4>
+
+          <Row>
+            <LoadingCard count={4} />
+          </Row>
+        </div>
       </div>
     </div>
   );
