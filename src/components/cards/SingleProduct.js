@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Col, Row, Rate, Button, Image, Breadcrumb, Tabs } from "antd";
 import { Link } from "react-router-dom";
-import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import { HeartOutlined, ShoppingCartOutlined, StarOutlined } from "@ant-design/icons";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 
@@ -32,7 +32,7 @@ const SingleProduct = ({ product }) => {
         <Row>
           <Col span={10} className="image-product">
             {images && images.length ? (
-              <Carousel>
+              <Carousel showThumbs={false}>
                 {images &&
                   images.map((i) => (
                     <Image src={i.url} key={i.public_id} alt="" />
@@ -77,7 +77,7 @@ const SingleProduct = ({ product }) => {
             <ProductListItems product={product} />
 
             <Row className="button-product">
-              <Link>
+              <Link to="/">
                 <Button
                   type="primary"
                   className="text-trans"
@@ -91,6 +91,13 @@ const SingleProduct = ({ product }) => {
                 <Button
                   size="large"
                   icon={<HeartOutlined />}
+                ></Button>
+              </Link>
+
+              <Link className="btn-wishlist ml-3" to="/">
+                <Button
+                  size="large"
+                  icon={<StarOutlined />}
                 ></Button>
               </Link>
             </Row>

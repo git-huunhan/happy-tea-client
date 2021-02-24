@@ -28,10 +28,8 @@ const ProductListItems = ({ product }) => {
           {subs && (
             <div className="d-flex">
               {subs.map((s) => (
-                <div className="category-sub-product mr-2 p-1">
-                  <Link key={s._id} to={`/sub/${s.slug}`}>
-                    {s.name}
-                  </Link>
+                <div key={s._id} className="category-sub-product mr-2 p-1">
+                  <Link to={`/sub/${s.slug}`}>{s.name}</Link>
                 </div>
               ))}
             </div>

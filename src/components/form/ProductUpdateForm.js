@@ -16,7 +16,6 @@ const tailLayout = {
 const ProductUpdateForm = ({
   handleSubmit,
   handleChange,
-  setValues,
   values,
   handleShippingChange,
   handleToppingChange,
@@ -33,7 +32,6 @@ const ProductUpdateForm = ({
     title,
     description,
     price,
-    subs,
     shipping,
     toppings,
     brands,
