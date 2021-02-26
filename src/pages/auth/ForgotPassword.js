@@ -3,7 +3,6 @@ import { Button, Row, Col, Input, Form } from "antd";
 import { useSelector } from "react-redux";
 
 import { auth } from "../../firebase";
-import "../../App.scss";
 import Loading from "../../components/loading/Loading";
 import Notification from "../../components/notification/Notification";
 

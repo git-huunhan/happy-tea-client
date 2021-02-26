@@ -4,7 +4,6 @@ import { Button, Row, Col, Card, Input, Form } from "antd";
 
 import UserNav from "../../components/nav/UserNav";
 import { auth } from "../../firebase";
-import "../../App.scss";
 import Loading from "../../components/loading/Loading";
 import Notification from "../../components/notification/Notification";
 

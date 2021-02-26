@@ -5,7 +5,6 @@ import { GoogleOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
 import { auth, googleAuthProvider } from "../../firebase";
-import "../../App.scss";
 import { createOrUpdateUser } from "../../functions/auth";
 import Loading from "../../components/loading/Loading";
 import Notification from "../../components/notification/Notification";

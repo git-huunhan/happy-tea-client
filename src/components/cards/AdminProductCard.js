@@ -13,7 +13,7 @@ const AdminProductCard = ({ product, handleRemove }) => {
   return (
     <Col span={6}>
       <Card
-        className="card-product p-3"
+        className="admin-card-product p-3"
         cover={
           <img
             draggable="false"

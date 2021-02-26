@@ -39,7 +39,10 @@ const ProductCard = ({ product }) => {
             description={description}
           />
           <Rate className="mt-1 mb-1 rating" defaultValue={5} />
+          <Col className="price-product-home">
           <PriceFormat price={price}/>
+          </Col>
+         
         </Card>
       </Link>
     </Col>

@@ -243,7 +243,30 @@ select:focus {
 }
 
 .card-product > .ant-card-body {
-  padding: 15px 0 15px 0 !important;
+  padding: 15px 0 0 0;
+}
+
+.admin-card-product > .ant-card-body {
+  padding: 15px 0 15px 0;
+}
+
+.admin-card-product {
+  border-radius: 0px !important;
+  border: none !important;
+  transition: 0.2s !important;
+  .ant-card-meta-title {
+    text-transform: capitalize;
+  }
+}
+
+.admin-card-product:hover {
+  box-shadow: #64646f33 0px 7px 29px 0px;
+  z-index: 1 !important;
+  transition: 0.2s !important;
+}
+
+.admin-card-product > .ant-card-actions > li {
+  margin: 12px 0 0 0;
 }
 
 .card-product {
@@ -323,7 +346,7 @@ select:focus {
 }
 
 .skeleton-product {
-  height: 375px;
+  height: 360px;
 }
 
 .pagination-product {
@@ -490,3 +513,7 @@ select:focus {
   text-transform: capitalize;
 }
 
+.price-product-home {
+  font-size: 18px;
+  font-weight: 500;
+}

@@ -9,8 +9,6 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 import firebase from "firebase";
 import { useDispatch, useSelector } from "react-redux";
 
-import "../../App.scss";
-
 const { SubMenu, Item } = Menu;
 
 const Header = () => {

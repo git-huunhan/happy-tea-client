@@ -7,8 +7,6 @@ import {
   MailOutlined,
 } from "@ant-design/icons";
 
-import "../../App.scss";
-
 const Footer = () => {
   return (
     <div className="main-background-color">
