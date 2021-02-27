@@ -1,18 +1,23 @@
 import React from "react";
-import { Card, Col, Row, Rate, Button, Image, Breadcrumb, Tabs } from "antd";
+import { Card, Col, Row, Button, Image, Breadcrumb, Tabs } from "antd";
 import { Link } from "react-router-dom";
-import { HeartOutlined, ShoppingCartOutlined, StarOutlined } from "@ant-design/icons";
+import {
+  HeartOutlined,
+  ShoppingCartOutlined,
+} from "@ant-design/icons";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 
 import DefaultImage from "../../images/default-product.png";
 import PriceFormat from "../price/PriceFormat";
 import ProductListItems from "./ProductListItems";
+import Rating from "../rating/Rating";
+import RatingModal from "../modal/RatingModal";
 
 const { TabPane } = Tabs;
 
 const SingleProduct = ({ product }) => {
-  const { title, images, price, category, description } = product;
+  const { title, images, price, category, description, _id } = product;
 
   return (
     <div>
@@ -21,8 +26,12 @@ const SingleProduct = ({ product }) => {
           <Breadcrumb>
             <Breadcrumb.Item className="text-trans">
               <Link to="/">Trang chủ</Link>
-            </Breadcrumb.Item >
-            {category && <Breadcrumb.Item className="text-trans">{category.name}</Breadcrumb.Item>}
+            </Breadcrumb.Item>
+            {category && (
+              <Breadcrumb.Item className="text-trans">
+                {category.name}
+              </Breadcrumb.Item>
+            )}
             <Breadcrumb.Item className="text-trans">{title}</Breadcrumb.Item>
           </Breadcrumb>
         </Row>
@@ -61,14 +70,17 @@ const SingleProduct = ({ product }) => {
               </Row>
 
               <Row>
-                <p className="tip-price mb-0">Ở đâu rẻ hơn, Happy Tea hoàn tiền</p>
+                <p className="tip-price mb-0">
+                  Ở đâu rẻ hơn, Happy Tea hoàn tiền
+                </p>
               </Row>
             </div>
 
             <Row>
               <Col>
-                <Rate className="mt-2 mb-2" disabled defaultValue={5} />
+                <div className="mt-3 mb-2"></div>
               </Col>
+
               <Col className="d-flex align-items-center justify-content-center">
                 <p className="mb-0 ml-2">(4 đánh giá)</p>
               </Col>
@@ -88,18 +100,12 @@ const SingleProduct = ({ product }) => {
                 </Button>
               </Link>
               <Link className="btn-wishlist ml-3" to="/">
-                <Button
-                  size="large"
-                  icon={<HeartOutlined />}
-                ></Button>
+                <Button size="large" icon={<HeartOutlined />}></Button>
               </Link>
 
-              <Link className="btn-wishlist ml-3" to="/">
-                <Button
-                  size="large"
-                  icon={<StarOutlined />}
-                ></Button>
-              </Link>
+              <RatingModal>
+                <Rating id={_id} size="30px" />
+              </RatingModal>
             </Row>
           </Col>
         </Row>
