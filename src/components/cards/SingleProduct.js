@@ -16,7 +16,7 @@ import RatingModal from "../modal/RatingModal";
 
 const { TabPane } = Tabs;
 
-const SingleProduct = ({ product }) => {
+const SingleProduct = ({ product, onStarClick, star }) => {
   const { title, images, price, category, description, _id } = product;
 
   return (
@@ -104,7 +104,7 @@ const SingleProduct = ({ product }) => {
               </Link>
 
               <RatingModal>
-                <Rating id={_id} size="30px" />
+                <Rating id={_id} size="30px" changeRating={onStarClick} rating={star}/>
               </RatingModal>
             </Row>
           </Col>

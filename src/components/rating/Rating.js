@@ -1,15 +1,13 @@
 import React from "react";
 import StarRatings from "react-star-ratings";
 
-const Rating = ({id, size}) => {
+const Rating = ({ id, size, changeRating, rating }) => {
   return (
     <StarRatings
       name={id}
       numberOfStars={5}
-      rating={2}
-      changeRating={(newRating, name) =>
-        console.log("newRating", newRating, "name", name)
-      }
+      rating={rating}
+      changeRating={changeRating}
       isSelectable={true}
       starDimension={size}
       starRatedColor="#fadb14"
