@@ -19,14 +19,16 @@ const RatingModal = ({ children }) => {
 
   return (
     <>
-      <Button
-        className="btn-wishlist ml-3"
-        size="large"
-        onClick={handleModal}
-        icon={<StarOutlined />}
-      />
+      <div className="btn-rating ml-3">
+        <Button
+          size="large"
+          onClick={handleModal}
+          icon={<StarOutlined />}
+        />
+      </div>
 
       <Modal
+        className="product-modal"
         title="Đánh giá sản phẩm"
         centered
         visible={modalVisible}

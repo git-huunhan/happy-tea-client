@@ -458,7 +458,7 @@ select:focus {
 
   .ant-breadcrumb > span:last-child {
     color: $primary-pink;
-  } 
+  }
 }
 
 .carousel .carousel-status,
@@ -509,6 +509,14 @@ select:focus {
   }
 }
 
+.btn-rating {
+  .ant-btn:hover,
+  .ant-btn:focus {
+    color: $primary-pink;
+    border-color: $primary-pink;
+  }
+}
+
 .text-trans {
   text-transform: capitalize;
 }
@@ -516,4 +524,25 @@ select:focus {
 .price-product-home {
   font-size: 18px;
   font-weight: 500;
+}
+
+.product-modal {
+  .ant-modal-content {
+    border-radius: 6px;
+    .ant-modal-header {
+      border-radius: 6px 6px 0 0;
+    }
+  
+    .ant-modal-footer {
+      border-radius: 0 0 6px 6px;
+    }
+  }
+  .ant-btn:hover {
+    color: $primary-pink;
+    border-color: $primary-pink;
+  }
+
+  .ant-btn-primary:hover {
+    color: #fff;
+  }
 }

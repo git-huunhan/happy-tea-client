@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Row } from "antd";
+import { useSelector } from "react-redux";
 
-import { getProduct } from "../functions/product";
+import { getProduct, productStar } from "../functions/product";
 import SingleProduct from "../components/cards/SingleProduct";
 import LoadingCard from "../components/cards/LoadingCard";
 
@@ -9,17 +10,33 @@ const Product = ({ match }) => {
   const [product, setProduct] = useState({});
   const [star, setStar] = useState(0);
 
+  const { user } = useSelector((state) => ({ ...state }));
+
   const { slug } = match.params;
 
   useEffect(() => {
     loadSingleProduct();
   }, [slug]);
 
+  useEffect(() => {
+    if (product.ratings && user) {
+      let existingRatingObject = product.ratings.find(
+        (ele) => ele.postedBy.toString() === user._id.toString()
+      );
+      existingRatingObject && setStar(existingRatingObject.star); // current user star
+    }
+  });
+
   const loadSingleProduct = () =>
     getProduct(slug).then((res) => setProduct(res.data));
 
   const onStarClick = (newRating, name) => {
-    console.table(newRating, name);
+    setStar(newRating);
+    // console.table(newRating, name);
+    productStar(name, newRating, user.token).then((res) => {
+      console.log("rating click", res.data);
+      loadSingleProduct();
+    });
   };
 
   return (
