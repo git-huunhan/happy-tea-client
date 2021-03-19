@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { getProduct, productStar } from "../functions/product";
 import SingleProduct from "../components/cards/SingleProduct";
 import LoadingCard from "../components/cards/LoadingCard";
+import Notification from "../components/notification/Notification";
 
 const Product = ({ match }) => {
   const [product, setProduct] = useState({});
@@ -35,8 +36,10 @@ const Product = ({ match }) => {
     // console.table(newRating, name);
     productStar(name, newRating, user.token).then((res) => {
       console.log("rating click", res.data);
+      Notification("success", "Cảm ơn bạn đã đánh giá!");
       loadSingleProduct();
     });
+    
   };
 
   return (

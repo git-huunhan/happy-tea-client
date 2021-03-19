@@ -1,10 +1,7 @@
 import React from "react";
 import { Card, Col, Row, Button, Image, Breadcrumb, Tabs } from "antd";
 import { Link } from "react-router-dom";
-import {
-  HeartOutlined,
-  ShoppingCartOutlined,
-} from "@ant-design/icons";
+import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 
@@ -13,6 +10,7 @@ import PriceFormat from "../price/PriceFormat";
 import ProductListItems from "./ProductListItems";
 import Rating from "../rating/Rating";
 import RatingModal from "../modal/RatingModal";
+import { showAverage } from "../../functions/rating";
 
 const { TabPane } = Tabs;
 
@@ -78,11 +76,15 @@ const SingleProduct = ({ product, onStarClick, star }) => {
 
             <Row>
               <Col>
-                <div className="mt-3 mb-2"></div>
-              </Col>
-
-              <Col className="d-flex align-items-center justify-content-center">
-                <p className="mb-0 ml-2">(4 đánh giá)</p>
+                <div className="mt-3 mb-2">
+                  {product && product.ratings && product.ratings.length > 0 ? (
+                    showAverage(product, "25px")
+                  ) : (
+                    <div className="no-rating mt-3 mb-2 pt-1 pb-1">
+                      Chưa có đánh giá
+                    </div>
+                  )}
+                </div>
               </Col>
             </Row>
 
@@ -104,7 +106,12 @@ const SingleProduct = ({ product, onStarClick, star }) => {
               </Link>
 
               <RatingModal>
-                <Rating id={_id} size="30px" changeRating={onStarClick} rating={star}/>
+                <Rating
+                  id={_id}
+                  size="30px"
+                  changeRating={onStarClick}
+                  rating={star}
+                />
               </RatingModal>
             </Row>
           </Col>

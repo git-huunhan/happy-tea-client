@@ -32,13 +32,8 @@ const RatingModal = ({ children }) => {
         title="Đánh giá sản phẩm"
         centered
         visible={modalVisible}
-        onOk={() => {
-          setModalVisible(false);
-          Notification("success", "Thanks for your review");
-        }}
         onCancel={() => setModalVisible(false)}
-        okText="Đồng ý"
-        cancelText="Thoát"
+        footer={null}
       >
         {children}
       </Modal>

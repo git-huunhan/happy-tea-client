@@ -5,7 +5,7 @@ import Rating from "../components/rating/Rating";
 // 1 + 4 = 5
 // 5 + 6 = 11
 // 11 + 7 = 18
-export const showAverage = (p) => {
+export const showAverage = (p, size) => {
   if (p && p.ratings) {
     let ratingsArray = p && p.ratings;
     let total = [];
@@ -20,9 +20,10 @@ export const showAverage = (p) => {
     console.log("result", result);
 
     return (
-      <div className="text-center pt-1 pb-3">
-        <span>
-          <Rating rating={result} />
+      <div className="text-center pt-1 pb-1">
+        <span className="d-flex">
+          <Rating rating={result} size={size}/>
+          <div className="ml-2">({p.ratings.length} đánh giá)</div>
         </span>
       </div>
     );

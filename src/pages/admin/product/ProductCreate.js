@@ -11,9 +11,9 @@ import FileUpload from "../../../components/form/FileUpload";
 import Loading from "../../../components/loading/Loading";
 
 const initialState = {
-  title: "Trà đào",
-  description: "Hihi trà này ngon vl",
-  price: "15000",
+  title: "",
+  description: "",
+  price: "",
   categories: [],
   category: "",
   subs: [],

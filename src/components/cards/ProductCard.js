@@ -1,9 +1,10 @@
 import React from "react";
-import { Card, Col, Rate } from "antd";
+import { Card, Col, Row, Rate } from "antd";
 
 import DefaultImage from "../../images/default-product.png";
 import { Link } from "react-router-dom";
 import PriceFormat from "../price/PriceFormat";
+import { showAverage } from "../../functions/rating";
 
 const { Meta } = Card;
 
@@ -38,11 +39,23 @@ const ProductCard = ({ product }) => {
             title={title}
             description={description}
           />
-          <Rate className="mt-1 mb-1 rating" defaultValue={5} />
+          <Row>
+            <Col>
+              <div className="mt-3 mb-2">
+                {product && product.ratings && product.ratings.length > 0 ? (
+                  showAverage(product, "20px")
+                ) : (
+                  <div className="no-rating-home mt-3 mb-2 pt-1 pb-1">
+                    Chưa có đánh giá
+                  </div>
+                )}
+              </div>
+            </Col>
+          </Row>
+
           <Col className="price-product-home">
-          <PriceFormat price={price}/>
+            <PriceFormat price={price} />
           </Col>
-         
         </Card>
       </Link>
     </Col>
