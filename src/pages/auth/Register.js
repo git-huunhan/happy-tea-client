@@ -27,7 +27,7 @@ const Register = ({ history }) => {
     };
 
     await auth.sendSignInLinkToEmail(email, config);
-    Notification("success", `Hi ${email}. Gửi email cho m rồi kìa th lz!`);
+    Notification("success", `Hi ${email}. Bạn vui lòng vào email để xác nhận!`);
 
     // save user email in local storage
     window.localStorage.setItem("emailForRegistration", email);
