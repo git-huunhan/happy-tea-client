@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 
 import { getProduct, productStar, getRelated } from "../functions/product";
 import SingleProduct from "../components/cards/SingleProduct";
-import LoadingCard from "../components/cards/LoadingCard";
 import Notification from "../components/notification/Notification";
 import ProductCard from "../components/cards/ProductCard";
 

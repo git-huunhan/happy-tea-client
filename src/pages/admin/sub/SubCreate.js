@@ -42,6 +42,12 @@ const SubCreate = () => {
     loadSubs();
   }, []);
 
+  useEffect(() => {
+    window.scrollTo({
+      top: "0",
+    });
+  });
+
   const loadCategories = () =>
     getCategories().then((c) => setCategories(c.data));
 

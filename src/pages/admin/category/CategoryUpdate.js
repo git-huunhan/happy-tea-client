@@ -18,6 +18,12 @@ const CategoryUpdate = ({ history, match }) => {
     loadCategory();
   }, []);
 
+  useEffect(() => {
+    window.scrollTo({
+      top: "0",
+    });
+  });
+
   const loadCategory = () =>
     getCategory(match.params.slug).then((c) => setName(c.data.name));
 

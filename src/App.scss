@@ -554,3 +554,17 @@ select:focus {
 .no-rating-home {
   height: 34px;
 }
+
+.header-dropdown {
+  height: 40px;
+  font-size: 15px;
+}
+
+.ant-dropdown-menu-item-group-title {
+  color: $primary-pink !important;
+  font-weight: bold;
+}
+
+.ant-dropdown-menu-item:hover {
+  background-color: $secondary-pink !important;
+}

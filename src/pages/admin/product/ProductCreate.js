@@ -46,6 +46,12 @@ const ProductCreate = () => {
     loadCategories();
   }, []);
 
+  useEffect(() => {
+    window.scrollTo({
+      top: "0",
+    });
+  });
+
   const loadCategories = () =>
     getCategories().then((c) => setValues({ ...values, categories: c.data }));
 

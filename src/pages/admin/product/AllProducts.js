@@ -20,6 +20,12 @@ const AllProducts = () => {
     loadAllProducts();
   }, []);
 
+  useEffect(() => {
+    window.scrollTo({
+      top: "0",
+    });
+  });
+
   const loadAllProducts = () => {
     setLoading(true);
     getProductsByCount(100)

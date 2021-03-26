@@ -28,6 +28,12 @@ const CategoryCreate = () => {
     loadCategories();
   }, []);
 
+  useEffect(() => {
+    window.scrollTo({
+      top: "0",
+    });
+  });
+
   const loadCategories = () =>
     getCategories().then((c) => setCategories(c.data));
 

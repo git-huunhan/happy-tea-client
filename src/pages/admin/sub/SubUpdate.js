@@ -23,6 +23,12 @@ const SubUpdate = ({ match, history }) => {
     loadSub();
   }, []);
 
+  useEffect(() => {
+    window.scrollTo({
+      top: "0",
+    });
+  });
+
   const loadCategories = () =>
     getCategories().then((c) => setCategories(c.data));
 

@@ -9,6 +9,8 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 import firebase from "firebase";
 import { useDispatch, useSelector } from "react-redux";
 
+import CategoryList from "../category/CategoryList";
+
 const { SubMenu, Item } = Menu;
 
 const Header = () => {
@@ -33,14 +35,20 @@ const Header = () => {
       <div className="container">
         <Row>
           <Col span={12}>
-            <a className="navbar-brand" href="/">
-              <img
-                src="https://firebasestorage.googleapis.com/v0/b/happy-tea-1a89b.appspot.com/o/Logo.svg?alt=media&token=6870761d-ab2f-4a2a-9b92-e25c4a5affca"
-                alt="logo"
-                className="logo"
-                draggable="false"
-              />
-            </a>
+           
+              <div className="float-left">
+                <a className="navbar-brand p-0" href="/">
+                  <img
+                    src="https://firebasestorage.googleapis.com/v0/b/happy-tea-1a89b.appspot.com/o/Logo.svg?alt=media&token=6870761d-ab2f-4a2a-9b92-e25c4a5affca"
+                    alt="logo"
+                    className="logo"
+                    draggable="false"
+                  />
+                </a>
+              </div>
+              <div className="float-left header-dropdown d-flex align-items-center ml-4">
+                <CategoryList />
+              </div>
           </Col>
 
           <Col span={12}>
