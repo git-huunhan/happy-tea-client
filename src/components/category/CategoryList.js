@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, Dropdown } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 
 import { getCategories } from "../../functions/category";
 import { getSubs } from "../../functions/sub";
 
+const { ItemGroup, Item } = Menu;
+
 const CategoryList = () => {
   const [categories, setCategories] = useState([]);
-
   const [subs, setSubs] = useState([]);
+
+  let location = useLocation();
 
   useEffect(() => {
     getCategories().then((c) => {
@@ -22,31 +25,29 @@ const CategoryList = () => {
   }, []);
 
   const showCategories = () => (
-    <Menu>
-      <Menu.ItemGroup title="Danh mục">
+    <Menu selectedKeys={[location.pathname]} mode="vertical">
+      <ItemGroup title="Danh mục">
         {categories.map((c) => (
-          <Menu.Item key={c._id}>
-            <Link to={`/category/${c.slug}`}>{c.name}</Link>
-          </Menu.Item>
+          <Item key={`/category/${c.slug}`}>
+            <a href={`/category/${c.slug}`}>{c.name}</a>
+          </Item>
         ))}
-      </Menu.ItemGroup>
+      </ItemGroup>
 
-      <Menu.ItemGroup title="Danh mục con">
+      <ItemGroup title="Danh mục con">
         {subs.map((s) => (
-          <Menu.Item key={s._id}>{s.name}</Menu.Item>
+          <Item key={s._id}>{s.name}</Item>
         ))}
-      </Menu.ItemGroup>
+      </ItemGroup>
     </Menu>
   );
 
   return (
-    <div>
-      <Dropdown overlay={showCategories}>
-        <a>
-          Danh mục Sản phẩm <DownOutlined />
-        </a>
-      </Dropdown>
-    </div>
+    <Dropdown overlay={showCategories()}>
+      <div>
+        Danh mục Sản phẩm <DownOutlined />
+      </div>
+    </Dropdown>
   );
 };
 

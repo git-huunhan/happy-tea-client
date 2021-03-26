@@ -51,12 +51,6 @@ const ProductUpdate = ({ match, history }) => {
     loadCategories();
   }, []);
 
-  useEffect(() => {
-    window.scrollTo({
-      top: "0",
-    });
-  });
-
   const loadProduct = () => {
     getProduct(slug).then((p) => {
       // console.log("single product", p);

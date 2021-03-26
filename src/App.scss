@@ -532,7 +532,7 @@ select:focus {
     .ant-modal-header {
       border-radius: 6px 6px 0 0;
     }
-  
+
     .ant-modal-footer {
       border-radius: 0 0 6px 6px;
     }
@@ -566,5 +566,14 @@ select:focus {
 }
 
 .ant-dropdown-menu-item:hover {
+  background-color: $secondary-pink !important;
+}
+
+.ant-dropdown-menu-item > a:hover {
+  color: $primary-pink !important;
+}
+
+.ant-dropdown-menu-item-selected > a {
+  color: $primary-pink !important;
   background-color: $secondary-pink !important;
 }

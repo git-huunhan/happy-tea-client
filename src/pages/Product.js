@@ -69,21 +69,16 @@ const Product = ({ match }) => {
             {related.length ? (
               related.map((r) => <ProductCard product={r} />)
             ) : (
-              <Col span={24} className="d-flex justify-content-center pb-4" >
-               <Empty
-                image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
-                draggable="false"
-                imageStyle={{
-                  height: 100,
-                }}
-                description={
-                  <span>
-                    Không có sản phẩm liên quan.
-                  </span>
-                }
-              />
+              <Col span={24} className="d-flex justify-content-center pb-4">
+                <Empty
+                  image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                  draggable="false"
+                  imageStyle={{
+                    height: 100,
+                  }}
+                  description={<span>Không có sản phẩm liên quan.</span>}
+                />
               </Col>
-             
             )}
           </Row>
         </div>
