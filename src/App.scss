@@ -558,6 +558,9 @@ select:focus {
 .header-dropdown {
   height: 40px;
   font-size: 15px;
+  font-weight: bold;
+  margin-top: 1px;
+  cursor: pointer;
 }
 
 .ant-dropdown-menu-item-group-title {
@@ -577,3 +580,4 @@ select:focus {
   color: $primary-pink !important;
   background-color: $secondary-pink !important;
 }
+

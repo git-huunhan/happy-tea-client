@@ -34,7 +34,7 @@ const Header = () => {
     <div className="main-background-color pt-1 pb-1">
       <div className="container">
         <Row>
-          <Col span={12}>
+          <Col span={12} className="d-flex align-items-center">
            
               <div className="float-left">
                 <a className="navbar-brand p-0" href="/">
