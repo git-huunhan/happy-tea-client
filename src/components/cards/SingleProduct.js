@@ -27,7 +27,7 @@ const SingleProduct = ({ product, onStarClick, star }) => {
             </Breadcrumb.Item>
             {category && (
               <Breadcrumb.Item className="text-trans">
-                {category.name}
+                <Link to={`/category/${category.slug}`}>{category.name}</Link>
               </Breadcrumb.Item>
             )}
             <Breadcrumb.Item className="text-trans">{title}</Breadcrumb.Item>

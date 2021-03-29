@@ -25,7 +25,7 @@ const CategoryList = () => {
   }, []);
 
   const showCategories = () => (
-    <Menu selectedKeys={[location.pathname]} mode="vertical">
+    <Menu selectedKeys={[location.pathname]}>
       <ItemGroup title="Danh mục">
         {categories.map((c) => (
           <Item key={`/category/${c.slug}`}>
