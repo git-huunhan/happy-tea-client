@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Row, Col } from "antd";
+import { Row, Col, Card, Breadcrumb } from "antd";
 
 import { getCategory } from "../../functions/category";
 import ProductCard from "../../components/cards/ProductCard";
@@ -25,7 +25,22 @@ const CategoryHome = ({ match }) => {
   return (
     <div className="body-home">
       <div className="container pt-3 pb-3">
-        <div className="main-background-color">
+        <Card className="breadcrumb-product">
+          <Row>
+            <Breadcrumb>
+              <Breadcrumb.Item className="text-trans">
+                <Link to="/">Trang chủ</Link>
+              </Breadcrumb.Item>
+              {category && (
+                <Breadcrumb.Item className="text-trans">
+                  {category.name}
+                </Breadcrumb.Item>
+              )}
+            </Breadcrumb>
+          </Row>
+        </Card>
+
+        <div className="main-background-color mt-3">
           <Row>
             <Col>
               {loading ? (
