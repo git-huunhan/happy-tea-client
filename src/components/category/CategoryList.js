@@ -19,8 +19,8 @@ const CategoryList = () => {
       setCategories(c.data);
     });
 
-    getSubs().then((c) => {
-      setSubs(c.data);
+    getSubs().then((s) => {
+      setSubs(s.data);
     });
   }, []);
 
@@ -36,7 +36,9 @@ const CategoryList = () => {
 
       <ItemGroup title="Danh mục con">
         {subs.map((s) => (
-          <Item key={s._id}>{s.name}</Item>
+          <Item key={`/sub/${s.slug}`}>
+            <a href={`/sub/${s.slug}`}>{s.name}</a>
+          </Item>
         ))}
       </ItemGroup>
     </Menu>

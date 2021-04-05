@@ -26,6 +26,7 @@ import AllProducts from "./pages/admin/product/AllProducts";
 import ProductUpdate from "./pages/admin/product/ProductUpdate";
 import Product from "./pages/Product";
 import CategoryHome from "./pages/category/CategoryHome";
+import SubHome from "./pages/sub/SubHome";
 
 import { auth } from "./firebase";
 import { currentUser } from "./functions/auth";
@@ -91,6 +92,7 @@ const App = () => {
         />
         <Route exact path="/product/:slug" component={Product} />
         <Route exact path="/category/:slug" component={CategoryHome} />
+        <Route exact path="/sub/:slug" component={SubHome} />
       </Switch>
 
       <Footer />

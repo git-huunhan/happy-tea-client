@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Row, Col, Card, Breadcrumb, Empty } from "antd";
 
-import { getCategory } from "../../functions/category";
+import { getSub } from "../../functions/sub";
 import ProductCard from "../../components/cards/ProductCard";
 
-const CategoryHome = ({ match }) => {
-  const [category, setCategory] = useState({});
+const SubHome = ({ match }) => {
+  const [sub, setSub] = useState({});
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -14,9 +14,9 @@ const CategoryHome = ({ match }) => {
 
   useEffect(() => {
     setLoading(true);
-    getCategory(slug).then((res) => {
+    getSub(slug).then((res) => {
       console.log(JSON.stringify(res.data, null, 4));
-      setCategory(res.data.category);
+      setSub(res.data.sub);
       setProducts(res.data.products);
       setLoading(false);
     });
@@ -31,9 +31,9 @@ const CategoryHome = ({ match }) => {
               <Breadcrumb.Item className="text-trans">
                 <Link to="/">Trang chủ</Link>
               </Breadcrumb.Item>
-              {category && (
+              {sub && (
                 <Breadcrumb.Item className="text-trans">
-                  {category.name}
+                  {sub.name}
                 </Breadcrumb.Item>
               )}
             </Breadcrumb>
@@ -47,7 +47,7 @@ const CategoryHome = ({ match }) => {
                 <h4>Loading...</h4>
               ) : (
                 <h4 className="pt-3 ml-3 header-text-home">
-                  Có {products.length} sản phẩm trong danh mục {category.name}
+                  Có {products.length} sản phẩm trong danh mục {sub.name}
                 </h4>
               )}
             </Col>
@@ -56,7 +56,10 @@ const CategoryHome = ({ match }) => {
             {products.length ? (
               products.map((p) => <ProductCard product={p} />)
             ) : (
-              <Col span={24} className="d-flex justify-content-center pb-4 mt-5">
+              <Col
+                span={24}
+                className="d-flex justify-content-center pb-4 mt-5"
+              >
                 <Empty
                   image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
                   draggable="false"
@@ -74,4 +77,4 @@ const CategoryHome = ({ match }) => {
   );
 };
 
-export default CategoryHome;
+export default SubHome;
