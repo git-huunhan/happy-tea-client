@@ -23,13 +23,13 @@ const CategoryList = () => {
       setSubs(s.data);
     });
   }, []);
-
+  
   const showCategories = () => (
     <Menu selectedKeys={[location.pathname]}>
       <ItemGroup title="Danh mục">
         {categories.map((c) => (
           <Item key={`/category/${c.slug}`}>
-            <a href={`/category/${c.slug}`}>{c.name}</a>
+            <Link to={`/category/${c.slug}`}>{c.name}</Link>
           </Item>
         ))}
       </ItemGroup>
@@ -37,7 +37,7 @@ const CategoryList = () => {
       <ItemGroup title="Danh mục con">
         {subs.map((s) => (
           <Item key={`/sub/${s.slug}`}>
-            <a href={`/sub/${s.slug}`}>{s.name}</a>
+            <Link to={`/sub/${s.slug}`}>{s.name}</Link>
           </Item>
         ))}
       </ItemGroup>

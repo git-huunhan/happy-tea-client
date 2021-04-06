@@ -56,7 +56,10 @@ const CategoryHome = ({ match }) => {
             {products.length ? (
               products.map((p) => <ProductCard product={p} />)
             ) : (
-              <Col span={24} className="d-flex justify-content-center pb-4 mt-5">
+              <Col
+                span={24}
+                className="d-flex justify-content-center pb-4 mt-5"
+              >
                 <Empty
                   image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
                   draggable="false"

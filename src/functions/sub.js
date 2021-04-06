@@ -26,3 +26,6 @@ export const createSub = async (sub, authtoken) =>
       authtoken,
     },
   });
+
+export const getSubsByCount = async (count) =>
+  await axios.get(`${process.env.REACT_APP_API}/subs/${count}`);

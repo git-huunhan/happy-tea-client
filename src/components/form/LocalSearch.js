@@ -1,10 +1,8 @@
 import React from "react";
-import {Col, Input} from 'antd';
+import { Col, Input } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 
-
-
-const LocalSearch = ({keyword, setKeyword}) => {
+const LocalSearch = ({ keyword, setKeyword }) => {
   const handleSearchChange = (e) => {
     setKeyword(e.target.value.toLowerCase());
   };

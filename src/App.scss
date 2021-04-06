@@ -47,7 +47,7 @@ body {
 .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected,
 .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-selected {
   color: $primary-pink !important;
-  border-bottom: 2px solid $primary-pink !important;
+  border-bottom: 2px solid #ffffff00 !important;
 }
 
 .custom-file-control,
@@ -67,6 +67,7 @@ body {
   height: 500px;
   border-radius: 30px;
   overflow: hidden;
+  background-color: #fff;
 
   .or-text {
     text-align: center;
@@ -583,4 +584,24 @@ select:focus {
 
 .ant-breadcrumb a:hover {
   color: $primary-pink !important;
+}
+
+.shop-menu {
+  border-right: 1px solid #ececec;
+}
+
+.cart-icon {
+  font-size: 24px;
+}
+
+.category-search {
+  color: $primary-pink;
+}
+
+.category-search:hover {
+  color: $primary-pink;
+}
+
+.btn-search-header {
+  border-radius: 10px !important;
 }

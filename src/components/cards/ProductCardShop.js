@@ -4,11 +4,11 @@ import { Card, Col, Row } from "antd";
 import DefaultImage from "../../images/default-product.png";
 import { Link } from "react-router-dom";
 import PriceFormat from "../price/PriceFormat";
-import { showAverage } from "../../functions/rating";
+import { showAverage } from "../../functions/ratingshop";
 
 const { Meta } = Card;
 
-const ProductCard = ({ product }) => {
+const ProductCardShop = ({ product }) => {
   const { title, description, images, slug, price } = product;
   return (
     // destructure
@@ -45,8 +45,10 @@ const ProductCard = ({ product }) => {
                 {product && product.ratings && product.ratings.length > 0 ? (
                   showAverage(product, "20px")
                 ) : (
-                  <div className="no-rating-home mt-3 mb-2 pt-1 pb-1">
-                    Chưa có đánh giá
+                  <div className="mt-3 mb-2 pt-1 pb-1">
+                    <div className="no-rating-home" style={{ height: "48px" }}>
+                      Chưa có đánh giá
+                    </div>
                   </div>
                 )}
               </div>
@@ -62,4 +64,4 @@ const ProductCard = ({ product }) => {
   );
 };
 
-export default ProductCard;
+export default ProductCardShop;
