@@ -1,4 +1,5 @@
 $primary-pink: #ff6d99;
+$sub-primary-pink: #ffaec6;
 $secondary-pink: #fcebf0;
 
 body {
@@ -604,4 +605,46 @@ select:focus {
 
 .btn-search-header {
   border-radius: 10px !important;
+}
+
+.slider-filter {
+  .ant-slider-track {
+    background-color: $sub-primary-pink;
+  }
+
+  .ant-slider-handle {
+    border: solid 2px $sub-primary-pink;
+  }
+
+  .ant-slider:hover .ant-slider-track {
+    background-color: $primary-pink;
+  }
+
+  .ant-slider-handle:focus {
+    border-color: $primary-pink;
+    box-shadow: 0 0 0 5px #ff6d9928;
+  }
+
+  .ant-slider:hover .ant-slider-handle:not(.ant-tooltip-open) {
+    border-color: $sub-primary-pink;
+  }
+
+  .ant-slider-handle.ant-tooltip-open {
+    border-color: $primary-pink;
+  }
+
+  .ant-slider-handle-dragging.ant-slider-handle-dragging.ant-slider-handle-dragging {
+    border-color: $primary-pink;
+    box-shadow: 0 0 0 5px #ff6d9928;
+  }
+}
+
+.submenu-product {
+  .ant-menu-submenu:hover > .ant-menu-submenu-title > .ant-menu-submenu-arrow {
+    color: $primary-pink;
+  }
+
+  .ant-menu-submenu-title {
+    padding-left: 16px !important;
+  }
 }
