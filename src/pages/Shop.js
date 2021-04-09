@@ -4,9 +4,10 @@ import {
   fetchProductsByFilter,
 } from "../functions/product";
 import { useSelector, useDispatch } from "react-redux";
-import { Col, Row, Menu, Slider, Empty } from "antd";
-import { DollarOutlined } from "@ant-design/icons";
+import { Col, Row, Menu, Slider, Empty, Checkbox } from "antd";
+import { DollarOutlined, UnorderedListOutlined } from "@ant-design/icons";
 
+import { getCategories } from "../functions/category";
 import ProductCardShop from "../components/cards/ProductCardShop";
 import LoadingCard from "../components/cards/LoadingCard";
 import PriceFormat from "../components/price/PriceFormat";
@@ -18,6 +19,7 @@ const Shop = () => {
   const [loading, setLoading] = useState(false);
   const [price, setPrice] = useState([0, 0]);
   const [ok, setOk] = useState(false);
+  const [categories, setCategories] = useState([]);
 
   let dispatch = useDispatch();
   let { search } = useSelector((state) => ({ ...state }));
@@ -25,6 +27,8 @@ const Shop = () => {
 
   useEffect(() => {
     loadAllProducts();
+    // fetch categories
+    getCategories().then((res) => setCategories(res.data));
   }, []);
 
   const fetchProduct = (arg) => {
@@ -68,6 +72,15 @@ const Shop = () => {
     }, 300);
   };
 
+  // 4. load products based on category
+  // show categories in a list of checkbox
+  const showCategories = () =>
+    categories.map((c) => (
+      <div className="checkbox-category" key={c._id}>
+        <Checkbox value={c._id} name="category">{c.name}</Checkbox>
+      </div>
+    ));
+
   return (
     <div className="body-home">
       <div className="container pt-3 pb-3">
@@ -77,9 +90,10 @@ const Shop = () => {
               <h4 className="ml-3 mt-3">Bộ lọc tìm kiếm</h4>
               <Menu
                 className="submenu-product"
-                defaultOpenKeys={["slider"]}
+                defaultOpenKeys={["slider", "category"]}
                 mode="inline"
               >
+                {/* price */}
                 <SubMenu
                   key="slider"
                   icon={<DollarOutlined />}
@@ -95,6 +109,15 @@ const Shop = () => {
                       max="100000"
                     ></Slider>
                   </div>
+                </SubMenu>
+
+                {/* category */}
+                <SubMenu
+                  key="category"
+                  icon={<UnorderedListOutlined />}
+                  title="Danh mục sản phẩm"
+                >
+                  <div>{showCategories()}</div>
                 </SubMenu>
               </Menu>
             </Col>
