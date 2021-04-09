@@ -4,14 +4,14 @@ import {
   fetchProductsByFilter,
 } from "../functions/product";
 import { useSelector, useDispatch } from "react-redux";
-import { Col, Row, Menu, Slider } from "antd";
+import { Col, Row, Menu, Slider, Empty } from "antd";
 import { DollarOutlined } from "@ant-design/icons";
 
 import ProductCardShop from "../components/cards/ProductCardShop";
 import LoadingCard from "../components/cards/LoadingCard";
 import PriceFormat from "../components/price/PriceFormat";
 
-const { SubMenu, ItemGroup } = Menu;
+const { SubMenu } = Menu;
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
@@ -99,7 +99,7 @@ const Shop = () => {
               </Menu>
             </Col>
             <Col span={19} className="mb-3">
-              <h4 className="ml-3 mt-3">Sản phẩm</h4>
+              <h4 className="ml-3 mt-3 header-text-home">Sản phẩm</h4>
               {loading ? (
                 <Row>
                   <LoadingCard count={4} />
@@ -111,7 +111,22 @@ const Shop = () => {
                   ))}
                 </Row>
               )}{" "}
-              {products.length < 1 && <p>No products found</p>}
+              {products.length < 1 && (
+                <Empty
+                  className="mt-3 mb-3"
+                  image={
+                    <img
+                      src="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                      alt="empty"
+                      draggable="false"
+                    />
+                  }
+                  imageStyle={{
+                    height: 80,
+                  }}
+                  description={<span>Không tìm thấy sản phẩm</span>}
+                />
+              )}
             </Col>
           </Row>
         </div>

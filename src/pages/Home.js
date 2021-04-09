@@ -1,6 +1,6 @@
 import React from "react";
 
-import Banner from "../components/banner/Banner";
+import Banner from "../components/image/Banner";
 import BestRating from "../components/home/BestRating";
 import BestSellers from "../components/home/BestSellers";
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Row, Col, Input, Form } from "antd";
+import { Button, Row, Col, Input, Form, Image } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { GoogleOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
@@ -8,6 +8,7 @@ import { auth, googleAuthProvider } from "../../firebase";
 import { createOrUpdateUser } from "../../functions/auth";
 import Loading from "../../components/loading/Loading";
 import Notification from "../../components/notification/Notification";
+import Poster from "../../components/image/Poster";
 
 const { Password } = Input;
 
@@ -117,7 +118,7 @@ const Login = ({ history }) => {
         placeholder="Nhập mật khẩu"
       />
 
-      <Link to="/forgot/password">Quên mật khẩu?</Link>
+      <Link className="forgot-password-text" to="/forgot/password">Quên mật khẩu?</Link>
 
       <Button
         type="primary"
@@ -133,15 +134,10 @@ const Login = ({ history }) => {
 
   return (
     <div className="body-home">
-      <div className="container pt-3 pb-3">
+      <div className="container pt-5 pb-5">
         <Row className="form-style">
           <Col span={14}>
-            <img
-              className="poster"
-              alt="example"
-              src="https://firebasestorage.googleapis.com/v0/b/happy-tea-1a89b.appspot.com/o/Banner-02.png?alt=media&token=d01ed6f7-88d0-43ce-91e3-fa7d3ae45092"
-              draggable="false"
-            />
+            <Poster />
           </Col>
           <Col span={10} className="register p-5">
             {loading ? (

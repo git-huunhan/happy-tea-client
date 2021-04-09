@@ -1,6 +1,7 @@
-$primary-pink: #ff6d99;
+$primary-pink: #ff929b;
 $sub-primary-pink: #ffaec6;
-$secondary-pink: #fcebf0;
+$secondary-pink: #ffe9eb;
+$sub-secondary-pink: #fff1f3;
 
 body {
   font-family: "Quicksand", sans-serif !important;
@@ -17,8 +18,8 @@ body {
 }
 
 .ant-btn-primary:hover {
-  background: #dd5b82 !important;
-  border-color: #dd5b82 !important;
+  background: #e5858d !important;
+  border-color: #e5858d !important;
 }
 
 .ant-btn {
@@ -70,6 +71,10 @@ body {
   overflow: hidden;
   background-color: #fff;
 
+  .ant-image-img {
+    object-fit: cover;
+  }
+
   .or-text {
     text-align: center;
     color: #9c9c9c;
@@ -84,6 +89,16 @@ body {
   .btn-google:hover {
     background: #125ab8 !important;
     border-color: #125ab8 !important;
+  }
+
+  .forgot-password-text {
+    color: $primary-pink;
+  }
+}
+
+.carousel-banner {
+  .slick-slide {
+    object-fit: cover;
   }
 }
 
@@ -331,6 +346,11 @@ select:focus {
 .header-text-home {
   text-transform: uppercase;
   color: $primary-pink;
+
+  .header-result-text {
+    text-transform: none;
+    color: #9c9c9c;
+  }
 }
 
 .ant-menu-horizontal {
@@ -338,7 +358,7 @@ select:focus {
 }
 
 .body-home {
-  background-color: #f8f0f2 !important;
+  background-color: $sub-secondary-pink !important;
 }
 
 @media all and (min-width: 1200px) {
@@ -358,10 +378,10 @@ select:focus {
   .ant-pagination-item:hover a,
   .ant-pagination-item:focus,
   .ant-pagination-item:hover {
-    border-color: #ff6d99;
+    border-color: $primary-pink;
     border-radius: 6px;
     outline: none;
-    color: #ff6d99;
+    color: $primary-pink;
   }
 
   .ant-pagination-prev .ant-pagination-item-link,
@@ -372,8 +392,8 @@ select:focus {
 
   .ant-pagination-next:hover .ant-pagination-item-link,
   .ant-pagination-prev:hover .ant-pagination-item-link {
-    color: #ff6d99;
-    border-color: #ff6d99;
+    color: $primary-pink;
+    border-color: $primary-pink;
   }
 
   .ant-pagination-disabled .ant-pagination-item-link,
@@ -473,7 +493,7 @@ select:focus {
 }
 
 .category-sub-product {
-  background-color: $secondary-pink;
+  background-color: $sub-secondary-pink;
   border-radius: 6px;
 }
 

@@ -89,7 +89,7 @@ const Header = () => {
             <div className="float-left">
               <a className="navbar-brand p-0" href="/">
                 <img
-                  src="https://firebasestorage.googleapis.com/v0/b/happy-tea-1a89b.appspot.com/o/Logo.svg?alt=media&token=6870761d-ab2f-4a2a-9b92-e25c4a5affca"
+                  src="https://firebasestorage.googleapis.com/v0/b/happy-tea-1a89b.appspot.com/o/Logo.svg?alt=media&token=9946ba39-54a3-4927-97e7-e25ab5b98062"
                   alt="logo"
                   className="logo"
                   draggable="false"

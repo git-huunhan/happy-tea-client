@@ -46,8 +46,11 @@ const SubHome = ({ match }) => {
               {loading ? (
                 <h4>Loading...</h4>
               ) : (
-                <h4 className="pt-3 ml-3 header-text-home">
-                  Có {products.length} sản phẩm trong danh mục {sub.name}
+                <h4 className="d-flex pt-3 ml-3 header-text-home">
+                  {sub.name}:{" "}
+                  <h4 className="ml-2 header-result-text">
+                    {products.length} kết quả
+                  </h4>
                 </h4>
               )}
             </Col>
