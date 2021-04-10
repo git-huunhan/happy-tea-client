@@ -65,7 +65,7 @@ const Product = ({ match }) => {
         <div className="main-background-color mt-3">
           <h4 className="pt-3 ml-3 header-text-home">Sản phẩm có liên quan</h4>
 
-          <Row>
+          <Row className="pb-3">
             {related.length ? (
               related.map((r) => <ProductCard product={r} />)
             ) : (

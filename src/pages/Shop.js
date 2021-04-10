@@ -20,6 +20,7 @@ const Shop = () => {
   const [price, setPrice] = useState([0, 0]);
   const [ok, setOk] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [categoryIds, setCategoryIds] = useState([]);
 
   let dispatch = useDispatch();
   let { search } = useSelector((state) => ({ ...state }));
@@ -31,7 +32,7 @@ const Shop = () => {
     getCategories().then((res) => setCategories(res.data));
   }, []);
 
-  const fetchProduct = (arg) => {
+  const fetchProducts = (arg) => {
     fetchProductsByFilter(arg).then((res) => {
       setProducts(res.data);
     });
@@ -49,7 +50,7 @@ const Shop = () => {
   // 2. load products on user search input
   useEffect(() => {
     const delayed = setTimeout(() => {
-      fetchProduct({ query: text });
+      fetchProducts({ query: text });
     }, 300);
 
     return () => clearTimeout(delayed);
@@ -58,7 +59,7 @@ const Shop = () => {
   // 3. load products based on price range
   useEffect(() => {
     console.log("ok to request");
-    fetchProduct({ price });
+    fetchProducts({ price });
   }, [ok]);
 
   const handleSlider = (value) => {
@@ -66,6 +67,7 @@ const Shop = () => {
       type: "SEARCH_QUERY",
       payload: { text: "" },
     });
+    setCategoryIds([]);
     setPrice(value);
     setTimeout(() => {
       setOk(!ok);
@@ -77,9 +79,43 @@ const Shop = () => {
   const showCategories = () =>
     categories.map((c) => (
       <div className="checkbox-category" key={c._id}>
-        <Checkbox value={c._id} name="category">{c.name}</Checkbox>
+        <Checkbox
+          onChange={handleCheck}
+          value={c._id}
+          name="category"
+          checked={categoryIds.includes(c._id)}
+        >
+          {c.name}
+        </Checkbox>
       </div>
     ));
+
+  // handle check for categories
+  const handleCheck = (e) => {
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+
+    setPrice([0, 0]);
+
+    // console.log(e.target.value);
+    let inTheState = [...categoryIds];
+    let justChecked = e.target.value;
+    let foundInTheState = inTheState.indexOf(justChecked); // true or -1
+
+    // indexOf method ? if not found returns -1 else return index
+    if (foundInTheState === -1) {
+      inTheState.push(justChecked);
+    } else {
+      // if found pull out one item from index
+      inTheState.splice(foundInTheState, 1);
+    }
+
+    setCategoryIds(inTheState);
+    // console.log(inTheState);
+    fetchProducts({ category: inTheState });
+  };
 
   return (
     <div className="body-home">
