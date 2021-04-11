@@ -120,9 +120,9 @@ const Shop = () => {
   return (
     <div className="body-home">
       <div className="container pt-3 pb-3">
-        <div className="main-background-color mt-3">
+        <div className="main-background-color">
           <Row>
-            <Col span={5} className="shop-menu">
+            <Col span={5} className="shop-menu pb-3">
               <h4 className="ml-3 mt-3">Bộ lọc tìm kiếm</h4>
               <Menu
                 className="submenu-product"

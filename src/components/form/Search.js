@@ -31,7 +31,12 @@ const Search = () => {
       placeholder="Tìm sản phẩm, danh mục mong muốn..."
       value={text}
       suffix={
-        <Button className="btn-search-header" type="primary" size="middle" onClick={handleSubmit}>
+        <Button
+          className="btn-search-header"
+          type="primary"
+          size="middle"
+          onClick={handleSubmit}
+        >
           <SearchOutlined
             onClick={handleSubmit}
             style={{ cursor: "pointer" }}
