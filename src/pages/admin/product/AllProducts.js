@@ -44,12 +44,12 @@ const AllProducts = () => {
     removeProduct(slug, user.token)
       .then((res) => {
         loadAllProducts();
-        Notification("success", `${res.data.title} đã được xóa`);
+        Notification("success", `Sản phẩm "${res.data.title}" đã được xóa`);
       })
       .catch((err) => {
         console.log(err);
         if (err.response.status === 400)
-          Notification("error", err.response.data);
+          Notification("error", "Đã có lỗi xảy ra, vui lòng thử lại!");
       });
   };
 

@@ -13,7 +13,7 @@ const Password = () => {
 
   const handleSubmit = async (e) => {
     setLoading(true);
-
+    
     await auth.currentUser
       .updatePassword(password)
       .then(() => {
@@ -23,7 +23,7 @@ const Password = () => {
       })
       .catch((err) => {
         setLoading(false);
-        Notification("error", err.message);
+        Notification("error", "Đã có lỗi xảy ra, vui lòng thử lại!");
       });
   };
 

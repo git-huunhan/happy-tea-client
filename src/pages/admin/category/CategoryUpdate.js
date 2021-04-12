@@ -25,7 +25,7 @@ const CategoryUpdate = ({ history, match }) => {
   });
 
   const loadCategory = () =>
-    getCategory(match.params.slug).then((c) => setName(c.data.name));
+    getCategory(match.params.slug).then((c) => setName(c.data.category.name));
 
   const handleSubmit = () => {
     setLoading(true);
@@ -35,13 +35,13 @@ const CategoryUpdate = ({ history, match }) => {
         // console.log(res)
         setLoading(false);
         setName("");
-        Notification('success', `${res.data.name} is updated`);
+        Notification('success', `Danh mục "${res.data.name}" đã được cập nhật.`);
         history.push("/admin/category");
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
-        if (err.response.status === 400) Notification('error', err.response.data);
+        if (err.response.status === 400) Notification('error', Notification("error", "Đã có lỗi xảy ra, vui lòng thử lại!"));
       });
   };
 

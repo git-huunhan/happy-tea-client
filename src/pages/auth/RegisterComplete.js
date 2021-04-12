@@ -24,12 +24,12 @@ const RegisterComplete = ({ history }) => {
     e.preventDefault();
     // validation
     if (!email || !password) {
-      Notification("error", "Email and password is required");
+      Notification("error", "Bạn cần phải nhập email và mật khẩu.");
       return;
     }
 
     if (password.length < 6) {
-      Notification("error", "Password must be at least 6 characters long");
+      Notification("error", "Mật khẩu cần có ít nhất 6 ký tự.");
       return;
     }
 
@@ -64,7 +64,7 @@ const RegisterComplete = ({ history }) => {
         history.push("/");
       }
     } catch (error) {
-      Notification("error", error.message);
+      Notification("error", "Đã có lỗi xảy ra, vui lòng thử lại!");
     }
   };
 

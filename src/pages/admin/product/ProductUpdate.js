@@ -86,14 +86,14 @@ const ProductUpdate = ({ match, history }) => {
     updateProduct(slug, values, user.token)
       .then((res) => {
         setLoading(false);
-        Notification("success", `"${res.data.title}" is updated`);
+        Notification("success", `"Sản phẩm "${res.data.title}" đã được cập nhật.`);
         history.push("/admin/products");
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
         // if (err.response.status === 400) toast.error(err.response.data);
-        Notification("error", err.response.data.err);
+        Notification("error", "Đã có lỗi xảy ra, vui lòng thử lại!");
       });
   };
   const handleChange = (e) => {

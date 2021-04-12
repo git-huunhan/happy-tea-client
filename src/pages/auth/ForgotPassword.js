@@ -30,11 +30,11 @@ const ForgotPassword = ({ history }) => {
       .then(() => {
         setEmail("");
         setLoading(false);
-        Notification("success", "Check your email for password reset link");
+        Notification("success", "Kiểm tra email và truy cập vào link để đặt lại mật khẩu");
       })
       .catch((error) => {
         setLoading(false);
-        Notification("error", error.message);
+        Notification("error", "Đã có lỗi xảy ra, vui lòng thử lại!");
       });
   };
 

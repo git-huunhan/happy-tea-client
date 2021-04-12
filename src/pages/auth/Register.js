@@ -18,7 +18,7 @@ const Register = ({ history }) => {
   const handleSubmit = async () => {
     // validation
     if (!email) {
-      Notification("error", "Email is required");
+      Notification("error", "Bạn cần phải nhập email");
       return;
     }
 
@@ -28,7 +28,7 @@ const Register = ({ history }) => {
     };
 
     await auth.sendSignInLinkToEmail(email, config);
-    Notification("success", `Hi ${email}. Bạn vui lòng vào email để xác nhận!`);
+    Notification("success", `Chào ${email}. Bạn vui lòng vào email để xác nhận!`);
 
     // save user email in local storage
     window.localStorage.setItem("emailForRegistration", email);

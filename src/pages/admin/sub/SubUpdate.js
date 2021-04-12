@@ -34,8 +34,9 @@ const SubUpdate = ({ match, history }) => {
 
   const loadSub = () =>
     getSub(match.params.slug).then((s) => {
-      setName(s.data.name);
-      setParent(s.data.parent);
+      console.log(s);
+      setName(s.data.sub.name);
+      setParent(s.data.sub.parent);
     });
 
   const handleSubmit = () => {
@@ -46,14 +47,14 @@ const SubUpdate = ({ match, history }) => {
         // console.log(res)
         setLoading(false);
         setName("");
-        Notification("success", `${res.data.name} is updated`);
+        Notification("success", `Danh mục "${res.data.name}" đã được cập nhật.`);
         history.push("/admin/sub");
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
         if (err.response.status === 400)
-          Notification("error", err.response.data);
+          Notification("error", "Đã có lỗi xảy ra, vui lòng thử lại!");
       });
 
     loadCategories();

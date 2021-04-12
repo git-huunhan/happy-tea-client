@@ -61,14 +61,14 @@ const SubCreate = () => {
         // console.log(res)
         setLoading(false);
         setName("");
-        Notification("success", `${res.data.name} is created`);
+        Notification("success", `Danh mục "${res.data.name}" đã được tạo.`);
         loadSubs();
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
         if (err.response.status === 400)
-          Notification("error", err.response.data);
+        Notification("error", "Đã có lỗi xảy ra, vui lòng thử lại!");
       });
 
     loadCategories();
@@ -79,7 +79,7 @@ const SubCreate = () => {
     removeSub(slug, user.token)
       .then((res) => {
         setLoading(false);
-        Notification("success", `${res.data.name} deleted`);
+        Notification("success", `Danh mục "${res.data.name}" đã được xóa.`);
         loadSubs();
       })
       .catch((err) => {
@@ -87,7 +87,7 @@ const SubCreate = () => {
         setLoading(false);
         if (err.response.status === 400) {
           setLoading(false);
-          Notification("error", err.response.data);
+          Notification("error", "Đã có lỗi xảy ra, vui lòng thử lại!");
         }
       });
   };

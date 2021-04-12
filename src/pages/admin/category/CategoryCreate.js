@@ -45,14 +45,14 @@ const CategoryCreate = () => {
         // console.log(res)
         setLoading(false);
         setName("");
-        Notification("success", `${res.data.name} is created`);
+        Notification("success", `Danh mục "${res.data.name}" đã được tạo.`);
         loadCategories();
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
         if (err.response.status === 400)
-          Notification("error", err.response.data);
+          Notification("error", "Đã có lỗi xảy ra, vui lòng thử lại!");
       });
 
     loadCategories();
@@ -63,7 +63,7 @@ const CategoryCreate = () => {
     removeCategory(slug, user.token)
       .then((res) => {
         setLoading(false);
-        Notification("success", `${res.data.name} deleted`);
+        Notification("success", `Danh mục "${res.data.name}" đã được xóa.`);
         loadCategories();
       })
       .catch((err) => {
@@ -71,7 +71,7 @@ const CategoryCreate = () => {
         setLoading(false);
         if (err.response.status === 400) {
           setLoading(false);
-          Notification("error", err.response.data);
+          Notification("error", "Đã có lỗi xảy ra, vui lòng thử lại!");
         }
       });
   };
@@ -134,10 +134,7 @@ const CategoryCreate = () => {
                     <Space>
                       <Button>
                         <Link to={`/admin/category/${c.slug}`}>
-                          <EditOutlined
-                            className="text-primary"
-                            size="large"
-                          />
+                          <EditOutlined className="text-primary" size="large" />
                           <span className="ml-2 text-primary">Sửa</span>
                         </Link>
                       </Button>
@@ -148,7 +145,9 @@ const CategoryCreate = () => {
                         okText="Có"
                         cancelText="Không"
                       >
-                        <Button icon={<DeleteOutlined className="text-danger" />}>
+                        <Button
+                          icon={<DeleteOutlined className="text-danger" />}
+                        >
                           <span className="ml-2 text-danger">Xóa</span>
                         </Button>
                       </Popconfirm>

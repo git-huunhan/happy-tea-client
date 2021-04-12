@@ -53,14 +53,14 @@ const Login = ({ history }) => {
               _id: res.data._id,
             },
           });
-
+          Notification("success", `Chào mừng ${res.data.name} đã đến với Happy Tea!`);
           roleBasedRedirect(res);
         })
         .catch((err) => console.log(err));
 
       // history.push("/");
     } catch (error) {
-      Notification("error", error.message);
+      Notification("error", "Đã có lỗi xảy ra, vui lòng thử lại!");
       setLoading(false);
     }
   };
@@ -84,7 +84,7 @@ const Login = ({ history }) => {
                 _id: res.data._id,
               },
             });
-
+            Notification("success", `Chào mừng ${res.data.name} đã đến với Happy Tea!`);
             roleBasedRedirect(res);
           })
           .catch((err) => console.log(err));
@@ -92,7 +92,7 @@ const Login = ({ history }) => {
         // history.push("/");
       })
       .catch((error) => {
-        Notification("error", error.message);
+        Notification("error", "Đã có lỗi xảy ra, vui lòng thử lại!");
       });
   };
 

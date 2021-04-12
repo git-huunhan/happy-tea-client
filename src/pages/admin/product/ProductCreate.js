@@ -53,12 +53,12 @@ const ProductCreate = () => {
     createProduct(values, user.token)
       .then((res) => {
         console.log(res);
-        Notification("success", `"${res.data.title}" is created`);
+        Notification("success", `Sản phẩm "${res.data.title}" đã được tạo.`);
       })
       .catch((err) => {
         console.log(err);
         // if (err.response.status === 400) toast.error(err.response.data);
-        Notification("error", err.response.data.err);
+        Notification("error", "Đã có lỗi xảy ra, vui lòng thử lại!");
       });
   };
 
