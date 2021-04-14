@@ -52,7 +52,8 @@ body {
   border-bottom: 2px solid #ffffff00 !important;
 }
 
-.ant-menu-item:active, .ant-menu-submenu-title:active {
+.ant-menu-item:active,
+.ant-menu-submenu-title:active {
   background: $sub-secondary-pink !important;
 }
 
@@ -695,3 +696,56 @@ select:focus {
 .checkbox-category {
   margin: 10px 16px 10px 16px;
 }
+
+.rating-shop-menu {
+  padding: 3px 16px 3px 16px;
+}
+
+.rating-container {
+  padding: 6px 0 6px 0;
+}
+
+.dis-star {
+  .star-ratings {
+    margin-left: 8px;
+  }
+}
+
+.sub-shop-menu {
+  padding: 6px 16px 6px 16px;
+  .sub-child {
+    font-size: 12px;
+    font-weight: 500;
+    color: #fff;
+    background-color: $primary-pink;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+}
+
+.brand-shop-menu {
+  padding: 6px 16px 6px 16px;
+}
+
+.ant-radio-checked .ant-radio-inner {
+  border-color: $primary-pink !important;
+}
+
+.ant-radio-inner::after {
+  background-color: $primary-pink !important;
+}
+
+.ant-radio-checked::after {
+  border: 1px solid $primary-pink !important;
+}
+
+.ant-radio-wrapper:hover .ant-radio,
+.ant-radio:hover .ant-radio-inner,
+.ant-radio-input:focus + .ant-radio-inner {
+  border-color: $primary-pink !important;
+}
+
+.ant-radio-input:focus + .ant-radio-inner {
+  box-shadow: 0 0 0 3px #ff6d9928 !important;
+}
+

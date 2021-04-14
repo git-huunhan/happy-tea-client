@@ -1,16 +1,24 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Col, Row, Menu, Slider, Empty, Checkbox, Radio, Button } from "antd";
+import {
+  DollarOutlined,
+  StarOutlined,
+  TagsOutlined,
+  CarOutlined,
+  BarsOutlined,
+} from "@ant-design/icons";
+
 import {
   getProductsByCount,
   fetchProductsByFilter,
 } from "../functions/product";
-import { useSelector, useDispatch } from "react-redux";
-import { Col, Row, Menu, Slider, Empty, Checkbox } from "antd";
-import { DollarOutlined, UnorderedListOutlined } from "@ant-design/icons";
-
 import { getCategories } from "../functions/category";
+import { getSubs } from "../functions/sub";
 import ProductCardShop from "../components/cards/ProductCardShop";
 import LoadingCard from "../components/cards/LoadingCard";
 import PriceFormat from "../components/price/PriceFormat";
+import Star from "../components/form/Star";
 
 const { SubMenu } = Menu;
 
@@ -21,16 +29,49 @@ const Shop = () => {
   const [ok, setOk] = useState(false);
   const [categories, setCategories] = useState([]);
   const [categoryIds, setCategoryIds] = useState([]);
+  const [star, setStar] = useState("");
+  const [subs, setSubs] = useState([]);
+  const [sub, setSub] = useState("");
+  const [brands, setBrands] = useState([
+    "Milksha",
+    "Sharetea",
+    "Coco",
+    "Koi",
+    "Chachago",
+  ]);
+  const [brand, setBrand] = useState("");
+  const [toppings, setToppings] = useState([
+    "Trân châu đen",
+    "Trân châu ngọc trai",
+    "Thạch nha đam",
+    "Thạch trái cây",
+    "Kem cheese",
+    "Full topping",
+  ]);
+  const [topping, setTopping] = useState("");
+  const [shipping, setShipping] = useState("");
 
   let dispatch = useDispatch();
   let { search } = useSelector((state) => ({ ...state }));
   const { text } = search;
 
   useEffect(() => {
-    loadAllProducts();
+    const delayed = setTimeout(() => {
+      loadAllProducts();
+    }, 100);
+
     // fetch categories
     getCategories().then((res) => setCategories(res.data));
+    // fetch subcategories
+    getSubs().then((res) => setSubs(res.data));
+    return () => clearTimeout(delayed);
   }, []);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: "0",
+    });
+  });
 
   const fetchProducts = (arg) => {
     fetchProductsByFilter(arg).then((res) => {
@@ -41,7 +82,8 @@ const Shop = () => {
   // 1. load products by default on page load
   const loadAllProducts = () => {
     setLoading(true);
-    getProductsByCount(12).then((p) => {
+
+    getProductsByCount(100).then((p) => {
       setProducts(p.data);
       setLoading(false);
     });
@@ -67,8 +109,15 @@ const Shop = () => {
       type: "SEARCH_QUERY",
       payload: { text: "" },
     });
+
+    // reset
     setCategoryIds([]);
     setPrice(value);
+    setStar("");
+    setSub("");
+    setBrand("");
+    setTopping("");
+    setShipping("");
     setTimeout(() => {
       setOk(!ok);
     }, 300);
@@ -92,13 +141,18 @@ const Shop = () => {
 
   // handle check for categories
   const handleCheck = (e) => {
+    // reset
     dispatch({
       type: "SEARCH_QUERY",
       payload: { text: "" },
     });
 
     setPrice([0, 0]);
-
+    setStar("");
+    setSub("");
+    setBrand("");
+    setTopping("");
+    setShipping("");
     // console.log(e.target.value);
     let inTheState = [...categoryIds];
     let justChecked = e.target.value;
@@ -117,6 +171,206 @@ const Shop = () => {
     fetchProducts({ category: inTheState });
   };
 
+  // 5. show products by star rating
+  const handleStarClick = (num) => {
+    //console.log(num);
+    // reset
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    setPrice([0, 0]);
+    setCategoryIds([]);
+    setStar(num);
+    setSub("");
+    setBrand("");
+    setTopping("");
+    setShipping("");
+    fetchProducts({ stars: num });
+  };
+
+  const showStars = () => (
+    <Row className="rating-container">
+      <Col className="rating-shop-menu" span={24}>
+        <Star id={5} starClick={handleStarClick} numberOfStars={5} />
+      </Col>
+      <Col className="rating-shop-menu d-flex align-items-center" span={24}>
+        <Col span={13}>
+          <Star id={4} starClick={handleStarClick} numberOfStars={4} />
+        </Col>
+        <Col span={11}>
+          <p className="ml-2 mb-0">trở lên</p>
+        </Col>
+      </Col>
+      <Col className="rating-shop-menu d-flex align-items-center" span={24}>
+        <Col span={13}>
+          <Star id={3} starClick={handleStarClick} numberOfStars={3} />
+        </Col>
+        <Col span={11}>
+          <p className="ml-2 mb-0">trở lên</p>
+        </Col>
+      </Col>
+      <Col className="rating-shop-menu d-flex align-items-center" span={24}>
+        <Col span={13}>
+          <Star id={2} starClick={handleStarClick} numberOfStars={2} />
+        </Col>
+        <Col span={11}>
+          <p className="ml-2 mb-0">trở lên</p>
+        </Col>
+      </Col>
+      <Col className="rating-shop-menu d-flex align-items-center" span={24}>
+        <Col span={13}>
+          <Star id={1} starClick={handleStarClick} numberOfStars={1} />
+        </Col>
+        <Col span={11}>
+          <p className="ml-2 mb-0">trở lên</p>
+        </Col>
+      </Col>
+    </Row>
+  );
+
+  // 6. show products by sub category
+  const showSubs = () =>
+    subs.map((s) => (
+      <div
+        key={s._id}
+        className="p-1 mr-2 mt-2 badge sub-child"
+        onClick={() => handleSub(s)}
+      >
+        {s.name}
+      </div>
+    ));
+
+  const handleSub = (sub) => {
+    // console.log("SUB", sub);
+    setSub(sub);
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    setPrice([0, 0]);
+    setCategoryIds([]);
+    setStar("");
+    setBrand("");
+    setTopping("");
+    setShipping("");
+    fetchProducts({ sub });
+  };
+
+  // 7. show products based on brand name
+  const showBrands = () =>
+    brands.map((b) => (
+      <div>
+        <Radio value={b} name={b} checked={b === brand} onChange={handleBrand}>
+          {b}
+        </Radio>
+      </div>
+    ));
+
+  const handleBrand = (e) => {
+    setSub("");
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    setPrice([0, 0]);
+    setCategoryIds([]);
+    setStar("");
+    setTopping("");
+    setShipping("");
+    setBrand(e.target.value);
+    fetchProducts({ brand: e.target.value });
+  };
+
+  // 8. show products based on topping
+  const showToppings = () =>
+    toppings.map((t) => (
+      <div>
+        <Radio
+          value={t}
+          name={t}
+          checked={t === topping}
+          onChange={handleTopping}
+        >
+          {t}
+        </Radio>
+      </div>
+    ));
+
+  const handleTopping = (e) => {
+    setSub("");
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    setPrice([0, 0]);
+    setCategoryIds([]);
+    setStar("");
+    setBrand("");
+    setShipping("");
+    setTopping(e.target.value);
+    fetchProducts({ topping: e.target.value });
+  };
+
+  // 9. show products based on shipping yes/no
+  const showShipping = () => (
+    <div>
+      <Checkbox
+        onChange={handleShippingChange}
+        value="Có"
+        checked={shipping === "Có"}
+      >
+        Có
+      </Checkbox>
+      <Checkbox
+        onChange={handleShippingChange}
+        value="Không"
+        checked={shipping === "Không"}
+      >
+        Không
+      </Checkbox>
+    </div>
+  );
+
+  const handleShippingChange = (e) => {
+    setSub("");
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    setPrice([0, 0]);
+    setCategoryIds([]);
+    setStar("");
+    setBrand("");
+    setTopping("");
+    setShipping(e.target.value);
+    fetchProducts({ shipping: e.target.value });
+  };
+
+  const handleReset = (e) => {
+    setSub("");
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    setPrice([0, 0]);
+    setCategoryIds([]);
+    setStar("");
+    setBrand("");
+    setTopping("");
+    setShipping("");
+
+    const delayed = setTimeout(() => {
+      loadAllProducts();
+    }, 100);
+
+    // fetch categories
+    getCategories().then((res) => setCategories(res.data));
+    // fetch subcategories
+    getSubs().then((res) => setSubs(res.data));
+    return () => clearTimeout(delayed);
+  };
+
   return (
     <div className="body-home">
       <div className="container pt-3 pb-3">
@@ -126,7 +380,15 @@ const Shop = () => {
               <h4 className="ml-3 mt-3">Bộ lọc tìm kiếm</h4>
               <Menu
                 className="submenu-product"
-                defaultOpenKeys={["slider", "category"]}
+                defaultOpenKeys={[
+                  "slider",
+                  "category",
+                  "rating",
+                  "sub",
+                  "brand",
+                  "topping",
+                  "shipping",
+                ]}
                 mode="inline"
               >
                 {/* price */}
@@ -150,27 +412,69 @@ const Shop = () => {
                 {/* category */}
                 <SubMenu
                   key="category"
-                  icon={<UnorderedListOutlined />}
+                  icon={<BarsOutlined />}
                   title="Danh mục sản phẩm"
                 >
                   <div>{showCategories()}</div>
                 </SubMenu>
+
+                {/* rating */}
+                <SubMenu key="rating" icon={<StarOutlined />} title="Đánh giá">
+                  <div>{showStars()}</div>
+                </SubMenu>
+
+                {/* sub category */}
+                <SubMenu key="sub" icon={<TagsOutlined />} title="Danh mục con">
+                  <div className="sub-shop-menu">{showSubs()}</div>
+                </SubMenu>
+
+                {/* brand */}
+                <SubMenu
+                  key="brand"
+                  icon={<BarsOutlined />}
+                  title="Thương hiệu"
+                >
+                  <div className="brand-shop-menu">{showBrands()}</div>
+                </SubMenu>
+
+                {/* topping */}
+                <SubMenu key="topping" icon={<BarsOutlined />} title="Toppings">
+                  <div className="brand-shop-menu">{showToppings()}</div>
+                </SubMenu>
+
+                {/* shipping */}
+                <SubMenu
+                  key="shipping"
+                  icon={<CarOutlined />}
+                  title="Giao hàng"
+                >
+                  <div className="brand-shop-menu">{showShipping()}</div>
+                </SubMenu>
+
+                {/* reset */}
+                <div className="d-flex justify-content-center align-items-center mt-4">
+                  <Button onClick={handleReset} type="primary" size="normal">
+                    Xóa tất cả
+                  </Button>
+                </div>
               </Menu>
             </Col>
+
             <Col span={19} className="mb-3">
               <h4 className="ml-3 mt-3 header-text-home">Sản phẩm</h4>
-              {loading ? (
-                <Row>
-                  <LoadingCard count={4} />
-                </Row>
+              {products.length ? (
+                loading ? (
+                  <Row>
+                    <LoadingCard count={4} />
+                  </Row>
+                ) : (
+                  <Row>
+                    {products.map((p) => (
+                      <ProductCardShop key={p._id} product={p} />
+                    ))}
+                  </Row>
+                )
               ) : (
-                <Row>
-                  {products.map((p) => (
-                    <ProductCardShop key={p._id} product={p} />
-                  ))}
-                </Row>
-              )}{" "}
-              {products.length < 1 && (
                 <Empty
                   className="mt-3 mb-3"
                   image={
