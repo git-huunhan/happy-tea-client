@@ -28,6 +28,7 @@ import Product from "./pages/Product";
 import CategoryHome from "./pages/category/CategoryHome";
 import SubHome from "./pages/sub/SubHome";
 import Shop from "./pages/Shop";
+import Cart from "./pages/Cart";
 
 import { auth } from "./firebase";
 import { currentUser } from "./functions/auth";
@@ -92,9 +93,20 @@ const App = () => {
           component={ProductUpdate}
         />
         <Route exact path="/product/:slug" component={Product} />
-        <Route path="/category/:slug" component={(props) => <CategoryHome {...props} key={window.location.pathname}/>} />
-        <Route path="/sub/:slug" component={(props) => <SubHome {...props} key={window.location.pathname}/>} />
+        <Route
+          path="/category/:slug"
+          component={(props) => (
+            <CategoryHome {...props} key={window.location.pathname} />
+          )}
+        />
+        <Route
+          path="/sub/:slug"
+          component={(props) => (
+            <SubHome {...props} key={window.location.pathname} />
+          )}
+        />
         <Route exact path="/shop" component={Shop} />
+        <Route exact path="/cart" component={Cart} />
       </Switch>
 
       <Footer />

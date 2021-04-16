@@ -20,16 +20,27 @@ const Login = ({ history }) => {
   const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
-    if (user && user.token) history.push("/");
+    let intended = history.location.state;
+    if (intended) {
+      return;
+    } else {
+      if (user && user.token) history.push("/");
+    }
   }, [user, history]);
 
   let dispatch = useDispatch();
 
   const roleBasedRedirect = (res) => {
-    if (res.data.role === "admin") {
-      history.push("/admin/dashboard");
+    // check if intended
+    let intended = history.location.state;
+    if (intended) {
+      history.push(intended.from);
     } else {
-      history.push("/user/history");
+      if (res.data.role === "admin") {
+        history.push("/admin/dashboard");
+      } else {
+        history.push("/user/history");
+      }
     }
   };
 
@@ -53,7 +64,10 @@ const Login = ({ history }) => {
               _id: res.data._id,
             },
           });
-          Notification("success", `Chào mừng ${res.data.name} đã đến với Happy Tea!`);
+          Notification(
+            "success",
+            `Chào mừng ${res.data.name} đã đến với Happy Tea!`
+          );
           roleBasedRedirect(res);
         })
         .catch((err) => console.log(err));
@@ -84,7 +98,10 @@ const Login = ({ history }) => {
                 _id: res.data._id,
               },
             });
-            Notification("success", `Chào mừng ${res.data.name} đã đến với Happy Tea!`);
+            Notification(
+              "success",
+              `Chào mừng ${res.data.name} đã đến với Happy Tea!`
+            );
             roleBasedRedirect(res);
           })
           .catch((err) => console.log(err));
@@ -118,7 +135,9 @@ const Login = ({ history }) => {
         placeholder="Nhập mật khẩu"
       />
 
-      <Link className="forgot-password-text" to="/forgot/password">Quên mật khẩu?</Link>
+      <Link className="forgot-password-text" to="/forgot/password">
+        Quên mật khẩu?
+      </Link>
 
       <Button
         type="primary"

@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
+import _ from "lodash";
+import { useSelector, useDispatch } from "react-redux";
 
 import DefaultImage from "../../images/default-product.png";
 import PriceFormat from "../price/PriceFormat";
@@ -11,10 +13,47 @@ import ProductListItems from "./ProductListItems";
 import Rating from "../rating/Rating";
 import RatingModal from "../modal/RatingModal";
 import { showAverage } from "../../functions/rating";
+import Notification from "../notification/Notification";
 
 const { TabPane } = Tabs;
 
 const SingleProduct = ({ product, onStarClick, star }) => {
+  // redux
+  const { user, cart } = useSelector((state) => ({ ...state }));
+  const dispatch = useDispatch();
+
+  const handleAddToCard = () => {
+    // create cart array
+    let cart = [];
+    if (typeof window !== "undefined") {
+      // if cart is in localstorage GET it
+      if (localStorage.getItem("cart")) {
+        cart = JSON.parse(localStorage.getItem("cart"));
+      }
+      // push new product to cart
+      cart.push({
+        ...product,
+        count: 1,
+      });
+      // remove duplicates
+      let unique = _.uniqWith(cart, _.isEqual);
+      // save to local storage
+      // console.log('unique', unique)
+      localStorage.setItem("cart", JSON.stringify(unique));
+      // show notification
+      Notification(
+        "success",
+        "Thêm vào giỏ hàng thành công!",
+      );
+
+      // add to redux state
+      dispatch({
+        type: "ADD_TO_CART",
+        payload: unique,
+      });
+    }
+  };
+
   const { title, images, price, category, description, _id } = product;
 
   return (
@@ -91,16 +130,16 @@ const SingleProduct = ({ product, onStarClick, star }) => {
             <ProductListItems product={product} />
 
             <Row className="button-product">
-              <Link to="/">
-                <Button
-                  type="primary"
-                  className="text-trans"
-                  size="large"
-                  icon={<ShoppingCartOutlined />}
-                >
-                  Thêm vào giỏ hàng
-                </Button>
-              </Link>
+              <Button
+                onClick={handleAddToCard}
+                type="primary"
+                className="text-trans"
+                size="large"
+                icon={<ShoppingCartOutlined />}
+              >
+                Thêm vào giỏ hàng
+              </Button>
+
               <Link className="btn-wishlist ml-3" to="/">
                 <Button size="large" icon={<HeartOutlined />}></Button>
               </Link>

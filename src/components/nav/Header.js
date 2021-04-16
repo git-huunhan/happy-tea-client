@@ -5,7 +5,7 @@ import {
   UserOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
-import { Menu, Row, Col } from "antd";
+import { Menu, Row, Col, Badge } from "antd";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import firebase from "firebase";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,7 +20,7 @@ const Header = () => {
   let location = useLocation();
 
   let dispatch = useDispatch();
-  let { user } = useSelector((state) => ({ ...state }));
+  let { user, cart } = useSelector((state) => ({ ...state }));
   let history = useHistory();
 
   const logout = () => {
@@ -108,7 +108,11 @@ const Header = () => {
             span={3}
             className="cart-icon d-flex align-items-center justify-content-center"
           >
-            <ShoppingCartOutlined />
+            <Link to="/cart">
+              <Badge count={cart.length} overflowCount={99} offset={[3, 0]}>
+                <ShoppingCartOutlined />
+              </Badge>
+            </Link>
           </Col>
         </Row>
         <Row>
