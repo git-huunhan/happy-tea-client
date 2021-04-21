@@ -5,7 +5,7 @@ import {
   UserOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
-import { Menu, Row, Col, Badge } from "antd";
+import { Menu, Row, Col, Badge, Popover, Image, Card, Button } from "antd";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import firebase from "firebase";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +13,8 @@ import { useDispatch, useSelector } from "react-redux";
 import CategoryList from "../category/CategoryList";
 import Search from "../form/Search";
 import CategorySearch from "../category/CategorySearch";
+import DefaultImage from "../../images/default-product.png";
+import PriceFormat from "../price/PriceFormat";
 
 const { SubMenu, Item } = Menu;
 
@@ -31,6 +33,12 @@ const Header = () => {
     });
 
     history.push("/login");
+  };
+
+  const getTotal = () => {
+    return cart.reduce((currentValue, nextValue) => {
+      return currentValue + nextValue.count * nextValue.price;
+    }, 0);
   };
 
   return (
@@ -108,11 +116,87 @@ const Header = () => {
             span={3}
             className="cart-icon d-flex align-items-center justify-content-center"
           >
-            <Link to="/cart">
-              <Badge count={cart.length} overflowCount={99} offset={[3, 0]}>
-                <ShoppingCartOutlined />
-              </Badge>
-            </Link>
+            <Popover
+              placement="bottom"
+              content={
+                <div style={{ width: "300px" }}>
+                  <div className="popover-cart pr-3 pt-2 pl-3">
+                    {cart.map((p) => (
+                      <Row key={p._id} className="mt-2 mb-2">
+                        <Col span={6} className="cart-product-image">
+                          {p.images.length ? (
+                            <Image
+                              width={50}
+                              height={50}
+                              preview={false}
+                              src={p.images[0].url}
+                              key={p.public_id}
+                              alt=""
+                            />
+                          ) : (
+                            <Card
+                              className="card-default-image"
+                              cover={
+                                <img
+                                  className="product-default-image"
+                                  src={DefaultImage}
+                                  alt=""
+                                />
+                              }
+                            ></Card>
+                          )}
+                        </Col>
+                        <Col span={18} className="pl-2 pr-1 d-flex flex-column">
+                          <Row>
+                            <Link
+                              to={`/product/${p.slug}`}
+                              style={{ color: "#000" }}
+                            >
+                              <p className="m-0 font-weight-bold text-trans">{p.title}</p>
+                            </Link>
+                          </Row>
+
+                          <Row className="mt-auto">
+                            <Col span={6}><p className="m-0 font-weight-bold">x{p.count}</p></Col>
+
+                            <Col
+                              span={18}
+                              className="d-flex align-items-end flex-column font-weight-bold popover-price"
+                            >
+                              <PriceFormat price={p.price * p.count} />
+                            </Col>
+                          </Row>
+                        </Col>
+                      </Row>
+                    ))}
+                  </div>
+                  <hr className="m-0" />
+                  <Col className="d-flex align-items-end flex-column p-3">
+                    <div className="d-flex align-items-center">
+                      <p className="m-0 font-weight-bold">Tổng cộng:</p>
+                      <p className="popover-total-price mb-0 ml-2">
+                        <PriceFormat price={getTotal()} />
+                      </p>
+                    </div>
+                  </Col>
+
+                  <Col className="pl-3 pr-3 pb-3">
+                    <Link to="/cart">
+                      <Button type="primary" block>
+                        Thanh toán ngay
+                      </Button>
+                    </Link>
+                  </Col>
+                </div>
+              }
+              title={`Giỏ hàng (${cart.length} sản phẩm)`}
+            >
+              <Link to="/cart">
+                <Badge count={cart.length} overflowCount={99} offset={[3, 0]}>
+                  <ShoppingCartOutlined />
+                </Badge>
+              </Link>
+            </Popover>
           </Col>
         </Row>
         <Row>

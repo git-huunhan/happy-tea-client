@@ -777,6 +777,7 @@ select:focus {
 }
 
 .cart-product-delete {
+  width: fit-content;
   position: relative;
   bottom: 0;
 }
@@ -815,4 +816,34 @@ select:focus {
 
 .ant-badge-count {
   background: $primary-pink !important;
+}
+
+.checkout-sticky {
+  position: sticky;
+  top: 25px;
+}
+
+.ant-dropdown-menu,
+.ant-popover-inner {
+  border-radius: 6px !important;
+}
+
+.popover-cart {
+  height: 250px;
+  overflow-y: scroll;
+}
+.ant-popover-placement-bottom {
+  .ant-popover-inner-content {
+    padding: 0;
+  }
+}
+
+.popover-total-price {
+  font-size: 16px;
+  color: $primary-pink;
+  font-weight: bold;
+}
+
+.popover-price {
+  color: $primary-pink;
 }
