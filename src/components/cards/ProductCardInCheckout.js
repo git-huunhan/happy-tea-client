@@ -108,16 +108,12 @@ const ProductCardInCheckout = ({ p }) => {
             </Link>
           ) : (
             <Link to={`/product/${p.slug}`}>
-              <Card
-                className="card-default-image"
-                cover={
-                  <img
-                    className="product-default-image"
-                    src={DefaultImage}
-                    alt=""
-                  />
-                }
-              ></Card>
+              <img
+                className="product-default-image"
+                src={DefaultImage}
+                alt=""
+                style={{ width: 130, height: 130, objectFit: "cover" }}
+              />
             </Link>
           )}
         </Col>
@@ -184,9 +180,9 @@ const ProductCardInCheckout = ({ p }) => {
         </Col>
 
         <Col span={4} className="pl-3 pr-3">
-          <p className="cart-product-price m-0">
+          <div className="cart-product-price m-0">
             <PriceFormat price={p.price * p.count} />
-          </p>
+          </div>
         </Col>
       </Row>
     </div>

@@ -134,16 +134,16 @@ const Header = () => {
                               alt=""
                             />
                           ) : (
-                            <Card
-                              className="card-default-image"
-                              cover={
-                                <img
-                                  className="product-default-image"
-                                  src={DefaultImage}
-                                  alt=""
-                                />
-                              }
-                            ></Card>
+                            <img
+                              className="product-default-image"
+                              src={DefaultImage}
+                              alt=""
+                              style={{
+                                width: 50,
+                                height: 50,
+                                objectFit: "cover",
+                              }}
+                            />
                           )}
                         </Col>
                         <Col span={18} className="pl-2 pr-1 d-flex flex-column">
@@ -152,12 +152,16 @@ const Header = () => {
                               to={`/product/${p.slug}`}
                               style={{ color: "#000" }}
                             >
-                              <p className="m-0 font-weight-bold text-trans">{p.title}</p>
+                              <p className="m-0 font-weight-bold text-trans">
+                                {p.title}
+                              </p>
                             </Link>
                           </Row>
 
                           <Row className="mt-auto">
-                            <Col span={6}><p className="m-0 font-weight-bold">x{p.count}</p></Col>
+                            <Col span={6}>
+                              <p className="m-0 font-weight-bold">x{p.count}</p>
+                            </Col>
 
                             <Col
                               span={18}
@@ -183,7 +187,7 @@ const Header = () => {
                   <Col className="pl-3 pr-3 pb-3">
                     <Link to="/cart">
                       <Button type="primary" block>
-                        Thanh toán ngay
+                        Xem giỏ hàng
                       </Button>
                     </Link>
                   </Col>

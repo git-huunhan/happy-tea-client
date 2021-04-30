@@ -4,20 +4,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 import PriceFormat from "../components/price/PriceFormat";
-import DefaultImage from "../images/default-product.png";
 import ProductCardInCheckout from "../components/cards/ProductCardInCheckout";
+import { userCart } from "../functions/user";
 
-const Cart = () => {
+const Cart = ({ history }) => {
   const { cart, user } = useSelector((state) => ({ ...state }));
-  const dispatch = useDispatch();
-  const toppings = [
-    "Trân châu đen",
-    "Trân châu ngọc trai",
-    "Thạch nha đam",
-    "Thạch trái cây",
-    "Kem cheese",
-    "Full topping",
-  ];
 
   const getTotal = () => {
     return cart.reduce((currentValue, nextValue) => {
@@ -26,10 +17,14 @@ const Cart = () => {
   };
 
   const saveOrderToDb = () => {
-    //
+    // console.log("cart", JSON.stringify(cart, null, 4));
+    userCart(cart, user.token)
+      .then((res) => {
+        console.log("CART POST RES", res);
+        if (res.data.ok) history.push("/checkout");
+      })
+      .catch((err) => console.log("cart save err", err));
   };
-
-  
 
   const showCartItems = () => (
     <div>
@@ -104,9 +99,9 @@ const Cart = () => {
                       span={18}
                       className="d-flex align-items-end flex-column"
                     >
-                      <p className="sub-total-price m-0">
+                      <div className="sub-total-price m-0">
                         <PriceFormat price={getTotal()} />
-                      </p>
+                      </div>
                     </Col>
                   </Row>
                   <hr className="m-0" />
@@ -118,9 +113,9 @@ const Cart = () => {
                       span={18}
                       className="d-flex align-items-end flex-column"
                     >
-                      <p className="total-price mb-2">
+                      <div className="total-price mb-2">
                         <PriceFormat price={getTotal()} />
-                      </p>
+                      </div>
                       <p className="m-0">(Đã bao gồm VAT nếu có)</p>
                     </Col>
                   </Row>
