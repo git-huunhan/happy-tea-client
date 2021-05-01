@@ -48,16 +48,16 @@ const SubHome = ({ match }) => {
               ) : (
                 <h4 className="d-flex pt-3 ml-3 header-text-home">
                   {sub.name}:{" "}
-                  <h4 className="ml-2 header-result-text">
+                  <div className="ml-2 header-result-text">
                     {products.length} kết quả
-                  </h4>
+                  </div>
                 </h4>
               )}
             </Col>
           </Row>
           <Row>
             {products.length ? (
-              products.map((p) => <ProductCard product={p} />)
+              products.map((p) => <ProductCard key={p._id} product={p} />)
             ) : (
               <Col
                 span={24}

@@ -48,9 +48,9 @@ const CategoryHome = ({ match }) => {
               ) : (
                 <h4 className="d-flex pt-3 ml-3 header-text-home">
                   {category.name}:{" "}
-                  <h4 className="ml-2 header-result-text">
+                  <div className="ml-2 header-result-text">
                     {products.length} kết quả
-                  </h4>
+                  </div>
                 </h4>
               )}
             </Col>

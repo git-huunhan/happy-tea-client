@@ -260,7 +260,7 @@ const Shop = () => {
   // 7. show products based on brand name
   const showBrands = () =>
     brands.map((b) => (
-      <div>
+      <div key={b._id}>
         <Radio value={b} name={b} checked={b === brand} onChange={handleBrand}>
           {b}
         </Radio>
@@ -285,7 +285,7 @@ const Shop = () => {
   // 8. show products based on topping
   const showToppings = () =>
     toppings.map((t) => (
-      <div>
+      <div key={t._id}>
         <Radio
           value={t}
           name={t}

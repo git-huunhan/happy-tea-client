@@ -67,7 +67,7 @@ const Product = ({ match }) => {
 
           <Row className="pb-3">
             {related.length ? (
-              related.map((r) => <ProductCard product={r} />)
+              related.map((r) => <ProductCard key={r._id} product={r} />)
             ) : (
               <Col span={24} className="d-flex justify-content-center pb-4">
                 <Empty

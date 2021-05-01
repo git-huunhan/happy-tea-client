@@ -5,7 +5,7 @@ import {
   UserOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
-import { Menu, Row, Col, Badge, Popover, Image, Card, Button } from "antd";
+import { Menu, Row, Col, Badge, Popover, Image, Button } from "antd";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import firebase from "firebase";
 import { useDispatch, useSelector } from "react-redux";
@@ -178,9 +178,9 @@ const Header = () => {
                   <Col className="d-flex align-items-end flex-column p-3">
                     <div className="d-flex align-items-center">
                       <p className="m-0 font-weight-bold">Tổng cộng:</p>
-                      <p className="popover-total-price mb-0 ml-2">
+                      <div className="popover-total-price mb-0 ml-2">
                         <PriceFormat price={getTotal()} />
-                      </p>
+                      </div>
                     </div>
                   </Col>
 

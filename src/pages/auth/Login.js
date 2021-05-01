@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Row, Col, Input, Form, Image } from "antd";
+import { Button, Row, Col, Input, Form } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { GoogleOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";

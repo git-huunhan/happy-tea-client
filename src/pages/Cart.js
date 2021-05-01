@@ -1,6 +1,6 @@
 import React from "react";
-import { Card, Row, Col, Empty, Button, Image, InputNumber } from "antd";
-import { useSelector, useDispatch } from "react-redux";
+import { Card, Row, Col, Empty, Button } from "antd";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import PriceFormat from "../components/price/PriceFormat";

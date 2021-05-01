@@ -19,7 +19,7 @@ const { TabPane } = Tabs;
 
 const SingleProduct = ({ product, onStarClick, star }) => {
   // redux
-  const { user, cart } = useSelector((state) => ({ ...state }));
+  // const { user, cart } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
 
   const handleAddToCard = () => {

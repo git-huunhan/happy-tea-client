@@ -47,7 +47,10 @@ const SubUpdate = ({ match, history }) => {
         // console.log(res)
         setLoading(false);
         setName("");
-        Notification("success", `Danh mục "${res.data.name}" đã được cập nhật.`);
+        Notification(
+          "success",
+          `Danh mục "${res.data.name}" đã được cập nhật.`
+        );
         history.push("/admin/sub");
       })
       .catch((err) => {

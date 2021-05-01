@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Card, Row, Col, Image, InputNumber, Popconfirm } from "antd";
+import { Row, Col, Image, InputNumber, Popconfirm } from "antd";
 import { Link } from "react-router-dom";
 
 import DefaultImage from "../../images/default-product.png";
