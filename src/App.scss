@@ -847,3 +847,38 @@ select:focus {
 .popover-price {
   color: $primary-pink;
 }
+
+.ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-icon {
+  background: $primary-pink !important;
+}
+
+.ant-steps-item-process .ant-steps-item-icon {
+  border-color: $primary-pink !important;
+}
+
+.ant-steps-item-finish
+  > .ant-steps-item-container
+  > .ant-steps-item-content
+  > .ant-steps-item-title::after {
+  background-color: $primary-pink !important;
+}
+
+.ant-steps-item-finish .ant-steps-item-icon {
+  border-color: $primary-pink !important;
+}
+
+.ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon {
+  color: $primary-pink !important;
+}
+
+.steps-checkout {
+  border: none !important;
+  font-weight: 500;
+  .ant-card-body {
+    padding: 1rem;
+  }
+
+  .ant-breadcrumb > span:last-child {
+    color: $primary-pink;
+  }
+}
