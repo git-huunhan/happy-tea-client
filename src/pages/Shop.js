@@ -56,15 +56,11 @@ const Shop = () => {
   const { text } = search;
 
   useEffect(() => {
-    const delayed = setTimeout(() => {
-      loadAllProducts();
-    }, 100);
-
+    loadAllProducts();
     // fetch categories
     getCategories().then((res) => setCategories(res.data));
     // fetch subcategories
     getSubs().then((res) => setSubs(res.data));
-    return () => clearTimeout(delayed);
   }, []);
 
   useEffect(() => {
@@ -93,6 +89,9 @@ const Shop = () => {
   useEffect(() => {
     const delayed = setTimeout(() => {
       fetchProducts({ query: text });
+      if (!text) {
+        loadAllProducts();
+      }
     }, 300);
 
     return () => clearTimeout(delayed);

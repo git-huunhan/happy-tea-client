@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Button, Card, Steps } from "antd";
+import { Row, Col, Button, Card, Steps, Collapse } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import { getUserCart } from "../functions/user";
+
+import {
+  getUserCart,
+  saveUserAddress,
+  getUserAddress,
+} from "../functions/user";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import Notification from "../components/notification/Notification";
 
 const { Step } = Steps;
+const { Panel } = Collapse;
 
 const steps = [
   {
@@ -20,22 +29,49 @@ const steps = [
 const Checkout = () => {
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
-  const [current, setCurrent] = React.useState(1);
+  const [current, setCurrent] = useState(0);
+  const [address, setAddress] = useState("");
 
   const dispatch = useDispatch();
   const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
     getUserCart(user.token).then((res) => {
-      console.log("user cart res", JSON.stringify(res.data, null, 4));
+      // console.log("user cart res", JSON.stringify(res.data, null, 4));
       setProducts(res.data.products);
       setTotal(res.data.cartTotal);
+    });
+
+    getUserAddress(user.token).then((res) => {
+      // console.log("address", JSON.stringify(res.data.address, null, 4));
+
+      setAddress(res.data.address);
+      if (res.data.address === "<p><br></p>") {
+        setCurrent(1);
+      }
+
+      if (res.data.address !== "<p><br></p>") {
+        setCurrent(2);
+      }
     });
   }, []);
 
   const saveAddressToDb = () => {
-    //
-    setCurrent(2);
+    // console.log(address);
+    saveUserAddress(user.token, address).then((res) => {
+      if (address !== "<p><br></p>") {
+        Notification("success", "Địa chỉ đã được lưu");
+        setCurrent(2);
+      }
+
+      if (address === "<p><br></p>") {
+        Notification(
+          "error",
+          "Địa chỉ trống! Vui lòng thêm địa chỉ để đặt hàng."
+        );
+        setCurrent(1);
+      }
+    });
   };
 
   return (
@@ -57,9 +93,18 @@ const Checkout = () => {
               <div className="main-background-color">
                 <div className="p-3">
                   <h5>Địa chỉ giao hàng</h5>
-                  Text area
-                  <Button type="primary" onClick={saveAddressToDb}>
-                    Save
+                  <ReactQuill
+                    theme="snow"
+                    value={address}
+                    onChange={setAddress}
+                    enable={false}
+                  />
+                  <Button
+                    className="mt-3"
+                    type="primary"
+                    onClick={saveAddressToDb}
+                  >
+                    Lưu
                   </Button>
                 </div>
 
@@ -74,35 +119,42 @@ const Checkout = () => {
 
           <Col span={7}>
             <div className="main-background-color">
-              <div className="p-3">
-                <p className="m-0">Đơn hàng ({products.length} sản phẩm)</p>
-              </div>
-
-              <hr className="m-0" />
-
-              <div className="p-3">
-                {products.map((p, i) => (
-                  <div key={i}>
-                    <p className="m-0">
-                      {p.product.title} ({p.topping}) x{p.count} ={" "}
-                      {p.product.price * p.count}
-                    </p>
+              <Collapse accordion>
+                <Panel
+                  header={
+                    <div className="d-flex">
+                      <div style={{fontWeight: "bold"}}>Đơn hàng</div>
+                      <div className="ml-1">({products.length} sản phẩm)</div>
+                    </div>
+                  }
+                  key="1"
+                >
+                  <div>
+                    {products.map((p, i) => (
+                      <div key={i}>
+                        <p className="m-0">
+                          {p.product.title} ({p.topping}) x{p.count} ={" "}
+                          {p.product.price * p.count}
+                        </p>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-
-              <hr className="m-0" />
+                </Panel>
+              </Collapse>
 
               <div className="p-3">
                 <p className="m-0">Thành tiền: {total}</p>
               </div>
             </div>
 
-            <Button type="primary" size="large" className="mt-3" block>
+            <Button
+              type="primary"
+              size="large"
+              className="mt-3"
+              block
+              disabled={current === 1 || current === 0}
+            >
               Đặt mua
-            </Button>
-            <Button type="" size="large" className="mt-3" block>
-              Xóa đơn hàng
             </Button>
           </Col>
         </Row>
