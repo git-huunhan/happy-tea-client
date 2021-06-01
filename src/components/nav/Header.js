@@ -5,7 +5,7 @@ import {
   UserOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
-import { Menu, Row, Col, Badge, Popover, Image, Button } from "antd";
+import { Menu, Row, Col, Badge, Popover, Image, Button, Empty } from "antd";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import firebase from "firebase";
 import { useDispatch, useSelector } from "react-redux";
@@ -121,58 +121,82 @@ const Header = () => {
               content={
                 <div style={{ width: "300px" }}>
                   <div className="popover-cart pr-3 pt-2 pl-3">
-                    {cart.map((p) => (
-                      <Row key={p._id} className="mt-2 mb-2">
-                        <Col span={6} className="cart-product-image">
-                          {p.images.length ? (
-                            <Image
-                              width={50}
-                              height={50}
-                              preview={false}
-                              src={p.images[0].url}
-                              key={p.public_id}
-                              alt=""
-                            />
-                          ) : (
-                            <img
-                              className="product-default-image"
-                              src={DefaultImage}
-                              alt=""
-                              style={{
-                                width: 50,
-                                height: 50,
-                                objectFit: "cover",
+                    {!cart.length ? (
+                      <Row>
+                        <Col span={24}>
+                          <div className="main-background-color pt-4 pb-4">
+                            <Empty
+                              image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                              draggable="false"
+                              imageStyle={{
+                                height: 100,
                               }}
+                              description={
+                                "Không có sản phẩm nào trong giỏ hàng của bạn."
+                              }
                             />
-                          )}
-                        </Col>
-                        <Col span={18} className="pl-2 pr-1 d-flex flex-column">
-                          <Row>
-                            <Link
-                              to={`/product/${p.slug}`}
-                              style={{ color: "#000" }}
-                            >
-                              <p className="m-0 font-weight-bold text-trans">
-                                {p.title}
-                              </p>
-                            </Link>
-                          </Row>
-
-                          <Row className="mt-auto">
-                            <Col span={6}>
-                              <p className="m-0 font-weight-bold">x{p.count}</p>
-                            </Col>
-
-                            <Col
-                              span={18}
-                              className="d-flex align-items-end flex-column font-weight-bold popover-price"
-                            >
-                              <PriceFormat price={p.price * p.count} />
-                            </Col>
-                          </Row>
+                          </div>
                         </Col>
                       </Row>
-                    ))}
+                    ) : (
+                      cart.map((p) => (
+                        <Row key={p._id} className="mt-2 mb-2">
+                          <Col span={6} className="cart-product-image">
+                            {p.images.length ? (
+                              <Image
+                                width={50}
+                                height={50}
+                                preview={false}
+                                src={p.images[0].url}
+                                key={p.public_id}
+                                alt=""
+                              />
+                            ) : (
+                              <img
+                                className="product-default-image"
+                                src={DefaultImage}
+                                alt=""
+                                style={{
+                                  width: 50,
+                                  height: 50,
+                                  objectFit: "cover",
+                                }}
+                              />
+                            )}
+                          </Col>
+                          <Col
+                            span={18}
+                            className="pl-2 pr-1 d-flex flex-column"
+                          >
+                            <Row>
+                              <Link
+                                to={`/product/${p.slug}`}
+                                style={{ color: "#000" }}
+                              >
+                                <p className="m-0 font-weight-bold text-trans">
+                                  {p.title}
+                                </p>
+                              </Link>
+                            </Row>
+
+                            <Row className="mt-auto">
+                              <Col span={6}>
+                                <p className="m-0 font-weight-bold">
+                                  x{p.count}
+                                </p>
+                              </Col>
+
+                              <Col
+                                span={18}
+                                className="d-flex align-items-end flex-column font-weight-bold popover-price"
+                              >
+                                <PriceFormat price={p.price * p.count} />
+                              </Col>
+                            </Row>
+                          </Col>
+                        </Row>
+                      ))
+                    )}
                   </div>
                   <hr className="m-0" />
                   <Col className="d-flex align-items-end flex-column p-3">

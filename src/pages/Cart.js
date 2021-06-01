@@ -92,11 +92,11 @@ const Cart = ({ history }) => {
               <div className="checkout-sticky">
                 <div className="main-background-color mt-3">
                   <Row className="p-3">
-                    <Col span={6}>
+                    <Col span={10}>
                       <p className="m-0">Tạm tính</p>
                     </Col>
                     <Col
-                      span={18}
+                      span={14}
                       className="d-flex align-items-end flex-column"
                     >
                       <div className="sub-total-price m-0">
@@ -106,11 +106,11 @@ const Cart = ({ history }) => {
                   </Row>
                   <hr className="m-0" />
                   <Row className="p-3">
-                    <Col span={6}>
+                    <Col span={10}>
                       <p className="m-0">Thành tiền</p>
                     </Col>
                     <Col
-                      span={18}
+                      span={14}
                       className="d-flex align-items-end flex-column"
                     >
                       <div className="total-price mb-2">

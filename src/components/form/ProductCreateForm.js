@@ -27,15 +27,8 @@ const ProductCreateForm = ({
   handleReload,
 }) => {
   // destructure
-  const {
-    title,
-    description,
-    price,
-    categories,
-    subs,
-    toppings,
-    brands,
-  } = values;
+  const { title, description, price, categories, subs, toppings, brands } =
+    values;
 
   return (
     <Form {...layout} onFinish={handleSubmit}>
@@ -69,10 +62,7 @@ const ProductCreateForm = ({
       </Item>
 
       <Item label="Vận chuyển">
-        <Select
-          placeholder="Vui lòng chọn..."
-          onChange={handleShippingChange}
-        >
+        <Select placeholder="Vui lòng chọn..." onChange={handleShippingChange}>
           <Option key="No" value="Không">
             Không
           </Option>
@@ -83,10 +73,7 @@ const ProductCreateForm = ({
       </Item>
 
       <Item label="Topping">
-        <Select
-          placeholder="Vui lòng chọn..."
-          onChange={handleToppingChange}
-        >
+        <Select placeholder="Vui lòng chọn..." onChange={handleToppingChange}>
           {toppings.map((c) => (
             <Option key={c} value={c}>
               {c}
@@ -96,10 +83,7 @@ const ProductCreateForm = ({
       </Item>
 
       <Item label="Thương hiệu">
-        <Select
-          placeholder="Vui lòng chọn..."
-          onChange={handleBrandChange}
-        >
+        <Select placeholder="Vui lòng chọn..." onChange={handleBrandChange}>
           {brands.map((b) => (
             <Option key={b} value={b}>
               {b}
@@ -109,10 +93,7 @@ const ProductCreateForm = ({
       </Item>
 
       <Item label="Danh mục">
-        <Select
-          placeholder="Vui lòng chọn..."
-          onChange={handleCategoryChange}
-        >
+        <Select placeholder="Vui lòng chọn..." onChange={handleCategoryChange}>
           {categories.length > 0 &&
             categories.map((c) => (
               <Option key={c._id} value={c._id}>

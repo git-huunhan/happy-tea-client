@@ -896,3 +896,30 @@ select:focus {
   border-radius: 6px 6px 0 0 !important;
   background-color: #fff !important;
 }
+
+.table-card {
+  border-radius: 6px;
+  border: 1px solid #d9d9d9;
+  .header-table {
+    background: $secondary-pink;
+    border-radius: 6px 6px 0 0;
+  }
+}
+
+.btn-table-delete {
+  cursor: pointer;
+  width: fit-content;
+}
+
+.ant-picker {
+  border-radius: 10px !important;
+}
+
+.ant-picker:hover {
+  border-color: $primary-pink !important;
+}
+
+.ant-picker-focused {
+  border-color: $primary-pink !important;
+  box-shadow: 0 0 0 3px #ff6d9928 !important;
+}
