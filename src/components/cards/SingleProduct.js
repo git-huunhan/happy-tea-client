@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, Col, Row, Button, Image, Breadcrumb, Tabs } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
@@ -14,13 +14,17 @@ import Rating from "../rating/Rating";
 import RatingModal from "../modal/RatingModal";
 import { showAverage } from "../../functions/rating";
 import Notification from "../notification/Notification";
+import { addToWishlist } from "../../functions/user";
 
 const { TabPane } = Tabs;
 
 const SingleProduct = ({ product, onStarClick, star }) => {
   // redux
-  // const { user, cart } = useSelector((state) => ({ ...state }));
+  const { user, cart } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
+
+  // router
+  let history = useHistory();
 
   const handleAddToCard = () => {
     // create cart array
@@ -41,10 +45,7 @@ const SingleProduct = ({ product, onStarClick, star }) => {
       // console.log('unique', unique)
       localStorage.setItem("cart", JSON.stringify(unique));
       // show notification
-      Notification(
-        "success",
-        "Thêm vào giỏ hàng thành công!",
-      );
+      Notification("success", "Thêm vào giỏ hàng thành công!");
 
       // add to redux state
       dispatch({
@@ -55,6 +56,14 @@ const SingleProduct = ({ product, onStarClick, star }) => {
   };
 
   const { title, images, price, category, description, _id } = product;
+
+  const handleAddToWishlist = () => {
+    addToWishlist(product._id, user.token).then((res) => {
+      console.log("ADDED TO WISHLIST", res.data);
+      Notification("success", "Đã thêm vào danh sách yêu thích");
+      history.push("/user/wishlist");
+    });
+  };
 
   return (
     <div>
@@ -140,9 +149,13 @@ const SingleProduct = ({ product, onStarClick, star }) => {
                 Thêm vào giỏ hàng
               </Button>
 
-              <Link className="btn-wishlist ml-3" to="/">
-                <Button size="large" icon={<HeartOutlined />}></Button>
-              </Link>
+              <div className="btn-wishlist ml-3">
+                <Button
+                  onClick={handleAddToWishlist}
+                  size="large"
+                  icon={<HeartOutlined />}
+                ></Button>
+              </div>
 
               <RatingModal>
                 <Rating

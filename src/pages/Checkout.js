@@ -1,12 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Button, Card, Steps, Collapse, Form, Input } from "antd";
+import {
+  Row,
+  Col,
+  Button,
+  Card,
+  Steps,
+  Collapse,
+  Form,
+  Input,
+  Radio,
+} from "antd";
 import { useSelector, useDispatch } from "react-redux";
+import { CreditCardOutlined, EnvironmentOutlined } from "@ant-design/icons";
 
 import {
   getUserCart,
   saveUserAddress,
   getUserAddress,
   applyCoupon,
+  createCashOrderForUser,
+  emptyUserCart,
 } from "../functions/user";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -29,18 +42,21 @@ const steps = [
   },
 ];
 
-const Checkout = ({history}) => {
+const Checkout = ({ history }) => {
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
   const [current, setCurrent] = useState(0);
   const [address, setAddress] = useState("");
   const [coupon, setCoupon] = useState("");
+  const [value, setValue] = useState(1);
+
   // discount price
   const [totalAfterDiscount, setTotalAfterDiscount] = useState("");
   const [discountError, setDiscountError] = useState("");
 
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => ({ ...state }));
+  const { user, COD } = useSelector((state) => ({ ...state }));
+  const couponTrueOrFalse = useSelector((state) => state.coupon);
 
   useEffect(() => {
     getUserCart(user.token).then((res) => {
@@ -60,6 +76,11 @@ const Checkout = ({history}) => {
       if (res.data.address !== "<p><br></p>") {
         setCurrent(2);
       }
+    });
+
+    dispatch({
+      type: "COD",
+      payload: true,
     });
   }, []);
 
@@ -163,6 +184,58 @@ const Checkout = ({history}) => {
     </Form>
   );
 
+  const handleMethod = (e) => {
+    console.log("radio checked", e.target.value);
+    setValue(e.target.value);
+
+    if (e.target.value === 1) {
+      dispatch({
+        type: "COD",
+        payload: true,
+      });
+    } else if (e.target.value === 2) {
+      dispatch({
+        type: "COD",
+        payload: false,
+      });
+    }
+  };
+
+  const createCashOrder = () => {
+    createCashOrderForUser(user.token, COD, couponTrueOrFalse).then((res) => {
+      console.log("USER CASH ORDER CREATED RES", res);
+      // empty cart from redux, local storage, reset coupon, reset COD, redirect
+      if (res.data.ok) {
+        // empty local storage
+        if (typeof window !== "undefined") localStorage.removeItem("cart");
+        // empty redux cart
+        dispatch({
+          type: "ADD_TO_CART",
+          payload: [],
+        });
+
+        // empty redux coupon
+        dispatch({
+          type: "COUPON_APPLIED",
+          payload: false,
+        });
+
+        // empty redux COD
+        dispatch({
+          type: "COD",
+          payload: true,
+        });
+
+        // empty cart from backend
+        emptyUserCart(user.token);
+        // redirect
+        setTimeout(() => {
+          history.push("/user/history");
+        }, 1000);
+      }
+    });
+  };
+
   return (
     <div className="body-home">
       <div className="container pt-3 pb-3">
@@ -207,6 +280,38 @@ const Checkout = ({history}) => {
                       />
                     </Col>
                   </Row>
+                </div>
+
+                <hr className="m-0" />
+
+                <div className="p-3">
+                  <h5>Chọn hình thức thanh toán</h5>
+
+                  <Radio.Group onChange={handleMethod} value={value}>
+                    <Row>
+                      <Radio value={1} className="d-flex align-items-center">
+                        <div className="d-flex align-items-center">
+                          <EnvironmentOutlined
+                            style={{ fontSize: "20px" }}
+                            className="mr-2 "
+                          />
+                          <span>Thanh toán tiền mặt khi nhận hàng</span>
+                        </div>
+                      </Radio>
+                    </Row>
+
+                    <Row className="mt-3">
+                      <Radio value={2} className="d-flex align-items-center">
+                        <div className="d-flex align-items-center">
+                          <CreditCardOutlined
+                            style={{ fontSize: "20px" }}
+                            className="mr-2"
+                          />
+                          <span>Thanh toán bằng thẻ quốc tế Visa</span>
+                        </div>
+                      </Radio>
+                    </Row>
+                  </Radio.Group>
                 </div>
               </div>
             </Col>
@@ -288,7 +393,9 @@ const Checkout = ({history}) => {
               className="mt-3"
               block
               disabled={current === 1 || current === 0}
-              onClick={() => history.push("/payment")}
+              onClick={
+                value === 1 ? createCashOrder : () => history.push("/payment")
+              }
             >
               Đặt mua
             </Button>
