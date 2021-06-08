@@ -3,7 +3,7 @@ import firebase from "firebase";
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCFWdDx5pW9-BBGLgqWYNMREsCkJ2ED3UY",
-  authDomain: "happy-tea-1a89b.com",
+  authDomain: "happy-tea-1a89b.firebaseapp.com",
   projectId: "happy-tea-1a89b",
   storageBucket: "happy-tea-1a89b.appspot.com",
   messagingSenderId: "54664585445",
