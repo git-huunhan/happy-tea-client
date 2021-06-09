@@ -36,14 +36,14 @@ import Loading from "./components/loading/Loading";
 // import Checkout from "./pages/Checkout";
 // import CreateCouponPage from "./pages/admin/coupon/CreateCouponPage";
 // import Payment from "./pages/Payment";
-
+import Header from "./components/nav/Header";
+import Footer from "./components/nav/Footer";
 // using lazy
 const Login = lazy(() => import("./pages/auth/Login"));
 const Register = lazy(() => import("./pages/auth/Register"));
 const Home = lazy(() => import("./pages/Home"));
-const Header = lazy(() => import("./components/nav/Header"));
+
 const RegisterComplete = lazy(() => import("./pages/auth/RegisterComplete"));
-const Footer = lazy(() => import("./components/nav/Footer"));
 const ForgotPassword = lazy(() => import("./pages/auth/ForgotPassword"));
 const History = lazy(() => import("./pages/user/History"));
 const Password = lazy(() => import("./pages/user/Password"));
@@ -104,62 +104,67 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <Suspense
-      fallback={
-        <div className="col text-center p-5">
-          <Loading />
-        </div>
-      }
-    >
+    <>
       <Header />
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={Register} />
-        <Route exact path="/register/complete" component={RegisterComplete} />
-        <Route exact path="/forgot/password" component={ForgotPassword} />
-        <UserRoute exact path="/user/history" component={History} />
-        <UserRoute exact path="/user/password" component={Password} />
-        <UserRoute exact path="/user/wishlist" component={Wishlist} />
-        <AdminRoute exact path="/admin/dashboard" component={AdminDashboard} />
-        <AdminRoute exact path="/admin/category" component={CategoryCreate} />
-        <AdminRoute
-          exact
-          path="/admin/category/:slug"
-          component={CategoryUpdate}
-        />
-        <AdminRoute exact path="/admin/sub" component={SubCreate} />
-        <AdminRoute exact path="/admin/sub/:slug" component={SubUpdate} />
-        <AdminRoute exact path="/admin/sub" component={SubCreate} />
-        <AdminRoute exact path="/admin/product" component={ProductCreate} />
-        <AdminRoute exact path="/admin/products" component={AllProducts} />
-        <AdminRoute
-          exact
-          path="/admin/product/:slug"
-          component={ProductUpdate}
-        />
-        <Route exact path="/product/:slug" component={Product} />
-        <Route
-          path="/category/:slug"
-          component={(props) => (
-            <CategoryHome {...props} key={window.location.pathname} />
-          )}
-        />
-        <Route
-          path="/sub/:slug"
-          component={(props) => (
-            <SubHome {...props} key={window.location.pathname} />
-          )}
-        />
-        <Route exact path="/shop" component={Shop} />
-        <Route exact path="/cart" component={Cart} />
-        <UserRoute exact path="/checkout" component={Checkout} />
-        <AdminRoute exact path="/admin/coupon" component={CreateCouponPage} />
-        <UserRoute exact path="/payment" component={Payment} />
-      </Switch>
-
+      <Suspense
+        fallback={
+          <div className="col text-center p-5">
+            <Loading />
+          </div>
+        }
+      >
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/register/complete" component={RegisterComplete} />
+          <Route exact path="/forgot/password" component={ForgotPassword} />
+          <UserRoute exact path="/user/history" component={History} />
+          <UserRoute exact path="/user/password" component={Password} />
+          <UserRoute exact path="/user/wishlist" component={Wishlist} />
+          <AdminRoute
+            exact
+            path="/admin/dashboard"
+            component={AdminDashboard}
+          />
+          <AdminRoute exact path="/admin/category" component={CategoryCreate} />
+          <AdminRoute
+            exact
+            path="/admin/category/:slug"
+            component={CategoryUpdate}
+          />
+          <AdminRoute exact path="/admin/sub" component={SubCreate} />
+          <AdminRoute exact path="/admin/sub/:slug" component={SubUpdate} />
+          <AdminRoute exact path="/admin/sub" component={SubCreate} />
+          <AdminRoute exact path="/admin/product" component={ProductCreate} />
+          <AdminRoute exact path="/admin/products" component={AllProducts} />
+          <AdminRoute
+            exact
+            path="/admin/product/:slug"
+            component={ProductUpdate}
+          />
+          <Route exact path="/product/:slug" component={Product} />
+          <Route
+            path="/category/:slug"
+            component={(props) => (
+              <CategoryHome {...props} key={window.location.pathname} />
+            )}
+          />
+          <Route
+            path="/sub/:slug"
+            component={(props) => (
+              <SubHome {...props} key={window.location.pathname} />
+            )}
+          />
+          <Route exact path="/shop" component={Shop} />
+          <Route exact path="/cart" component={Cart} />
+          <UserRoute exact path="/checkout" component={Checkout} />
+          <AdminRoute exact path="/admin/coupon" component={CreateCouponPage} />
+          <UserRoute exact path="/payment" component={Payment} />
+        </Switch>
+      </Suspense>
       <Footer />
-    </Suspense>
+    </>
   );
 };
 
