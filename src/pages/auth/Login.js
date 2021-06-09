@@ -14,7 +14,7 @@ const { Password } = Input;
 
 const Login = ({ history }) => {
   const [email, setEmail] = useState("huunhankirigamer@gmail.com");
-  const [password, setPassword] = useState("111111");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
   const { user } = useSelector((state) => ({ ...state }));
