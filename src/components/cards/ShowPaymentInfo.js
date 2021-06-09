@@ -22,6 +22,12 @@ const ShowPaymentInfo = ({ order }) => {
           <span className="mr-1 card-title-history">Mã đơn hàng:</span>
           <span className="card-id-history">{order.paymentIntent.id}</span>
         </Row>
+
+        <Row>
+          <p className="mr-1 card-title-history m-0">Email khách hàng:</p>
+
+          <span className="card-id-history">{order.email}</span>
+        </Row>
         <Row>
           <p className="mr-1 card-title-history m-0">Tổng tiền:</p>
 
@@ -31,7 +37,7 @@ const ShowPaymentInfo = ({ order }) => {
         </Row>
       </Col>
 
-      <Col span={12}>
+      <Col span={12} className="d-flex flex-column justify-content-between">
         <Row className="d-flex justify-content-end">
           <span className="mr-1 card-title-history">Ngày đặt hàng:</span>
           <span>

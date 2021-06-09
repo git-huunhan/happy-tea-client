@@ -82,6 +82,10 @@ const Invoice = ({ order }) => (
         </Text>
         {"\n"}
         <Text>
+          Email khách hàng {"     "}: {order.email}
+        </Text>
+        {"\n"}
+        <Text>
           Ngày đặt hàng {"          "}:{" "}
           {new Date(order.paymentIntent.created * 1000).toLocaleString()}
         </Text>
